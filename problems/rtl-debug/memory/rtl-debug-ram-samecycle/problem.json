@@ -1,0 +1,30 @@
+{
+  "id": "rtl-debug-ram-samecycle",
+  "domain": "rtl-debug",
+  "category": "Memory",
+  "difficulty": "Medium",
+  "bugType": "read/write timing semantics",
+  "summary": "Synchronous RAM read data is captured from the wrong source during write cycles, causing confusing read-after-write behavior.",
+  "signals": [
+    "clk",
+    "we",
+    "addr",
+    "wdata",
+    "rdata"
+  ],
+  "expectedBehavior": [
+    "Writes should update memory contents only when we is asserted.",
+    "Reads should return stored data for the selected address on the expected cycle.",
+    "Behavior should be consistent and deterministic across repeated accesses."
+  ],
+  "hiddenChecks": [
+    "Write/read same address on consecutive cycles",
+    "Multiple address writes",
+    "Read untouched address"
+  ],
+  "hints": [
+    "Check what rdata is assigned during write cycles.",
+    "Decide the intended RAM semantics and implement one consistently.",
+    "Waveform should show memory update first, then readback matching stored value."
+  ]
+}

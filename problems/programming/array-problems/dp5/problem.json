@@ -1,0 +1,19 @@
+{
+  "id": "dp5",
+  "shortName": "Count Inversions",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Hard",
+  "topics": [
+    "Array",
+    "Merge Sort",
+    "Divide and Conquer"
+  ],
+  "question": "Count Inversions",
+  "description": "Given an array `nums`, count the number of inversions. An inversion is a pair `(i, j)` where `i < j` and `nums[i] > nums[j]`.\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: nums = [2,4,1,3,5]\\nOutput: 3\\nExplanation: Inversions: (2,1), (4,1), (4,3)\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: nums = [1,2,3,4]\\nOutput: 0\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- `1 <= nums.length <= 10⁵`\\n' +\n        '- Brute force O(n²) not acceptable for large inputs",
+  "requirements": [
+    "Time complexity: O(n log n)",
+    "Use modified merge sort"
+  ],
+  "hints": []
+}

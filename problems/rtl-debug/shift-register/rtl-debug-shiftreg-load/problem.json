@@ -1,0 +1,32 @@
+{
+  "id": "rtl-debug-shiftreg-load",
+  "domain": "rtl-debug",
+  "category": "Shift Register",
+  "difficulty": "Medium",
+  "bugType": "control priority",
+  "summary": "When load and shift are asserted together, the register shifts instead of taking the parallel load.",
+  "signals": [
+    "clk",
+    "rst",
+    "load",
+    "shift_en",
+    "ser_in",
+    "par_in",
+    "q"
+  ],
+  "expectedBehavior": [
+    "Parallel load should have higher priority than shift.",
+    "Shift should occur only when load=0 and shift_en=1.",
+    "Reset should clear q to 0."
+  ],
+  "hiddenChecks": [
+    "load and shift_en high in same cycle",
+    "Back-to-back load then shift",
+    "Reset between operations"
+  ],
+  "hints": [
+    "Review if/else ordering in the sequential block.",
+    "Interviewers often expect an explicit control priority comment and implementation.",
+    "Simulate a cycle where load=1 and shift_en=1 to see the wrong behavior."
+  ]
+}

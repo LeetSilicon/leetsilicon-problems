@@ -1,0 +1,30 @@
+{
+  "id": "rtl-debug-counter-termcount",
+  "domain": "rtl-debug",
+  "category": "Counter",
+  "difficulty": "Easy",
+  "bugType": "combinational output timing",
+  "summary": "Terminal-count pulse is generated from the current count and appears one cycle late for a mod-10 counter.",
+  "signals": [
+    "clk",
+    "rst",
+    "en",
+    "count",
+    "tc_pulse"
+  ],
+  "expectedBehavior": [
+    "tc_pulse should assert exactly when count transitions from 9 back to 0.",
+    "Pulse width should be one cycle only.",
+    "Counter should restart cleanly after reset."
+  ],
+  "hiddenChecks": [
+    "Continuous enable for >20 cycles",
+    "Enable pauses near terminal count",
+    "Reset asserted close to wraparound"
+  ],
+  "hints": [
+    "Check whether tc_pulse is computed using current count or next count.",
+    "A terminal-count pulse is often easiest to derive from the same condition that causes wrap.",
+    "Make sure tc_pulse deasserts on non-wrap cycles."
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "string7",
+  "shortName": "Longest Substring Without Repeating Characters",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Medium",
+  "topics": [
+    "String",
+    "Sliding Window",
+    "Hash Table"
+  ],
+  "question": "Longest Substring Without Repeating Characters",
+  "description": "Given a string `s`, find the length of the **longest substring** without repeating characters.\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: s = \"abcabcbb\"\\nOutput: 3\\nExplanation: The answer is \"abc\", with length 3.\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: s = \"bbbbb\"\\nOutput: 1\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- `0 <= s.length <= 5 * 10⁴`\\n' +\n        '- `s` consists of English letters, digits, symbols and spaces",
+  "requirements": [
+    "Time complexity: O(n)",
+    "Sliding window with hash set"
+  ],
+  "hints": [
+    "Use a sliding window with left and right pointers.",
+    "Track last seen index of each character to jump the left pointer forward."
+  ]
+}

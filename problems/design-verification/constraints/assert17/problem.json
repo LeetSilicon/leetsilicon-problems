@@ -1,0 +1,30 @@
+{
+  "id": "assert17",
+  "shortName": "Signal Within Range",
+  "domain": "design-verification",
+  "category": "Constraints",
+  "difficulty": "Medium",
+  "topics": [
+    "Assertions",
+    "Coverage",
+    "Range"
+  ],
+  "question": "Write Parameterized Assertion: Signal Within Specified Range",
+  "description": "Write parameterized assertion to verify that signal \"data\" is always within specified range [MIN, MAX]. Include coverage bins for boundary hits.",
+  "requirements": [
+    "PARAMETERS: Define MIN and MAX as parameters or localparams. Assertion uses these values.",
+    "RANGE CHECK: data must be >= MIN and <= MAX on every cycle.",
+    "SIGNED vs UNSIGNED: Clarify signedness. For signed: $signed(data) >= $signed(MIN). For unsigned: default comparison.",
+    "COVERAGE BINS: Add coverpoint with bins for MIN, MAX, and mid-range values to track boundary hits.",
+    "RESET: disable iff (rst).",
+    "UNKNOWN: Gate X values: !$isunknown(data) |-> range_check.",
+    "Test Case 1 - Within Range: data values between MIN and MAX. Assertion passes continuously.",
+    "Test Case 2 - At MIN: data = MIN. Assertion passes. Coverage bin for MIN hits.",
+    "Test Case 3 - At MAX: data = MAX. Assertion passes. Coverage bin for MAX hits.",
+    "Test Case 4 - Below MIN: data = MIN - 1. Assertion fails.",
+    "Test Case 5 - Above MAX: data = MAX + 1. Assertion fails."
+  ],
+  "hints": [
+    "Parameterized assertion: parameter MIN = 0; parameter MAX = 255; assert property (@(posedge clk) disable iff (rst) (data >= MIN && data <= MAX));"
+  ]
+}

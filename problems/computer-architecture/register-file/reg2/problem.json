@@ -1,0 +1,27 @@
+{
+  "id": "reg2",
+  "shortName": "Register Renaming",
+  "domain": "computer-architecture",
+  "category": "Register File & Scoreboarding",
+  "difficulty": "Hard",
+  "topics": [
+    "Register File",
+    "Renaming",
+    "RTL"
+  ],
+  "question": "Design Register Renaming Logic with Map Table and Free List",
+  "description": "Implement register renaming for out-of-order execution.\\n\\n' +\n        'Maintain a map table (architectural → physical) and a free list of available physical registers.\\n\\n' +\n        '**Operations:**\\n' +\n        '```\\nRename: read map table for sources, allocate new phys for dest\\nCommit: return old physical register to free list\\nFlush:  restore map table to checkpoint\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- Stall when free list is empty\\n' +\n        '- Save old mapping for recovery\\n' +\n        '- Support misspeculation recovery",
+  "requirements": [
+    "MAP TABLE: Array mapping architectural register ID to physical register ID. Size: NUM_ARCH_REGS entries. Each entry stores current physical register ID for that architectural register.",
+    "FREE LIST: List/FIFO of available physical register IDs. Initially contains all physical registers except those reserved for initial architectural state.",
+    "RENAME OPERATION: On instruction rename: (1) Read map table for source architectural registers → get source physical registers. (2) Allocate new physical register from free list for destination. (3) Update map table: arch_dest → new_phys_reg. (4) Save old physical register mapping for recovery.",
+    "FREE LIST EMPTY: When free list is empty, stall rename (cannot allocate new physical register). Assert stall/backpressure signal.",
+    "COMMIT/DEALLOCATION: On instruction commit (in-order): return old physical register (that was overwritten in map table) to free list. This physical register is no longer needed.",
+    "RECOVERY (OPTIONAL): On branch mispredict or exception: restore map table to checkpoint state and return speculative physical registers to free list.",
+    "OUTPUTS: (1) new_phys_reg (allocated physical register), (2) old_phys_reg (previous mapping, for recovery), (3) rename_grant (allocation successful), (4) stall (free list empty).",
+    "Test Case 1 - Simple Rename: Rename architectural register r1 twice in sequence. Expected: map table for r1 updates to new physical register each time. Two different physical registers allocated.",
+    "Test Case 2 - Free List Empty: Allocate physical registers until free list exhausted. Next rename request. Expected: rename_grant=0, stall asserted, no allocation.",
+    "Test Case 3 - Commit Frees Physical Register: Rename r1 (allocates p5, old mapping was p2). Later commit instruction. Expected: p2 returned to free list and becomes available for reallocation."
+  ],
+  "hints": []
+}

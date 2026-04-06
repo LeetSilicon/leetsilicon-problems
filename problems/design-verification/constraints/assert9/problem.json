@@ -1,0 +1,33 @@
+{
+  "id": "assert9",
+  "shortName": "Counter Zero After Reset",
+  "domain": "design-verification",
+  "category": "Constraints",
+  "difficulty": "Medium",
+  "topics": [
+    "Assertions",
+    "Temporal",
+    "Reset"
+  ],
+  "question": "Counter Zero Within 1 Cycle After Reset De-assertion",
+  "description": "Write temporal assertion to ensure that after reset is de-asserted, counter becomes zero within 1 clock cycle. Handles synchronous reset with timing check.",
+  "requirements": [
+    "RESET DE-ASSERTION: Detect when reset goes inactive. Use $fell(reset) for active-high reset, $rose(rst_n) for active-low.",
+    "TIMING WINDOW: Counter must be 0 within 0 to 1 cycles after reset de-assertion. ##[0:1] (counter==0).",
+    "SYNCHRONOUS RESET: For synchronous reset, counter becomes 0 at clock edge when reset de-asserts.",
+    "ASYNCHRONOUS RESET: Counter may become 0 immediately or at next clock.",
+    "EXACT TIMING: If counter guaranteed 0 at exact cycle after reset: ##1 (counter==0). If same cycle: ##0 or just (counter==0).",
+    "RESET: Do not use disable iff here, as we are checking reset behavior.",
+    "Test Case 1 - Reset De-assert, Counter 0 Same Cycle: reset falls, counter=0 immediately. Assertion passes.",
+    "Test Case 2 - Reset De-assert, Counter 0 Next Cycle: reset falls at cycle N, counter=0 at cycle N+1. If using ##[0:1], passes.",
+    "Test Case 3 - Reset De-assert, Counter Not 0: reset falls, counter=5 at both N and N+1. Assertion fails.",
+    "Test Case 4 - Multiple Reset Pulses: Assert and de-assert reset multiple times. Each de-assertion must satisfy property.",
+    "Test Case 5 - Reset During Count: Counter at 10, reset asserts, then de-asserts. Counter should be 0 within window."
+  ],
+  "hints": [
+    "Reset de-assertion detection: $fell(reset) for active-high. $rose(!reset) alternative.",
+    "Active-low reset: $fell(rst_n) becomes $rose(rst_n) to detect de-assertion.",
+    "Synchronous reset: Counter updates on clock edge. $fell(reset) sampled on clk edge, so counter==0 same cycle.",
+    "Asynchronous reset: Counter clears immediately when reset asserts, but we check after de-assert. May need ##0 or ##1 depending on when counter re-enables."
+  ]
+}

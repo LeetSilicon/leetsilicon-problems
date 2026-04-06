@@ -1,0 +1,31 @@
+{
+  "id": "assert20",
+  "shortName": "Signal Pattern Match",
+  "domain": "design-verification",
+  "category": "Constraints",
+  "difficulty": "Medium",
+  "topics": [
+    "Assertions",
+    "Coverage",
+    "Pattern"
+  ],
+  "question": "Signal Matches Predefined Bit Pattern",
+  "description": "Write assertion to verify that a signal pattern matches a predefined bit pattern, optionally with masking for don\\'t-care bits. Ensure pattern validity.",
+  "requirements": [
+    "PATTERN DEFINITION: Define expected pattern as parameter/localparam. Example: PATTERN = 8'b1010_xxxx.",
+    "MASK: If partial match (some bits don't care), define mask. Example: MASK = 8'b1111_0000 (upper 4 bits checked).",
+    "MATCH CHECK: (signal & MASK) == (PATTERN & MASK). Only masked bits compared.",
+    "PERSISTENCE: If pattern must persist for N cycles, use [*N] repetition.",
+    "COVERAGE: Add cover property to ensure pattern reached: cover property (@(posedge clk) (signal & MASK) == (PATTERN & MASK));",
+    "RESET: disable iff (rst).",
+    "Test Case 1 - Exact Match: signal = 8'b1010_1111, PATTERN = 8'b1010_xxxx, MASK = 8'b1111_0000. Match on upper 4 bits. Assertion passes.",
+    "Test Case 2 - Mismatch: signal = 8'b0010_1111. Upper 4 bits don't match pattern 1010. Assertion fails.",
+    "Test Case 3 - Full Match (No Mask): signal = PATTERN exactly. MASK = all 1s. Assertion passes.",
+    "Test Case 4 - Persistent Pattern: signal matches pattern for 3 consecutive cycles. If checking persistence, assertion passes.",
+    "Test Case 5 - Coverage: Generate pattern match in simulation. Verify cover property hits."
+  ],
+  "hints": [
+    "Pattern with mask: assert property (@(posedge clk) disable iff (rst) ((signal & MASK) == (PATTERN & MASK)));",
+    "No mask (full match): assert property (@(posedge clk) disable iff (rst) (signal == PATTERN));"
+  ]
+}

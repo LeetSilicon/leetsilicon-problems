@@ -1,0 +1,26 @@
+{
+  "id": "rtl12",
+  "shortName": "Clock Divide by N",
+  "domain": "rtl-design",
+  "category": "FIFO / Queue",
+  "difficulty": "Medium",
+  "topics": [
+    "RTL",
+    "Clock Divider",
+    "Parameterization"
+  ],
+  "question": "Generic Divide-by-N with ~50% Duty Cycle",
+  "description": "Implement programmable or parameterized divide-by-N clock divider handling even and odd N.\\n\\n' +\n        '**Constraints:**\\n' +\n        '- Even N: toggle every N/2 cycles\\n' +\n        '- Odd N: use dual-edge method or define duty strategy\\n' +\n        '- Parameterizable or runtime-configurable N",
+  "requirements": [
+    "PARAM or INPUT: N/div_value.",
+    "INPUTS: clk, rst_n.",
+    "OUTPUT: clk_divN.",
+    "EVEN: Toggle every N/2 cycles.",
+    "ODD: Use dual-edge method (or define duty-cycle strategy).",
+    "Test Case - N=4 gives clk/4 with 50% duty.",
+    "Test Case - N=5 gives clk/5 with defined duty characteristics."
+  ],
+  "hints": [
+    "Separate counter/state generation from output register."
+  ]
+}

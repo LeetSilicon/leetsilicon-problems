@@ -1,0 +1,21 @@
+{
+  "id": "array12",
+  "shortName": "All Pairs With Given Sum",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Easy",
+  "topics": [
+    "Array",
+    "Hash Table"
+  ],
+  "question": "All Pairs With Given Sum",
+  "description": "Given an array `nums` and an integer `target`, return all unique pairs `(a, b)` such that `a + b = target`.\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: nums = [2,7,11,15], target = 9\\nOutput: [(2,7)]\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: nums = [3,3,3], target = 6\\nOutput: [(3,3)]\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- `1 <= nums.length <= 10⁵`\\n' +\n        '- Return unique value pairs",
+  "requirements": [
+    "Time complexity: O(n)",
+    "Do not reuse the same element index"
+  ],
+  "hints": [
+    "Use a hash map for counts while scanning.",
+    "For each x, look for target - x in the map."
+  ]
+}

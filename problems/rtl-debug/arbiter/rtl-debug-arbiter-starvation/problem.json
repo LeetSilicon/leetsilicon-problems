@@ -1,0 +1,28 @@
+{
+  "id": "rtl-debug-arbiter-starvation",
+  "domain": "rtl-debug",
+  "category": "Arbiter",
+  "difficulty": "Hard",
+  "bugType": "fairness / pointer update",
+  "summary": "A 2-request round-robin arbiter wrapper forgets to advance priority after a grant, causing repeated grants to the same requester.",
+  "signals": [
+    "clk",
+    "rst",
+    "req",
+    "grant",
+    "rr_ptr"
+  ],
+  "expectedBehavior": [
+    "With both requests asserted continuously, grants should alternate.",
+    "rr_ptr should advance only on successful grants.",
+    "Reset should initialize arbitration pointer deterministically."
+  ],
+  "hiddenChecks": [
+    "Both req bits held high for 10 cycles",
+    "One requester toggles while other remains high",
+    "Reset in middle of contention"
+  ],
+  "hints": [
+    "Watch rr_ptr in waveform when grants are issued."
+  ]
+}

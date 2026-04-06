@@ -1,0 +1,38 @@
+{
+  "id": "bus3",
+  "shortName": "AXI-Lite Single Register",
+  "domain": "rtl-design",
+  "category": "FIFO / Queue",
+  "difficulty": "Medium",
+  "topics": [
+    "AXI",
+    "RTL",
+    "Registers"
+  ],
+  "question": "Build AXI-Lite Single Register Slave",
+  "description": "Implement an AXI-Lite slave with one 32-bit register at address 0x00.\\n\\n' +\n        '**Channels:**\\n' +\n        '```\\nWrite: AW(addr) + W(data) → B(response)\\nRead:  AR(addr) → R(data+response)\\nAW and W may arrive in any order\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- All five AXI-Lite channels with VALID/READY handshake\\n' +\n        '- AW and W are independent (may arrive in either order)\\n' +\n        '- Hold BVALID/RVALID until accepted",
+  "requirements": [
+    "AXI-LITE CHANNELS: Implement AW, W, B, AR, and R channels with VALID/READY handshaking.",
+    "SINGLE REGISTER: Support one 32-bit register mapped at address 0x00.",
+    "WRITE TRANSACTION: Accept AW and W in any order. Perform register write only after both address and data are received.",
+    "READ TRANSACTION: On AR handshake, return register value on R channel.",
+    "WRITE RESPONSE: After successful write, assert BVALID with BRESP=2'b00.",
+    "READ RESPONSE: After successful read, assert RVALID with RRESP=2'b00.",
+    "CHANNEL INDEPENDENCE: AW and W channels are independent and may arrive in different cycles.",
+    "BACKPRESSURE: Hold BVALID until BREADY is asserted. Hold RVALID until RREADY is asserted.",
+    "RESET: Clear register and deassert all response valids on reset.",
+    "Test Case 1 - Simple Write: Write 0x12345678 to address 0x00. Expected: internal register updates correctly.",
+    "Test Case 2 - Simple Read: Read from address 0x00 after write. Expected: RDATA returns stored register value.",
+    "Test Case 3 - AW before W: Address arrives first, data arrives later. Expected: write still completes correctly.",
+    "Test Case 4 - W before AW: Data arrives first, address arrives later. Expected: write still completes correctly.",
+    "Test Case 5 - Backpressure on R: Slave asserts RVALID but master delays RREADY. Expected: RVALID remains asserted until handshake."
+  ],
+  "hints": [
+    "Track address and data reception separately using flags like aw_done and w_done.",
+    "Latch AWADDR when AWVALID && AWREADY, latch WDATA when WVALID && WREADY.",
+    "Perform write only when both address and data have been accepted.",
+    "For reads, latch ARADDR on handshake and drive RDATA from register.",
+    "Keep BVALID high until BREADY, and RVALID high until RREADY.",
+    "Use simple decode: only address 0x00 is valid."
+  ]
+}

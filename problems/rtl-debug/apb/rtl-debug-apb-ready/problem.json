@@ -1,0 +1,32 @@
+{
+  "id": "rtl-debug-apb-ready",
+  "domain": "rtl-debug",
+  "category": "APB",
+  "difficulty": "Medium",
+  "bugType": "protocol phase timing",
+  "summary": "APB slave asserts PREADY during setup instead of access phase, creating protocol timing violations.",
+  "signals": [
+    "PCLK",
+    "PRESETn",
+    "PSEL",
+    "PENABLE",
+    "PWRITE",
+    "PREADY",
+    "PRDATA"
+  ],
+  "expectedBehavior": [
+    "PREADY should only assert in the access phase (PSEL=1 and PENABLE=1).",
+    "Read data should be valid when transfer completes.",
+    "Reset should deassert PREADY."
+  ],
+  "hiddenChecks": [
+    "Read transfer with wait-state insertion",
+    "Write transfer timing",
+    "Back-to-back APB accesses"
+  ],
+  "hints": [
+    "APB has setup and access phases — check PENABLE usage carefully.",
+    "If PREADY rises with PSEL before PENABLE, the slave is responding too early.",
+    "Gate PREADY and data completion logic to the access phase."
+  ]
+}

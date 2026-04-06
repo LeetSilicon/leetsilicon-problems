@@ -1,0 +1,34 @@
+{
+  "id": "rtl-debug-fifo-flags",
+  "domain": "rtl-debug",
+  "category": "FIFO",
+  "difficulty": "Hard",
+  "bugType": "pointer / flag logic",
+  "summary": "Fix a synchronous FIFO whose full flag asserts too early, causing usable entries to be lost.",
+  "signals": [
+    "clk",
+    "rst",
+    "wr_en",
+    "rd_en",
+    "wptr",
+    "rptr",
+    "count",
+    "full",
+    "empty"
+  ],
+  "expectedBehavior": [
+    "full must assert only when FIFO reaches DEPTH entries.",
+    "empty must assert only when FIFO has 0 entries.",
+    "Simultaneous read+write should preserve count (when both legal)."
+  ],
+  "hiddenChecks": [
+    "Fill to DEPTH and verify final write acceptance",
+    "Pointer wraparound after multiple cycles",
+    "Simultaneous read/write near boundaries"
+  ],
+  "hints": [
+    "Look at count update order when wr_en and rd_en happen together.",
+    "Check full assignment threshold against DEPTH.",
+    "Flags should be derived from next count or carefully ordered sequential updates."
+  ]
+}

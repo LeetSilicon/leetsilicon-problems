@@ -1,0 +1,30 @@
+{
+  "id": "assert13",
+  "shortName": "Rising Then Falling Edge",
+  "domain": "design-verification",
+  "category": "Constraints",
+  "difficulty": "Medium",
+  "topics": [
+    "Assertions",
+    "Sequence",
+    "Edge"
+  ],
+  "question": "Rising Edge Followed by Falling Edge Within 10 Cycles",
+  "description": "Write sequence assertion to verify that a rising edge on signal is followed by a falling edge within 10 clock cycles. Ensure edge ordering and timing.",
+  "requirements": [
+    "EDGE DETECTION: Rising edge: $rose(sig). Falling edge: $fell(sig).",
+    "TIMING CONSTRAINT: After rising edge, falling edge must occur within 1 to 10 cycles.",
+    "SAME-CYCLE: Typically rising and falling cannot occur same cycle (signal cannot be both 0→1 and 1→0). Window starts at ##1.",
+    "MULTIPLE RISES: If signal can rise again before falling, property handles with multiple threads. Each rise must be followed by fall within 10.",
+    "INTERMEDIATE STATE: Signal may rise, stay high for N cycles, then fall. As long as N <= 10, passes.",
+    "RESET: disable iff (rst).",
+    "Test Case 1 - Rise at 0, Fall at 5: sig rises at cycle 0, falls at cycle 5. Within [1:10]. Assertion passes.",
+    "Test Case 2 - Rise at 0, Fall at 11: sig rises at cycle 0, falls at cycle 11. Outside window. Assertion fails.",
+    "Test Case 3 - Rise at 0, Fall at 1: sig rises cycle 0, falls cycle 1 (minimum delay). Assertion passes.",
+    "Test Case 4 - No Fall: sig rises, never falls. Assertion fails (bounded eventually violated).",
+    "Test Case 5 - Multiple Rises: sig rises at cycle 0, rises again at cycle 3 (after going low at 2), falls at cycle 6. Two threads: first satisfied by fall at 6 (if sig went low at 2 first), second satisfied by fall at 6. Verify."
+  ],
+  "hints": [
+    "Edge detection: $rose(sig) for 0→1 transition, $fell(sig) for 1→0 transition."
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "id": "rtl16",
+  "shortName": "CDC Fast→Slow Handshake",
+  "domain": "rtl-design",
+  "category": "FIFO / Queue",
+  "difficulty": "Hard",
+  "topics": [
+    "RTL",
+    "CDC",
+    "Handshake"
+  ],
+  "question": "Handshake CDC for Fast Domain to Slow Domain",
+  "description": "Implement a request/ack handshake for reliable event communication from fast to slow domain.\\n\\n' +\n        '**Signals:**\\n' +\n        '```\\nreq (fast→slow): held until slow captures\\nack (slow→fast): synchronized back\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- req held until acknowledged\\n' +\n        '- Both req and ack must be synchronized into receiving domain",
+  "requirements": [
+    "DOMAINS: fast_clk and slow_clk.",
+    "SIGNALS: req (fast→slow) and ack (slow→fast).",
+    "HOLD: req must be held until slow side captures it.",
+    "SYNC: req and ack must each be synchronized into the receiving domain.",
+    "BUSY/IDLE: Define whether the fast side exposes a busy indication while a request is outstanding.",
+    "Test Case - Single request produces single acknowledge.",
+    "Test Case - Outstanding request: fast side remains busy until the synchronized acknowledge returns."
+  ],
+  "hints": [
+    "Use small FSMs in each domain and synchronizers on req/ack."
+  ]
+}

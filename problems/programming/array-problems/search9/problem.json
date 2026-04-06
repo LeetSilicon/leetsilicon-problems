@@ -1,0 +1,17 @@
+{
+  "id": "search9",
+  "shortName": "Search in Infinite Sorted Array",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Medium",
+  "topics": [
+    "Binary Search",
+    "Array"
+  ],
+  "question": "Search in Infinite Sorted Array",
+  "description": "Given an interface `InfiniteArray` where you can only call `get(i)` to access index `i`, and the array is sorted in ascending order, find the index of a given `target`.\\n\\n' +\n        'Return `-1` if the target does not exist.\\n\\n' +\n        '**Example:**\\n' +\n        '```\\nApproach: Exponential expansion to find bounds, then binary search.\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- Array is conceptually infinite and sorted\\n' +\n        '- Time complexity: O(log position)",
+  "requirements": [
+    "Find range by doubling (1,2,4,8...) then binary search"
+  ],
+  "hints": []
+}

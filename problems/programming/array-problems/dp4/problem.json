@@ -1,0 +1,18 @@
+{
+  "id": "dp4",
+  "shortName": "Longest Common Subsequence",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Medium",
+  "topics": [
+    "DP",
+    "String"
+  ],
+  "question": "Longest Common Subsequence",
+  "description": "Given two strings `text1` and `text2`, return the length of their **longest common subsequence**. If there is no common subsequence, return `0`.\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: text1 = \"abcde\", text2 = \"ace\"\\nOutput: 3\\nExplanation: The LCS is \"ace\".\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: text1 = \"abc\", text2 = \"def\"\\nOutput: 0\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- `1 <= text1.length, text2.length <= 1000`\\n' +\n        '- Strings consist of lowercase English characters only",
+  "requirements": [
+    "Time: O(m * n)",
+    "Use 2D DP table"
+  ],
+  "hints": []
+}

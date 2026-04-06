@@ -1,0 +1,31 @@
+{
+  "id": "bus5",
+  "shortName": "AXI Register File",
+  "domain": "rtl-design",
+  "category": "FIFO / Queue",
+  "difficulty": "Medium",
+  "topics": [
+    "AXI",
+    "Register File",
+    "RTL"
+  ],
+  "question": "Build AXI-Lite 4-Register File",
+  "description": "Implement an AXI-Lite slave with four 32-bit registers at 0x00, 0x04, 0x08, 0x0C.\\n\\n' +\n        '**Register map:**\\n' +\n        '```\\n0x00=reg0, 0x04=reg1, 0x08=reg2, 0x0C=reg3\\nInvalid address → SLVERR/DECERR\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- All four registers readable and writable\\n' +\n        '- Invalid address returns error response\\n' +\n        '- Reset clears all registers",
+  "requirements": [
+    "REGISTER MAP: 0x00=reg0, 0x04=reg1, 0x08=reg2, 0x0C=reg3.",
+    "WRITE SUPPORT: Writes to valid addresses update corresponding register.",
+    "READ SUPPORT: Reads from valid addresses return corresponding register value.",
+    "INVALID ADDRESS: Access to unsupported address should return SLVERR or DECERR.",
+    "AXI-LITE CHANNELS: Implement AW, W, B, AR, and R channels correctly.",
+    "WRITE ORDERING: AW and W may arrive in any order.",
+    "READ DATA HOLDING: Once RVALID is asserted, hold RDATA stable until RREADY.",
+    "WRITE RESPONSE HOLDING: Once BVALID is asserted, hold BRESP stable until BREADY.",
+    "RESET: Clear all registers on reset.",
+    "Test Case 1 - Write reg0: Write 0x11 to 0x00. Expected: reg0=0x11.",
+    "Test Case 2 - Write reg3: Write 0xDEADBEEF to 0x0C. Expected: reg3 updates correctly.",
+    "Test Case 3 - Read reg1: Preload reg1, then read 0x04. Expected: RDATA=reg1.",
+    "Test Case 4 - Invalid Read: Read from 0x10. Expected: error response.",
+    "Test Case 5 - Reset: After writing all registers, assert reset. Expected: all registers clear to 0."
+  ],
+  "hints": []
+}

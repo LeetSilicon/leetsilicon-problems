@@ -1,0 +1,22 @@
+{
+  "id": "array6",
+  "shortName": "Missing Number",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Easy",
+  "topics": [
+    "Array",
+    "Math",
+    "Bit Manipulation"
+  ],
+  "question": "Missing Number",
+  "description": "Given an array `nums` containing `n` distinct numbers in the range `[0, n]`, return the only number in the range that is missing from the array.\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: nums = [3,0,1]\\nOutput: 2\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: nums = [9,6,4,2,3,5,7,0,1]\\nOutput: 8\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- `n == nums.length`\\n' +\n        '- `1 <= n <= 10⁴`\\n' +\n        '- All numbers are **unique**",
+  "requirements": [
+    "Time complexity: O(n)",
+    "Space complexity: O(1)"
+  ],
+  "hints": [
+    "Sum formula: missing = n*(n+1)/2 - sum(nums).",
+    "XOR approach: XOR all indices and values; duplicates cancel."
+  ]
+}

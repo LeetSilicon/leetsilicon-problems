@@ -1,0 +1,22 @@
+{
+  "id": "array4",
+  "shortName": "First Duplicate Element",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Easy",
+  "topics": [
+    "Array",
+    "Hash Table"
+  ],
+  "question": "First Duplicate Element",
+  "description": "Given an array `nums`, return the first element that appears more than once. If no duplicate exists, return `-1`.\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: nums = [2,5,1,2,3,5,1,2,4]\\nOutput: 2\\nExplanation: 2 is the first value encountered again.\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: nums = [1,2,3,4]\\nOutput: -1\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- `1 <= nums.length <= 10⁵`\\n' +\n        '- `1 <= nums[i] <= 10⁵`",
+  "requirements": [
+    "Time complexity: O(n)",
+    "Space complexity: O(n)",
+    "Use hash set to track seen elements"
+  ],
+  "hints": [
+    "Scan left to right and store seen values in a set.",
+    "The first value already in the set is the answer."
+  ]
+}

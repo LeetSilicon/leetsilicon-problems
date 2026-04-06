@@ -1,0 +1,26 @@
+{
+  "id": "rtl6",
+  "shortName": "Binary to Gray",
+  "domain": "rtl-design",
+  "category": "FIFO / Queue",
+  "difficulty": "Easy",
+  "topics": [
+    "RTL",
+    "Counter",
+    "Gray Code"
+  ],
+  "question": "Generate Gray Code from a Binary Counter",
+  "description": "Implement a binary counter and output Gray code equivalent each cycle.\\n\\n' +\n        '**Conversion:** `gray = bin ^ (bin >> 1)`\\n\\n' +\n        '**Constraints:**\\n' +\n        '- Parameterizable W (counter width)\\n' +\n        '- Binary counter registered, Gray derived combinationally",
+  "requirements": [
+    "PARAM: W (counter width).",
+    "INPUTS: clk, rst_n, enable (optional).",
+    "OUTPUTS: bin_count[W-1:0], gray_count[W-1:0].",
+    "UPDATE: If enabled, bin_count increments each cycle.",
+    "CONVERT: gray_count derived from bin_count.",
+    "Test Case - Reset: bin=0 => gray=0.",
+    "Test Case - Sequence: verify first few gray outputs."
+  ],
+  "hints": [
+    "Keep bin_count registered; compute gray combinationally."
+  ]
+}

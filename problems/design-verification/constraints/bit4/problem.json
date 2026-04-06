@@ -1,0 +1,32 @@
+{
+  "id": "bit4",
+  "shortName": "Power of 4",
+  "domain": "design-verification",
+  "category": "Constraints",
+  "difficulty": "Easy",
+  "topics": [
+    "Constraints",
+    "Math",
+    "Power"
+  ],
+  "question": "Generate Number that is Power of 4",
+  "description": "Write uvm sv constraint to generate number that is a power of 4: x = 4^n for some non-negative integer n. Values: 1, 4, 16, 64, 256, ... Bit pattern: single 1-bit at even bit position.",
+  "requirements": [
+    "POWER OF 4: x ∈ {4^0, 4^1, 4^2, ...} = {1, 4, 16, 64, 256, ...} within width limits.",
+    "BIT PATTERN: Power of 4 in binary: single bit set at position 0,2,4,6,... (even positions). 4^0=1 (bit 0), 4^1=4 (bit 2), 4^2=16 (bit 4), etc.",
+    "VALUE DOMAIN: For W-bit variable, maximum n such that 4^n < 2^W. Example: 32-bit allows up to 4^15 = 2^30.",
+    "ZERO EXCLUDED: Typically x > 0. Power of 4 starts at 4^0=1.",
+    "Test Case 1 - Valid Set: Randomize 1000 times. Verify all generated values are in {1,4,16,64,256,...} up to width limit.",
+    "Test Case 2 - Bit Position: Verify each generated value has exactly one bit set at even position (0,2,4,6,...).",
+    "Test Case 3 - Edge Case: Largest power of 4 fitting in width appears sometimes.",
+    "Test Case 4 - Invalid Value: Add constraint x==12. Verify randomize fails (12 not power of 4).",
+    "Test Case 5 - Distribution: Over randomizations, multiple different powers appear (not stuck on one value)."
+  ],
+  "hints": [
+    "Bit trick: Power of 4 ⇔ (exactly one bit set) AND (bit position is even). $onehot(x) AND (x & 0x55555555) == x for 32-bit.",
+    "One-hot check: $onehot(x) returns true if exactly one bit set. $countones(x) == 1.",
+    "Even position mask: For 32-bit: 0x55555555 = 0101 0101 ... (1s at even positions). x & mask == x means all 1-bits at even positions.",
+    "Combined: constraint c_pow4 { $onehot(x) && ((x & 32\\",
+    ",\n        "
+  ]
+}

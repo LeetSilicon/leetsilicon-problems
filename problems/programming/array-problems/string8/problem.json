@@ -1,0 +1,20 @@
+{
+  "id": "string8",
+  "shortName": "Longest Common Prefix",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Easy",
+  "topics": [
+    "String",
+    "Array"
+  ],
+  "question": "Longest Common Prefix",
+  "description": "Write a function to find the longest common prefix string amongst an array of strings.\\n\\n' +\n        'If there is no common prefix, return an empty string `\"\"`.\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: strs = [\"flower\",\"flow\",\"flight\"]\\nOutput: \"fl\"\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: strs = [\"dog\",\"racecar\",\"car\"]\\nOutput: \"\"\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- `1 <= strs.length <= 200`\\n' +\n        '- `0 <= strs[i].length <= 200`",
+  "requirements": [
+    "Compare characters vertically or use horizontal scanning"
+  ],
+  "hints": [
+    "Start with the first string as candidate prefix.",
+    "Shrink it until every string starts with it."
+  ]
+}

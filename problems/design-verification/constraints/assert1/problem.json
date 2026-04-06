@@ -1,0 +1,36 @@
+{
+  "id": "assert1",
+  "shortName": "Signal High When Valid",
+  "domain": "design-verification",
+  "category": "Constraints",
+  "difficulty": "Easy",
+  "topics": [
+    "Assertions",
+    "Basic",
+    "Signal"
+  ],
+  "question": "Data Signal High Whenever Valid Asserted",
+  "description": "Write UVM SystemVerilog assertion to verify that signal \"data\" is high (logic 1) whenever signal \"valid\" is asserted (logic 1). This is a basic implication property: when valid=1, data must equal 1 in the same clock cycle.",
+  "requirements": [
+    "ASSERTION TYPE: Use assert property (not immediate assertion). Clocked assertion for RTL verification.",
+    "CLOCKING: Sample on clock edge: @(posedge clk). Synchronous assertion.",
+    "RESET HANDLING: Use disable iff (rst) to prevent assertion failures during reset. Define reset polarity (active high/low).",
+    "IMPLICATION: When valid==1, require data==1. Property: valid |-> data.",
+    "UNKNOWN HANDLING: If valid can be X/Z, use 4-state equality: valid===1'b1 to avoid X-propagation failures. Or gate with valid==1 (2-state).",
+    "Test Case 1 - Basic Pass: valid=1, data=1 for several cycles. Assertion passes.",
+    "Test Case 2 - Basic Fail: valid=1, data=0 for one cycle. Assertion fails.",
+    "Test Case 3 - No Implication: valid=0, data=0 or data=1. Assertion passes (antecedent false, property vacuously true).",
+    "Test Case 4 - X/Z Handling: Drive valid=X or data=X. Verify assertion behavior per chosen handling (gated or fails).",
+    "Test Case 5 - Reset Behavior: Assert reset. Drive valid=1, data=0. Assertion should NOT fail (disabled during reset). Release reset, repeat. Assertion should fail."
+  ],
+  "hints": [
+    "Basic form: assert property (@(posedge clk) disable iff (rst) valid |-> data);",
+    "Implication operator |-> : If antecedent (valid) true, consequent (data) must be true same cycle.",
+    "Reset disable: disable iff (rst) prevents checking during reset. Choose polarity: active-high rst or active-low !rst_n.",
+    "4-state vs 2-state: valid===1\\",
+    ",\n        ",
+    "b1) |-> (data===1\\",
+    ",\n        ",
+    ",\n        "
+  ]
+}

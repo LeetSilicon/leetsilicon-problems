@@ -1,0 +1,19 @@
+{
+  "id": "string21",
+  "shortName": "Count Vowels",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Easy",
+  "topics": [
+    "String"
+  ],
+  "question": "Count Vowels",
+  "description": "Given a string `s`, return the number of vowels (`a, e, i, o, u`, case-insensitive).\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: s = \"hello\"\\nOutput: 2\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: s = \"aeiou\"\\nOutput: 5\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- `0 <= s.length <= 10⁵`",
+  "requirements": [
+    "Case-insensitive",
+    "Ignore non-letter characters"
+  ],
+  "hints": [
+    "Lowercase the character and check membership in {a,e,i,o,u}."
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "string4",
+  "shortName": "First Repeating Character",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Easy",
+  "topics": [
+    "String",
+    "Hash Table"
+  ],
+  "question": "First Repeating Character",
+  "description": "Given a string `s`, return the first character that appears more than once. If no such character exists, return `\"-\"`.\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: s = \"abcdeab\"\\nOutput: \"a\"\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: s = \"abcdef\"\\nOutput: \"-\"\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- `1 <= s.length <= 10⁵`\\n' +\n        '- `s` consists of lowercase English letters",
+  "requirements": [
+    "Time complexity: O(n)",
+    "Use hash set to track seen characters"
+  ],
+  "hints": [
+    "Walk left to right, storing seen characters in a set.",
+    "The first character already in the set is the answer."
+  ]
+}

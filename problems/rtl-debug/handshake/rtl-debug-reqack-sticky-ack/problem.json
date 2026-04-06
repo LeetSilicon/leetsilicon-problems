@@ -1,0 +1,30 @@
+{
+  "id": "rtl-debug-reqack-sticky-ack",
+  "domain": "rtl-debug",
+  "category": "Handshake",
+  "difficulty": "Easy",
+  "bugType": "ack pulse width",
+  "summary": "ACK should be a pulse, but buggy logic keeps ACK high when REQ remains asserted.",
+  "signals": [
+    "clk",
+    "rst",
+    "req",
+    "ack",
+    "busy"
+  ],
+  "expectedBehavior": [
+    "ack should pulse for one cycle when a request is accepted.",
+    "ack must deassert even if req stays high.",
+    "busy should return low after service."
+  ],
+  "hiddenChecks": [
+    "REQ held high",
+    "Back-to-back requests",
+    "Reset while busy"
+  ],
+  "hints": [
+    "Pulse outputs need an explicit default low or tightly scoped assertion condition.",
+    "Check for extra assignments to ack later in the always_ff block.",
+    "Differentiate request level from request acceptance event."
+  ]
+}

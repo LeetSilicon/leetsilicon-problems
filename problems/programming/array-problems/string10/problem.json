@@ -1,0 +1,22 @@
+{
+  "id": "string10",
+  "shortName": "Longest Palindromic Substring",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Medium",
+  "topics": [
+    "String",
+    "DP",
+    "Expand Around Center"
+  ],
+  "question": "Longest Palindromic Substring",
+  "description": "Given a string `s`, return the longest palindromic substring in `s`.\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: s = \"babad\"\\nOutput: \"bab\"\\nExplanation: \"aba\" is also a valid answer.\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: s = \"cbbd\"\\nOutput: \"bb\"\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- `1 <= s.length <= 1000`\\n' +\n        '- `s` consist of only digits and English letters",
+  "requirements": [
+    "Expand around center: O(n²)",
+    "Handle odd and even length palindromes"
+  ],
+  "hints": [
+    "Every palindrome expands from a center (one char or between two chars).",
+    "Try expanding around each center and track the best window."
+  ]
+}

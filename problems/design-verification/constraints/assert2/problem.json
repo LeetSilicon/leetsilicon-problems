@@ -1,0 +1,32 @@
+{
+  "id": "assert2",
+  "shortName": "Data Stable for One Cycle",
+  "domain": "design-verification",
+  "category": "Constraints",
+  "difficulty": "Easy",
+  "topics": [
+    "Assertions",
+    "Basic",
+    "Stability"
+  ],
+  "question": "Data Remains Stable When Enable Asserted",
+  "description": "Write SystemVerilog assertion to verify that signal \"data\" remains stable (unchanged) for at least one clock cycle after \"enable\" is asserted. Stability means data value at current cycle equals value at next cycle.",
+  "requirements": [
+    "ASSERTION TYPE: Clocked assert property.",
+    "STABILITY DEFINITION: Data stable = data[current_cycle] == data[next_cycle]. Use $stable(data) which is equivalent to (data == $past(data)).",
+    "TRIGGER: When enable asserted (enable==1), check stability in NEXT cycle. Use implication with ##1.",
+    "ENABLE SEMANTICS: Clarify if ",
+    " means: (1) stability for exactly 1 cycle after enable, or (2) stability while enable remains high. Default: one cycle after.",
+    "RESET HANDLING: disable iff (rst).",
+    "UNKNOWN HANDLING: If enable or data can be X, gate appropriately.",
+    "Test Case 1 - Pass: enable=1 at cycle N, data=5. At cycle N+1, data=5. Assertion passes.",
+    "Test Case 2 - Fail: enable=1 at cycle N, data=5. At cycle N+1, data=7. Assertion fails.",
+    "Test Case 3 - Multiple Enables: enable=1 for 3 consecutive cycles. Data changes each cycle. Verify each enable checks its own next cycle.",
+    "Test Case 4 - Enable with X: enable=X. Verify assertion gated or handles correctly.",
+    "Test Case 5 - Data Change Before Enable: data changes, then enable=1, then data stable. Assertion passes (only checks after enable)."
+  ],
+  "hints": [
+    "Stability operator: $stable(signal) returns true if signal unchanged from previous sample. Equivalent to (signal == $past(signal,1)).",
+    "One-cycle delay: enable |-> ##1 $stable(data). When enable true, check data stable at next cycle."
+  ]
+}

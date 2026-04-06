@@ -1,0 +1,29 @@
+{
+  "id": "assert19",
+  "shortName": "Protocol Event Sequence Coverage",
+  "domain": "design-verification",
+  "category": "Constraints",
+  "difficulty": "Hard",
+  "topics": [
+    "Assertions",
+    "Coverage",
+    "Protocol"
+  ],
+  "question": "Write Coverage for Protocol Event Sequences",
+  "description": "Write coverage assertions to measure coverage of different valid event sequences in a communication protocol. Track sequence patterns and protocol phases.",
+  "requirements": [
+    "EVENT DEFINITION: Define protocol events (e.g., REQ, ACK, DATA, DONE).",
+    "VALID SEQUENCES: Identify valid event sequences. Example: REQ→ACK→DATA→DONE, REQ→ACK→DONE (no data).",
+    "COVERAGE PROPERTIES: Create cover property for each valid sequence.",
+    "INVALID SEQUENCES: Optionally assert against invalid sequences (e.g., DATA before ACK).",
+    "SEQUENCE MARKERS: Define clear start/end markers to avoid counting overlapping sequences incorrectly.",
+    "BINS: Use covergroup bins for sequence types or SVA cover properties for temporal sequences.",
+    "RESET: disable iff (rst).",
+    "Test Case 1 - Sequence REQ→ACK→DATA→DONE: Generate this sequence. Verify coverage bin/cover property hits.",
+    "Test Case 2 - Sequence REQ→ACK→DONE: Generate short sequence without DATA. Verify separate coverage.",
+    "Test Case 3 - Multiple Sequences: Generate several sequences of different types. Verify each tracked independently.",
+    "Test Case 4 - Overlapping Sequences: REQ at cycle 0, another REQ at cycle 5 (before first DONE). Verify both sequences tracked correctly.",
+    "Test Case 5 - Coverage Report: Ensure all expected sequences covered before test end."
+  ],
+  "hints": []
+}

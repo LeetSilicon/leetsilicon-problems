@@ -1,0 +1,20 @@
+{
+  "id": "string19",
+  "shortName": "Run-Length Encoding",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Medium",
+  "topics": [
+    "String",
+    "Two Pointers"
+  ],
+  "question": "Run-Length Encoding",
+  "description": "Given a string `s`, perform run-length encoding: compress consecutive runs into `count + character` format.\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: s = \"aaaabbbcc\"\\nOutput: \"4a3b2c\"\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: s = \"abcd\"\\nOutput: \"1a1b1c1d\"\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- `0 <= s.length <= 10⁵`",
+  "requirements": [
+    "Append count + character per run"
+  ],
+  "hints": [
+    "Use two pointers to mark the start of each run.",
+    "Append count and character when the run ends."
+  ]
+}

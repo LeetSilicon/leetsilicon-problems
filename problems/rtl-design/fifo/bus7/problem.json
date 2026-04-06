@@ -1,0 +1,35 @@
+{
+  "id": "bus7",
+  "shortName": "AXI Write-Only Control",
+  "domain": "rtl-design",
+  "category": "FIFO / Queue",
+  "difficulty": "Easy",
+  "topics": [
+    "AXI",
+    "Control",
+    "RTL"
+  ],
+  "question": "Build AXI-Lite Write-Only Control Block",
+  "description": "Implement a write-only AXI-Lite peripheral with enable and mode control registers.\\n\\n' +\n        '**Register map:**\\n' +\n        '```\\n0x00: enable register (write-only)\\n0x04: mode register   (write-only)\\nAny read → error response\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- Writes update control registers\\n' +\n        '- Reads always return error on R channel\\n' +\n        '- Reset clears enable and mode",
+  "requirements": [
+    "REGISTER MAP: 0x00 = enable register, 0x04 = mode register.",
+    "WRITE SUPPORT: Writes to valid addresses update corresponding control registers.",
+    "READ ERROR: Any read attempt should return an error response on R channel.",
+    "AXI-LITE PROTOCOL: Support proper AW, W, B, AR, and R handshake behavior.",
+    "RESET: Clear enable and mode registers on reset.",
+    "WRITE ORDERING: Accept AW and W in any order.",
+    "WRITE RESPONSE: Return OKAY for valid writes and error for invalid writes.",
+    "Test Case 1 - Enable Write: Write 1 to 0x00. Expected: enable register becomes 1.",
+    "Test Case 2 - Mode Write: Write 3 to 0x04. Expected: mode register becomes 3.",
+    "Test Case 3 - Read Attempt: Read 0x00. Expected: RRESP indicates error.",
+    "Test Case 4 - Invalid Write: Write to 0x08. Expected: BRESP indicates error.",
+    "Test Case 5 - Reset: After writing registers, assert reset. Expected: enable and mode clear to 0."
+  ],
+  "hints": [
+    "Implement two internal registers for enable and mode.",
+    "Writes behave like a normal AXI-Lite register slave.",
+    "For reads, return RVALID with an error response code.",
+    "Use address decode to select which control register to update.",
+    "This is a good starter problem for learning AXI-Lite write flow."
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "id": "assert16",
+  "shortName": "FSM State Transition Coverage",
+  "domain": "design-verification",
+  "category": "Constraints",
+  "difficulty": "Hard",
+  "topics": [
+    "Assertions",
+    "Coverage",
+    "FSM"
+  ],
+  "question": "Write Coverage for FSM State Transitions",
+  "description": "Write coverage assertions to measure functional coverage of state transitions in a finite state machine. Track all legal and illegal transitions. Ensure comprehensive FSM coverage.",
+  "requirements": [
+    "STATE DEFINITION: Define FSM states (e.g., IDLE, ACTIVE, DONE). Use state encoding from design.",
+    "LEGAL TRANSITIONS: Define all valid state transitions. Example: IDLE→ACTIVE, ACTIVE→DONE, DONE→IDLE.",
+    "ILLEGAL TRANSITIONS: Identify and assert against illegal transitions. Example: IDLE→DONE (if not allowed).",
+    "COVERAGE FORM: Use cover property for each legal transition: cover property (@(posedge clk) (state==IDLE) ##1 (state==ACTIVE));",
+    "ASSERTION FORM: Assert illegal transitions never occur: assert property (@(posedge clk) disable iff (rst) (state==IDLE) |-> ##1 (state != DONE));",
+    "RESET STATE: Cover reset to IDLE transition. Assert FSM in IDLE after reset.",
+    "UNREACHABLE STATES: If certain states should never be reached, assert against them: assert property (@(posedge clk) disable iff (rst) state != UNREACHABLE);",
+    "CROSS COVERAGE: Use covergroups to cross state transitions with input conditions.",
+    "Test Case 1 - Legal Transition Coverage: Run random stimulus. Verify all legal transitions hit in coverage report.",
+    "Test Case 2 - Illegal Transition Detection: Force illegal transition (e.g., IDLE→DONE). Verify assertion fires.",
+    "Test Case 3 - Reset Coverage: Assert and release reset. Verify coverage hits RESET→IDLE transition.",
+    "Test Case 4 - Unreachable State: If state encoding allows unreachable states, verify assertion prevents entry.",
+    "Test Case 5 - Coverage Closure: Ensure 100% state transition coverage achieved before test completion."
+  ],
+  "hints": [
+    "Cover each transition: cover property (@(posedge clk) ($rose(state==S1) ##1 (state==S2)));",
+    "Alternative covergroup: covergroup cg @(posedge clk); cp_state: coverpoint state; cp_trans: coverpoint {$past(state), state}; endgroup",
+    "Cross coverage: cross state with inputs: cross state, input_sig; To track transitions under conditions.",
+    "Assert legal set: assert property (@(posedge clk) disable iff (rst) state inside {IDLE, ACTIVE, DONE});",
+    "Assert specific illegal: assert property (@(posedge clk) disable iff (rst) (state==IDLE) |-> ##1 (state inside {IDLE, ACTIVE})); No direct IDLE→DONE.",
+    "Reset assertion: assert property (@(posedge clk) $rose(!rst) |-> ##1 (state==IDLE));",
+    "Unreachable: If state is 2-bit enum with only 3 states defined, 4th encoding is unreachable: assert property (@(posedge clk) state != 2\\",
+    ",\n    "
+  ]
+}

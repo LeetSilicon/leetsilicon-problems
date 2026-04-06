@@ -1,0 +1,18 @@
+{
+  "id": "string22",
+  "shortName": "Longest Common Subsequence (String)",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Hard",
+  "topics": [
+    "DP",
+    "String"
+  ],
+  "question": "Longest Common Subsequence",
+  "description": "Given two strings `a` and `b`, return the length of their **longest common subsequence**. If there is no common subsequence, return `0`.\\n\\n' +\n        'A subsequence is a sequence that can be derived by deleting some or no elements without changing the order.\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: a = \"abcde\", b = \"ace\"\\nOutput: 3\\nExplanation: LCS is \"ace\".\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: a = \"abc\", b = \"def\"\\nOutput: 0\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- `1 <= a.length, b.length <= 1000`",
+  "requirements": [
+    "Time complexity: O(m * n)",
+    "Use 2D DP table"
+  ],
+  "hints": []
+}

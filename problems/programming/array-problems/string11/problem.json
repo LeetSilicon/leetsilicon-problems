@@ -1,0 +1,19 @@
+{
+  "id": "string11",
+  "shortName": "Count Vowels and Consonants",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Easy",
+  "topics": [
+    "String"
+  ],
+  "question": "Count Vowels and Consonants",
+  "description": "Given a string `s`, return the count of vowels and consonants as a pair `(vowels, consonants)`.\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: s = \"Hello\"\\nOutput: 2 3\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: s = \"AEIOU\"\\nOutput: 5 0\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- Vowels: a, e, i, o, u (case-insensitive)\\n' +\n        '- Ignore non-alphabetic characters",
+  "requirements": [
+    "Case-insensitive comparison",
+    "Return both counts"
+  ],
+  "hints": [
+    "Convert to lowercase, check membership in {a,e,i,o,u}."
+  ]
+}

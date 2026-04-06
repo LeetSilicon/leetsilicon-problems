@@ -1,0 +1,28 @@
+{
+  "id": "game2",
+  "shortName": "Two Matrices Unique Minimums",
+  "domain": "design-verification",
+  "category": "Constraints",
+  "difficulty": "Medium",
+  "topics": [
+    "Constraints",
+    "Matrix",
+    "Minimum"
+  ],
+  "question": "Generate Two 3×3 Matrices with Different Minimum Values",
+  "description": "Write SystemVerilog uvm constraints to generate two 3×3 matrices such that the minimum value in matrix A differs from the minimum value in matrix B. Optionally enforce minimum uniqueness within each matrix.",
+  "requirements": [
+    "TWO MATRICES: matA[3][3] and matB[3][3].",
+    "ELEMENT RANGE: Define value domain (e.g., int [0:100]).",
+    "MINIMUM VALUES: minA = minimum element in matA. minB = minimum element in matB.",
+    "UNIQUENESS ACROSS MATRICES: minA ≠ minB. The two minimum values must differ.",
+    "WITHIN-MATRIX UNIQUENESS (Optional): Minimum value in each matrix appears exactly once (strict minimum). Not required unless specified.",
+    "VALUE REPETITION: Values can repeat within and across matrices (unless uniqueness enforced).",
+    "Test Case 1 - Minimum Computation: After randomize, compute minA = min(matA). Compute minB = min(matB). Verify minA ≠ minB.",
+    "Test Case 2 - Boundary Values: Force minA=0 (add temp constraint). Verify minB ≠ 0 and solver succeeds.",
+    "Test Case 3 - UNSAT: Constrain all elements in both matrices to equal same value (e.g., all=50). Verify randomize fails (would force minA==minB).",
+    "Test Case 4 - Distribution: Over many randomizations, verify minA and minB span domain (not stuck at same values).",
+    "Test Case 5 - Within-Matrix Min Unique (if enforced): For each matrix, verify minimum appears exactly once."
+  ],
+  "hints": []
+}

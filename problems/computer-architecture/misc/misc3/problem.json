@@ -1,0 +1,30 @@
+{
+  "id": "misc3",
+  "shortName": "Round-Robin Arbiter",
+  "domain": "computer-architecture",
+  "category": "Decoders, Arbiters, Misc",
+  "difficulty": "Hard",
+  "topics": [
+    "Arbiter",
+    "RTL"
+  ],
+  "question": "Design Round-Robin Arbiter for Fair Request Arbitration",
+  "description": "Implement a round-robin arbiter granting one requestor per cycle with rotating priority.\\n\\n' +\n        '**Example:**\\n' +\n        '```\\nrequest=111 → grants rotate: 0→1→2→0→1→2...\\nrequest=010 → always grants requestor 1\\nrequest=000 → grant_valid=0, pointer unchanged\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- One-hot grant output\\n' +\n        '- Maintain last_grant pointer for fairness\\n' +\n        '- Fair share over time for continuous requestors",
+  "requirements": [
+    "INPUTS: request vector (N bits, request[i]=1 means requestor i wants grant).",
+    "OUTPUTS: (1) grant vector (N bits, one-hot encoding of granted requestor), (2) grant_valid (1 if grant issued, 0 if no requests).",
+    "ONE-HOT GRANT: At most one grant bit is asserted per cycle. Use one-hot encoding (only grant[i]=1 for granted requestor i).",
+    "ROUND-ROBIN PRIORITY: Maintain last_grant pointer (register storing last granted index). On next grant, search for requests starting from (last_grant+1) with wrap-around.",
+    "POINTER UPDATE: On successful grant, update last_grant to granted index. If no grant (no requests), last_grant unchanged.",
+    "NO REQUESTS: When request vector is all zeros, grant_valid=0, grant vector all zeros, last_grant unchanged.",
+    "FAIRNESS: Over time, if all requestors continuously request, each gets grant in rotating order (fair share).",
+    "Test Case 1 - Continuous Requests: request[0:2]=111 (all request continuously). Expected: grants rotate: grant[0], grant[1], grant[2], grant[0], ... each cycle.",
+    "Test Case 2 - Sparse Requests: request changes dynamically (e.g., 110, 010, 101, ...). Expected: arbiter grants next eligible requestor after last_grant in round-robin order.",
+    "Test Case 3 - Single Requestor: Only request[2]=1. Expected: grant[2]=1 every cycle (no competition)."
+  ],
+  "hints": [
+    "Rotate request to place last_grant at LSB, priority encode, rotate back.",
+    "Update: if (grant_valid) last_grant <= granted_index;",
+    "Assertion: $onehot0(grant)."
+  ]
+}

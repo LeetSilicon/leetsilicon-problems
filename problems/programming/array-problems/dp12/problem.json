@@ -1,0 +1,17 @@
+{
+  "id": "dp12",
+  "shortName": "Word Break",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Medium",
+  "topics": [
+    "DP",
+    "String"
+  ],
+  "question": "Word Break",
+  "description": "Given a string `s` and a dictionary of strings `wordDict`, return `true` if `s` can be segmented into a space-separated sequence of one or more dictionary words.\\n\\n' +\n        'Note that the same word in the dictionary may be reused multiple times.\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: s = \"leetcode\", wordDict = [\"leet\",\"code\"]\\nOutput: true\\nExplanation: \"leetcode\" = \"leet\" + \"code\"\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: s = \"catsandog\", wordDict = [\"cats\",\"dog\",\"sand\",\"and\",\"cat\"]\\nOutput: false\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- `1 <= s.length <= 300`\\n' +\n        '- `1 <= wordDict.length <= 1000`\\n' +\n        '- `1 <= wordDict[i].length <= 20`",
+  "requirements": [
+    "Time complexity: O(n²)"
+  ],
+  "hints": []
+}

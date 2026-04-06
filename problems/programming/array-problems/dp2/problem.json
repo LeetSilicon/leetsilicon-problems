@@ -1,0 +1,21 @@
+{
+  "id": "dp2",
+  "shortName": "Product of Array Except Self",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Prefix Product"
+  ],
+  "question": "Product of Array Except Self",
+  "description": "Given an integer array `nums`, return an array `answer` such that `answer[i]` is equal to the product of all the elements of `nums` except `nums[i]`.\\n\\n' +\n        'You must write an algorithm that runs in `O(n)` time and **without using the division operation**.\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: nums = [1,2,3,4]\\nOutput: [24,12,8,6]\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: nums = [-1,1,0,-3,3]\\nOutput: [0,0,9,0,0]\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- `2 <= nums.length <= 10⁵`\\n' +\n        '- No division allowed",
+  "requirements": [
+    "Time: O(n), Space: O(1) excluding output",
+    "Use prefix and suffix products"
+  ],
+  "hints": [
+    "Compute prefix products left-to-right, then suffix products right-to-left.",
+    "Multiply them together for each index."
+  ]
+}

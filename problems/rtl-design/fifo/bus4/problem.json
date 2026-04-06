@@ -1,0 +1,36 @@
+{
+  "id": "bus4",
+  "shortName": "AXI GPIO",
+  "domain": "rtl-design",
+  "category": "FIFO / Queue",
+  "difficulty": "Medium",
+  "topics": [
+    "AXI",
+    "GPIO",
+    "Peripheral"
+  ],
+  "question": "Build AXI-Lite GPIO Peripheral",
+  "description": "Implement an AXI-Lite GPIO with output register (0x00) and input register (0x04).\\n\\n' +\n        '**Register map:**\\n' +\n        '```\\n0x00: gpio_out (read/write)\\n0x04: gpio_in  (read-only, write returns error or ignored)\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- AXI-Lite protocol with all five channels\\n' +\n        '- gpio_in samples external pins\\n' +\n        '- Reset clears gpio_out to 0",
+  "requirements": [
+    "REGISTER MAP: Address 0x00 = GPIO output register, address 0x04 = GPIO input register.",
+    "WRITE OUTPUT: Writes to 0x00 update gpio_out.",
+    "READ INPUT: Reads from 0x04 return current gpio_in value.",
+    "READ OUTPUT: Reads from 0x00 return current output register value.",
+    "WRITE TO INPUT REGISTER: Writes to 0x04 should return error response or be ignored based on design choice.",
+    "AXI-LITE PROTOCOL: Implement all five AXI-Lite channels with correct handshake behavior.",
+    "BACKPRESSURE: BVALID and RVALID must remain asserted until accepted.",
+    "RESET: Clear gpio_out register on reset.",
+    "Test Case 1 - Output Write: Write 0xA5A5A5A5 to 0x00. Expected: gpio_out updates to written value.",
+    "Test Case 2 - Input Read: gpio_in=0x0000000F, read 0x04. Expected: RDATA=0x0000000F.",
+    "Test Case 3 - Output Readback: Write to 0x00, then read from 0x00. Expected: read returns written output value.",
+    "Test Case 4 - Invalid Write: Write to 0x04. Expected: error or ignored behavior per spec.",
+    "Test Case 5 - Reset: Assert reset. Expected: gpio_out clears to 0."
+  ],
+  "hints": [
+    "Use one register for output storage and a direct wire/input for gpio_in.",
+    "Decode address 0x00 for output and 0x04 for input.",
+    "For invalid writes, return SLVERR on B channel if desired.",
+    "Read logic can use a case statement on ARADDR.",
+    "This problem is mainly register decode plus AXI-Lite handshake."
+  ]
+}

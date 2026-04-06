@@ -1,0 +1,25 @@
+{
+  "id": "rtl2",
+  "shortName": "1-Cycle Pulse Detector",
+  "domain": "rtl-design",
+  "category": "FIFO / Queue",
+  "difficulty": "Easy",
+  "topics": [
+    "RTL",
+    "Sequential Logic"
+  ],
+  "question": "Detect a One-Cycle High Pulse (0→1→0)",
+  "description": "Assert output when input is high for exactly one clock cycle (pattern 0,1,0 in consecutive samples).\\n\\n' +\n        '**Constraints:**\\n' +\n        '- Keep 2-cycle history\\n' +\n        '- Two-cycle high (0,1,1,0) does NOT trigger",
+  "requirements": [
+    "INPUTS: clk, rst_n (optional), sig_in.",
+    "OUTPUT: onecycle_pulse.",
+    "HISTORY: Keep 2-cycle history using two registers.",
+    "DETECT: Assert onecycle_pulse for 1 cycle when pattern 0,1,0 is observed in consecutive samples.",
+    "Test Case - Valid: ...0,1,0... triggers onecycle_pulse once.",
+    "Test Case - Two-cycle high: ...0,1,1,0... does not trigger.",
+    "Test Case - Stuck high: ...1,1,1... does not trigger."
+  ],
+  "hints": [
+    "Pipeline: d1<=sig_in, d2<=d1; detect using (d2, d1, sig_in)."
+  ]
+}

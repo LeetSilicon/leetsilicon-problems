@@ -1,0 +1,20 @@
+{
+  "id": "string9",
+  "shortName": "String Compression",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Medium",
+  "topics": [
+    "String",
+    "Two Pointers"
+  ],
+  "question": "String Compression",
+  "description": "Given a string `s`, compress it using the counts of repeated characters. For example, `\"aabbbcccc\"` becomes `\"a2b3c4\"`.\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: s = \"aabbbcccc\"\\nOutput: \"a2b3c4\"\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: s = \"abc\"\\nOutput: \"abc\"\\nExplanation: Compressed is not shorter, return original.\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- `1 <= s.length <= 10⁴`\\n' +\n        '- `s` consists only of lowercase English letters",
+  "requirements": [
+    "Return original if compressed is not shorter"
+  ],
+  "hints": [
+    "Count consecutive equal characters.",
+    "Append character + count to a builder."
+  ]
+}

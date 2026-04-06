@@ -1,0 +1,27 @@
+{
+  "id": "misc4",
+  "shortName": "Reorder Buffer Entry",
+  "domain": "computer-architecture",
+  "category": "Decoders, Arbiters, Misc",
+  "difficulty": "Hard",
+  "topics": [
+    "ROB",
+    "OOO",
+    "RTL"
+  ],
+  "question": "Implement Reorder Buffer (ROB) Entry Management Logic",
+  "description": "Design ROB entry management for an out-of-order processor.\\n\\n' +\n        '**Operations:**\\n' +\n        '```\\nAllocate: store instruction at tail, increment tail\\nWriteback: mark entry ready, store result\\nCommit: retire from head if valid+ready, increment head\\nFlush: invalidate entries between flush point and tail\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- Circular buffer with head/tail pointers\\n' +\n        '- Commit only in-order from head\\n' +\n        '- Full when (tail+1) % size == head",
+  "requirements": [
+    "ROB ENTRY FIELDS: Each entry contains: (1) valid (entry occupied), (2) ready (instruction completed), (3) dest_reg (destination register tag), (4) value (result value or pointer to physical register), (5) exception flags (optional), (6) PC (optional, for debugging).",
+    "CIRCULAR BUFFER: ROB is circular buffer with head and tail pointers. Size: NUM_ENTRIES. Head points to oldest instruction (commit candidate). Tail points to next free entry (allocation).",
+    "ALLOCATION (DISPATCH): On instruction dispatch, allocate entry at tail. Store instruction info. Increment tail pointer. If full (tail+1 == head), stall dispatch.",
+    "WRITEBACK (MARK READY): When instruction completes, find its ROB entry (by ROB ID), mark ready=1, store result value.",
+    "COMMIT (RETIRE): Commit instructions in-order from head. Only commit if head entry is valid and ready. Increment head pointer. Free entry (valid=0).",
+    "FLUSH: On mispredict or exception, invalidate all younger entries (between flush point and tail). Options: (1) Reset tail to flush point, (2) Invalidate entries individually.",
+    "FULL/EMPTY STATUS: Full when (tail+1) % NUM_ENTRIES == head. Empty when tail == head.",
+    "Test Case 1 - Allocate, Writeback, Commit: Allocate instruction at tail. Later, mark ready. Then commit from head. Verify head increments, entry freed.",
+    "Test Case 2 - Not-Ready Blocks Commit: Head entry not ready (ready=0). Younger entry is ready. Expected: commit stalls at head, does not skip to younger entry.",
+    "Test Case 3 - Flush on Mispredict: Allocate several instructions. Mispredict detected. Flush entries after mispredict point. Expected: tail updated, flushed entries invalid."
+  ],
+  "hints": []
+}

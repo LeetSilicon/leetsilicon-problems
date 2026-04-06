@@ -1,0 +1,22 @@
+{
+  "id": "array1",
+  "shortName": "Maximum and Minimum in an Array",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Easy",
+  "topics": [
+    "Array"
+  ],
+  "question": "Maximum and Minimum in an Array",
+  "description": "Given an integer array `nums`, return the maximum and minimum elements.\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: nums = [5,2,8,1,9]\\nOutput: 9 1\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: nums = [42]\\nOutput: 42 42\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- `1 <= nums.length <= 10⁵`\\n' +\n        '- `-10⁹ <= nums[i] <= 10⁹`",
+  "requirements": [
+    "Return both max and min in a single pass",
+    "Time complexity: O(n)",
+    "Space complexity: O(1)"
+  ],
+  "hints": [
+    "Initialize both max and min with the first element.",
+    "Compare each element with current max and min as you iterate.",
+    "Only one pass through the array is needed."
+  ]
+}

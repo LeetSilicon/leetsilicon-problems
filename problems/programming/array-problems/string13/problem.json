@@ -1,0 +1,19 @@
+{
+  "id": "string13",
+  "shortName": "Count Character Occurrence",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Easy",
+  "topics": [
+    "String",
+    "Hash Table"
+  ],
+  "question": "Count Character Occurrences",
+  "description": "Given a string `s` and a character `ch`, return the number of times `ch` appears in `s`.\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: s = \"hello\", ch = \"l\"\\nOutput: 2\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: s = \"banana\", ch = \"a\"\\nOutput: 3\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- `0 <= s.length <= 10⁵`\\n' +\n        '- Case-sensitive comparison",
+  "requirements": [
+    "Time complexity: O(n)"
+  ],
+  "hints": [
+    "Simple loop counter or use built-in count function."
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "array2",
+  "shortName": "Reverse an Array",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Easy",
+  "topics": [
+    "Array"
+  ],
+  "question": "Reverse an Array",
+  "description": "Given an array `nums`, reverse it **in-place**.\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: nums = [1,2,3,4,5]\\nOutput: [5,4,3,2,1]\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: nums = [1,2,3,4]\\nOutput: [4,3,2,1]\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- `0 <= nums.length <= 10⁵`\\n' +\n        '- O(1) extra space",
+  "requirements": [
+    "Reverse in-place with O(1) extra space",
+    "Use two-pointer technique"
+  ],
+  "hints": [
+    "Use two pointers at each end and swap while they haven\\",
+    ",\n        "
+  ]
+}

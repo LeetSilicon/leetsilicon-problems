@@ -1,0 +1,27 @@
+{
+  "id": "rtl8",
+  "shortName": "Fibonacci Generator",
+  "domain": "rtl-design",
+  "category": "FIFO / Queue",
+  "difficulty": "Medium",
+  "topics": [
+    "RTL",
+    "Datapath",
+    "Registers"
+  ],
+  "question": "Fibonacci Sequence Generator with Enable",
+  "description": "Implement a Fibonacci generator advancing only when enable is asserted.\\n\\n' +\n        '**State:** `a, b registers; next = a + b`\\n\\n' +\n        '**Constraints:**\\n' +\n        '- Parameterizable output width W\\n' +\n        '- enable=0 holds output\\n' +\n        '- Reset initializes to produce 0, 1, 1, 2, 3, 5, ...",
+  "requirements": [
+    "PARAM: W (output width).",
+    "INPUTS: clk, rst_n, enable.",
+    "OUTPUT: fib_out.",
+    "STATE: Two registers a,b; next=a+b.",
+    "UPDATE: If enable, a<=b, b<=a+b.",
+    "RESET: Initialize to produce sequence starting 0,1,... (define exact first outputs).",
+    "Test Case - Hold: enable=0 holds outputs.",
+    "Test Case - Resume: enable=1 continues sequence."
+  ],
+  "hints": [
+    "Use two always_ff regs and one combinational add."
+  ]
+}

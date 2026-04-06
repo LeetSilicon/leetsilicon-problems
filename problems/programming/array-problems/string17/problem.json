@@ -1,0 +1,18 @@
+{
+  "id": "string17",
+  "shortName": "Count Words in a String",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Easy",
+  "topics": [
+    "String"
+  ],
+  "question": "Number of Words in a String",
+  "description": "Given a string `s`, return the number of words separated by spaces. Multiple spaces may appear between words.\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: s = \"Hello World\"\\nOutput: 2\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: s = \"one two three four five\"\\nOutput: 5\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- `1 <= s.length <= 10⁴`\\n' +\n        '- Ignore leading/trailing spaces",
+  "requirements": [
+    "Handle multiple consecutive spaces"
+  ],
+  "hints": [
+    "Split by whitespace and filter empty tokens, or count space→non-space transitions."
+  ]
+}

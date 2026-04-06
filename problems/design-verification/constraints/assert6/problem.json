@@ -1,0 +1,37 @@
+{
+  "id": "assert6",
+  "shortName": "Signal Always High",
+  "domain": "design-verification",
+  "category": "Constraints",
+  "difficulty": "Medium",
+  "topics": [
+    "Assertions",
+    "Temporal",
+    "Always"
+  ],
+  "question": "Signal Always High in Clock Domain",
+  "description": "Write temporal assertion to ensure signal \"sig\" is always high (logic 1) on every clock cycle within the clock domain, outside of reset. This is a safety property.",
+  "requirements": [
+    "ALWAYS PROPERTY: Signal must be 1 on every cycle (after reset).",
+    "RESET HANDLING: disable iff (rst) to exclude reset period.",
+    "TEMPORAL FORM: No explicit temporal operators needed for ",
+    ". Simple Boolean check suffices.",
+    "ALTERNATIVE: property p_signal_always_high; @(posedge clk) disable iff (rst) (sig == 1'b1); endproperty",
+    "INITIALIZATION: If sig may be 0 initially after reset, add delay: ##1 sig; to check after first cycle.",
+    "UNKNOWN: Handle X: sig === 1'b1 for strict checking.",
+    "Test Case 1 - Always High: sig=1 for all cycles. Assertion passes.",
+    "Test Case 2 - Glitch Low: sig=0 for one cycle. Assertion fails.",
+    "Test Case 3 - Reset Behavior: During reset, sig=0. After reset, sig=1. Assertion passes (disabled during reset).",
+    "Test Case 4 - X State: sig=X at some cycle. Assertion may fail or be gated depending on handling.",
+    "Test Case 5 - Continuous Monitoring: Run for 1000+ cycles with sig=1. Assertion continuously passes."
+  ],
+  "hints": [
+    "Simple form: assert property (@(posedge clk) disable iff (rst) sig);",
+    "Explicit value: assert property (@(posedge clk) disable iff (rst) (sig == 1));",
+    "Safety property: Checked every cycle. If sig ever drops to 0, assertion fails.",
+    "No temporal operator needed: This is not ",
+    " or ",
+    ". ",
+    "."
+  ]
+}

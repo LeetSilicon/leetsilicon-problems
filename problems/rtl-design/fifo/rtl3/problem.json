@@ -1,0 +1,25 @@
+{
+  "id": "rtl3",
+  "shortName": "Sequence Detector FSM",
+  "domain": "rtl-design",
+  "category": "FIFO / Queue",
+  "difficulty": "Medium",
+  "topics": [
+    "RTL",
+    "FSM"
+  ],
+  "question": "FSM Sequence Detector for 1,0,1,1,0",
+  "description": "Implement an FSM detecting serial pattern `10110` with a 1-cycle match pulse.\\n\\n' +\n        '**Constraints:**\\n' +\n        '- States represent progress through matching\\n' +\n        '- Define overlapping support\\n' +\n        '- Reset returns to IDLE",
+  "requirements": [
+    "INPUTS: clk, rst_n, bit_in.",
+    "OUTPUT: match_pulse (1 cycle).",
+    "FSM: States represent progress through matching 10110.",
+    "OVERLAP: Define whether overlapping matches are supported and implement consistently.",
+    "RESET: Return to IDLE state.",
+    "Test Case - Match: stream contains 10110 → match_pulse asserted on final bit.",
+    "Test Case - No match: stream without 10110 → match_pulse never asserts."
+  ],
+  "hints": [
+    "Use enum for states and always_ff for state register."
+  ]
+}

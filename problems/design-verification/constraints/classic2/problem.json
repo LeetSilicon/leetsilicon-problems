@@ -1,0 +1,26 @@
+{
+  "id": "classic2",
+  "shortName": "8 Queens Problem",
+  "domain": "design-verification",
+  "category": "Constraints",
+  "difficulty": "Hard",
+  "topics": [
+    "Constraints",
+    "Queens"
+  ],
+  "question": "Solve 8 Queens Problem Using Constraints",
+  "description": "Write uvm sv constraints to Place 8 queens on 8×8 chessboard such that no two queens attack each other. Queens attack same row, column, or diagonal. Model as constraint problem: assign column position for each row\\'s queen.",
+  "requirements": [
+    "BOARD: 8×8 chessboard.",
+    "QUEENS: 8 queens, one per row.",
+    "MODELING: Use array col[8] where col[r] = column position of queen in row r. Domain: col[r] in [0:7].",
+    "NO COLUMN CONFLICTS: No two queens in same column. unique{col}.",
+    "NO DIAGONAL CONFLICTS: No two queens on same diagonal. For rows i,j: abs(col[i]-col[j]) ≠ abs(i-j).",
+    "Test Case 1 - No Column Duplicates: Verify unique(col). All 8 values in [0:7] and distinct.",
+    "Test Case 2 - Diagonal Check: For all pairs (i,j) with i<j, verify abs(col[i]-col[j]) ≠ abs(i-j).",
+    "Test Case 3 - Solution Validity: Place queens on board per col[] assignments. Visually verify no attacks.",
+    "Test Case 4 - Multiple Solutions: Randomize with different seeds. Verify different valid placements (8-Queens has 92 solutions, 12 unique under symmetry).",
+    "Test Case 5 - UNSAT: Add conflicting constraint (e.g., col[0]==col[1]). Verify randomize fails."
+  ],
+  "hints": []
+}

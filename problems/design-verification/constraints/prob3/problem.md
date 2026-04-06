@@ -1,0 +1,45 @@
+# Uniform Distribution by Bit Count
+
+**Domain:** design-verification — Constraints  
+**Difficulty:** Hard  
+**Topics:** Constraints, Probability, Distribution
+
+---
+
+## Problem Statement
+
+10-bit Variable with Uniform Popcount Distribution
+
+Generate 10-bit variable where popcount (number of 1-bits) uniformly distributed: 10% probability for exactly 1 bit set, 10% for 2 bits, ..., 10% for all 10 bits set. Exclude popcount=0. write uvm sv constraint without $countones if constraint system doesnt support it.
+
+---
+
+## Requirements
+
+1. VARIABLE: 10-bit x (rand bit [9:0] x).
+
+2. POPCOUNT: Number of 1-bits in x. Values 1,2,3,...,10 (0 excluded per problem statement).
+
+3. UNIFORM BUCKETS: 10 buckets (popcount 1 through 10). Each bucket 10% probability.
+
+4. NO $COUNTONES IN CONSTRAINTS: Cannot use $countones() inside constraint. Must implement bit counting explicitly or use auxiliary variable.
+
+5. POPCOUNT CALCULATION: Count 1-bits via sum: x[0]+x[1]+...+x[9].
+
+6. DISTRIBUTION: Each popcount value appears equally likely. Not bit patterns (many patterns per popcount).
+
+7. Test Case 1 - Frequency Distribution: Randomize 20,000 times. Histogram popcount values 1-10. Each bucket expected ~2,000 occurrences (10% ± tolerance).
+
+8. Test Case 2 - Popcount=0 Excluded: Verify x never equals 0 (all bits zero). Count(x==0) should be 0.
+
+9. Test Case 3 - Popcount Range: For each popcount k in [1:10], verify at least one sample has exactly k bits set.
+
+10. Test Case 4 - Solver Performance: Verify randomize completes in reasonable time (not timeout). This is computationally heavy.
+
+11. Test Case 5 - Pattern Variety: Within each popcount bucket, verify different bit patterns appear (e.g., popcount=2 produces different pairs of bits set).
+
+---
+
+## Hints
+
+

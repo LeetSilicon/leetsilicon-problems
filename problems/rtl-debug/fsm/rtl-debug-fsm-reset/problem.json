@@ -1,0 +1,31 @@
+{
+  "id": "rtl-debug-fsm-reset",
+  "domain": "rtl-debug",
+  "category": "FSM",
+  "difficulty": "Medium",
+  "bugType": "state/output timing",
+  "summary": "Debug a 1011 sequence detector where detect pulse is asserted one cycle late after reset release.",
+  "signals": [
+    "clk",
+    "rst",
+    "in_bit",
+    "state",
+    "next_state",
+    "detect"
+  ],
+  "expectedBehavior": [
+    "detect should pulse exactly when sequence 1011 completes.",
+    "Reset should initialize state machine deterministically.",
+    "No extra detect pulse on reset deassertion or idle cycles."
+  ],
+  "hiddenChecks": [
+    "Reset sequence + immediate traffic",
+    "Overlapping pattern 1011011",
+    "Back-to-back patterns with idle gaps"
+  ],
+  "hints": [
+    "Check whether detect is derived from current state or next state.",
+    "Compare nonblocking updates of state and detect in the same clocked block.",
+    "A common fix is computing detect combinationally from next_state / input or registering it in the proper cycle."
+  ]
+}

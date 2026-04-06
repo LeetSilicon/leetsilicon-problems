@@ -1,0 +1,16 @@
+{
+  "id": "dp8",
+  "shortName": "Coin Change",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Medium",
+  "topics": [
+    "DP"
+  ],
+  "question": "Coin Change",
+  "description": "You are given an integer array `coins` representing coins of different denominations and an integer `amount` representing a total amount of money.\\n\\n' +\n        'Return the fewest number of coins that you need to make up that amount. If that amount cannot be made up, return `-1`.\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: coins = [1,2,5], amount = 11\\nOutput: 3\\nExplanation: 11 = 5 + 5 + 1\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: coins = [2], amount = 3\\nOutput: -1\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- `1 <= coins.length <= 12`\\n' +\n        '- `1 <= coins[i] <= 2³¹ - 1`\\n' +\n        '- `0 <= amount <= 10⁴`",
+  "requirements": [
+    "Use bottom-up DP"
+  ],
+  "hints": []
+}

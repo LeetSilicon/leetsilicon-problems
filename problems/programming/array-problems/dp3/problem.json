@@ -1,0 +1,18 @@
+{
+  "id": "dp3",
+  "shortName": "Longest Increasing Subsequence",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Medium",
+  "topics": [
+    "DP",
+    "Binary Search"
+  ],
+  "question": "Longest Increasing Subsequence",
+  "description": "Given an integer array `nums`, return the length of the longest **strictly increasing** subsequence.\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: nums = [10,9,2,5,3,7,101,18]\\nOutput: 4\\nExplanation: The LIS is [2,3,7,101].\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: nums = [0,1,0,3,2,3]\\nOutput: 4\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- `1 <= nums.length <= 2500`\\n' +\n        '- `-10⁴ <= nums[i] <= 10⁴`",
+  "requirements": [
+    "DP solution: O(n²)",
+    "Binary search: O(n log n)"
+  ],
+  "hints": []
+}

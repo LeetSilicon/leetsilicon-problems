@@ -1,0 +1,35 @@
+{
+  "id": "bus6",
+  "shortName": "AXI Read-Only Status",
+  "domain": "rtl-design",
+  "category": "FIFO / Queue",
+  "difficulty": "Easy",
+  "topics": [
+    "AXI",
+    "Status",
+    "Peripheral"
+  ],
+  "question": "Build AXI-Lite Read-Only Status Block",
+  "description": "Implement a read-only AXI-Lite peripheral exposing version and status registers.\\n\\n' +\n        '**Register map:**\\n' +\n        '```\\n0x00: version (hardcoded constant)\\n0x04: status  (driven from input)\\nAny write → error response\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- Reads return register contents\\n' +\n        '- Writes always return error on B channel\\n' +\n        '- Version is constant, status from input port",
+  "requirements": [
+    "REGISTER MAP: 0x00 = version register, 0x04 = status register.",
+    "READ-ONLY DESIGN: Reads from valid addresses return register contents.",
+    "WRITE ERROR: Any write attempt should generate an error response on B channel.",
+    "AXI-LITE HANDSHAKE: Implement proper VALID/READY protocol for all channels.",
+    "CONSTANT VERSION: Version register can be hardcoded to a constant value.",
+    "STATUS INPUT: Status register may be driven from an input signal.",
+    "RESET: Deassert response valid signals on reset.",
+    "Test Case 1 - Read Version: Read 0x00. Expected: fixed version value returned.",
+    "Test Case 2 - Read Status: Read 0x04. Expected: current status value returned.",
+    "Test Case 3 - Write Attempt: Write to 0x00. Expected: BRESP indicates error.",
+    "Test Case 4 - Invalid Read: Read 0x08. Expected: error or zero based on design choice.",
+    "Test Case 5 - Backpressure: Hold RREADY low after read response. Expected: RVALID stays high until accepted."
+  ],
+  "hints": [
+    "This is simpler than a normal AXI-Lite slave because no internal writeable register is needed.",
+    "Use a case statement for read address decode.",
+    "On any write handshake completion, return SLVERR on B channel.",
+    "Keep version as a localparam or constant register.",
+    "Status can come from an input port and be sampled during read."
+  ]
+}

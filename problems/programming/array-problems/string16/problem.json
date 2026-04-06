@@ -1,0 +1,18 @@
+{
+  "id": "string16",
+  "shortName": "To Lowercase / Uppercase",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Easy",
+  "topics": [
+    "String"
+  ],
+  "question": "To Lower Case / Upper Case",
+  "description": "Given a string `s`, convert it to lowercase and uppercase, and print both results.\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: s = \"Hello\"\\nOutput:\\nhello\\nHELLO\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- `1 <= s.length <= 100`\\n' +\n        '- Non-alphabetic characters stay unchanged",
+  "requirements": [
+    "Implement both conversions"
+  ],
+  "hints": [
+    "For ASCII: a-z and A-Z are offset by 32."
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "string1",
+  "shortName": "Reverse String",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Easy",
+  "topics": [
+    "String",
+    "Two Pointers"
+  ],
+  "question": "Reverse String",
+  "description": "Write a function that reverses a string. The input string is given as an array of characters `s`.\\n\\n' +\n        'You must do this by modifying the input array **in-place** with `O(1)` extra memory.\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: s = \"hello\"\\nOutput: \"olleh\"\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: s = \"a\"\\nOutput: \"a\"\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- `1 <= s.length <= 10⁵`",
+  "requirements": [
+    "In-place with O(1) extra space",
+    "Two-pointer technique"
+  ],
+  "hints": [
+    "Use two pointers at each end and swap while i < j."
+  ]
+}

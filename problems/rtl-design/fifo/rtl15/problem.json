@@ -1,0 +1,24 @@
+{
+  "id": "rtl15",
+  "shortName": "CDC Slow→Fast (1-bit)",
+  "domain": "rtl-design",
+  "category": "FIFO / Queue",
+  "difficulty": "Medium",
+  "topics": [
+    "RTL",
+    "CDC"
+  ],
+  "question": "2-FF Synchronizer for 1-bit CDC (Slow to Fast)",
+  "description": "Implement a classic 2-flop synchronizer in destination domain for a 1-bit signal.\\n\\n' +\n        '**Constraints:**\\n' +\n        '- Two serial flip-flops in dst_clk domain\\n' +\n        '- Output changes after 2 flops latency\\n' +\n        '- No combinational logic between stages",
+  "requirements": [
+    "INPUTS: dst_clk, dst_rst_n, async_sig_in.",
+    "OUTPUT: sig_sync.",
+    "SYNC: Two serial always_ff flops in dst_clk domain.",
+    "RESET: Reset clears both synchronizer stages and the synchronized output.",
+    "Test Case - Rising input: async input toggle propagates to sig_sync only after the 2-flop latency.",
+    "Test Case - Falling input: deassertion also propagates with the same two-stage latency."
+  ],
+  "hints": [
+    "Mark synchronizer flops with attributes if desired."
+  ]
+}

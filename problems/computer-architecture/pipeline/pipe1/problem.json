@@ -1,0 +1,30 @@
+{
+  "id": "pipe1",
+  "shortName": "Pipeline Registers",
+  "domain": "computer-architecture",
+  "category": "Pipeline & Control Logic",
+  "difficulty": "Hard",
+  "topics": [
+    "Pipeline",
+    "Control",
+    "RTL"
+  ],
+  "question": "Implement Pipeline Registers with Stall and Flush Controls",
+  "description": "Design pipeline stage registers supporting stall (hold current value) and flush (insert NOP/bubble).\\n\\n' +\n        '**Behavior:**\\n' +\n        '```\\nStall=1 → register holds current value\\nFlush=1 → register overwritten with NOP\\nBoth=1 → defined priority (document choice)\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- Define stall+flush simultaneous priority\\n' +\n        '- Reset initializes to safe NOP state\\n' +\n        '- Fields: instruction, PC, control signals, decoded registers, immediates",
+  "requirements": [
+    "STALL BEHAVIOR: When stall=1, pipeline register holds its current value (do not update from input). Typically implemented as clock enable = ~stall.",
+    "FLUSH BEHAVIOR: When flush=1, pipeline register is overwritten with NOP/bubble values. All control signals that cause state changes (RegWrite, MemWrite, etc.) are set to 0. Instruction field can be set to NOP encoding or all zeros.",
+    "SIMULTANEOUS STALL+FLUSH: Define priority when both stall=1 and flush=1 are asserted. Common choice: flush takes priority (flush always wins), or stall takes priority. Document chosen behavior clearly.",
+    "RESET BEHAVIOR: On reset, initialize register to safe NOP state (all control signals inactive).",
+    "REGISTER CONTENTS: Typical fields: (1) instruction bits, (2) PC value, (3) control signals (RegWrite, MemRead, MemWrite, ALUOp, etc.), (4) decoded source/destination registers, (5) immediate values.",
+    "VALID BIT: Optional: include valid bit that is set on normal update, cleared on flush.",
+    "Test Case 1 - Stall Holds State: Load registers with instruction A and control signals. Assert stall=1 for 3 cycles. Expected: register outputs remain unchanged for all 3 cycles.",
+    "Test Case 2 - Flush Inserts Bubble: Load registers with valid instruction. Assert flush=1 for 1 cycle. Expected: control signals become 0 (NOP semantics), valid bit cleared (if present).",
+    "Test Case 3 - Simultaneous Stall+Flush: Load instruction A. Assert both stall=1 and flush=1. Expected: behavior matches documented priority (e.g., if flush wins, output is NOP; if stall wins, output is unchanged A)."
+  ],
+  "hints": [
+    "Combine: if (flush) reg <= NOP; else if (!stall) reg <= input;",
+    "NOP: RegWrite=0, MemWrite=0, MemRead=0, Branch=0.",
+    "Test priority explicitly — most pipeline bugs occur here."
+  ]
+}

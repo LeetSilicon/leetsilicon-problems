@@ -1,0 +1,22 @@
+{
+  "id": "sw1",
+  "shortName": "Minimum Window Substring",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Hard",
+  "topics": [
+    "String",
+    "Sliding Window",
+    "Hash Table"
+  ],
+  "question": "Minimum Window Substring",
+  "description": "Given two strings `s` and `t` of lengths `m` and `n` respectively, return the **minimum window substring** of `s` such that every character in `t` (including duplicates) is included in the window.\\n\\n' +\n        'If there is no such substring, return the empty string `\"\"`.\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: s = \"ADOBECODEBANC\", t = \"ABC\"\\nOutput: \"BANC\"\\nExplanation: The minimum window substring is \"BANC\".\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: s = \"a\", t = \"aa\"\\nOutput: \"\"\\nExplanation: Both \\'a\\'s from t must be included.\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- `1 <= m, n <= 10⁵`\\n' +\n        '- `s` and `t` consist of uppercase and lowercase English letters",
+  "requirements": [
+    "Time complexity: O(m + n)",
+    "Sliding window with frequency map"
+  ],
+  "hints": [
+    "Expand right pointer to satisfy all required characters.",
+    "Shrink left pointer while window is still valid to minimize length."
+  ]
+}

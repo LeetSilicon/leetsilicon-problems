@@ -1,0 +1,29 @@
+{
+  "id": "prob2",
+  "shortName": "5% Probability for Lower Bits Same",
+  "domain": "design-verification",
+  "category": "Constraints",
+  "difficulty": "Medium",
+  "topics": [
+    "Constraints",
+    "Probability",
+    "Bits"
+  ],
+  "question": "4-bit Variable with Lower 2 Bits Same Probability 5%",
+  "description": "Write uvm sv constraint on 4-bit variable such that the probability of lower two bits being equal is 5%. Lower bits equal means x[1:0] is 00 or 11. Remaining 95% covers patterns 01 and 10.",
+  "requirements": [
+    "VARIABLE: 4-bit variable x (rand bit [3:0] x).",
+    "LOWER BITS: x[1:0] (bits 1 and 0).",
+    "SAME PATTERNS: x[1:0] same means 00 or 11. Two patterns total.",
+    "DIFFERENT PATTERNS: x[1:0] different means 01 or 10. Two patterns total.",
+    "PROBABILITY TARGET: P(x[1:0] in {00,11}) = 5%. P(x[1:0] in {01,10}) = 95%.",
+    "DISTRIBUTION: Use dist to assign weights. Total 4 patterns: 2 same, 2 different.",
+    "UPPER BITS: x[3:2] unconstrained unless specified otherwise.",
+    "Test Case 1 - Distribution Check: Randomize 10,000 times. Count occurrences where x[1:0] in {2'b00, 2'b11}. Expected: ~500 (5% ± tolerance).",
+    "Test Case 2 - Pattern Coverage: Verify all 4 lower-bit patterns (00,01,10,11) appear over many samples. Frequencies: 00≈2.5%, 01≈47.5%, 10≈47.5%, 11≈2.5%.",
+    "Test Case 3 - Upper Bits Randomness: Verify x[3:2] distributed uniformly (if unconstrained).",
+    "Test Case 4 - Seed Determinism: Different random seeds produce same statistical distribution.",
+    "Test Case 5 - Edge Cases: Verify both 00 and 11 appear (not just one same pattern)."
+  ],
+  "hints": []
+}

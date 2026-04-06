@@ -1,0 +1,18 @@
+{
+  "id": "dp10",
+  "shortName": "House Robber II",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Medium",
+  "topics": [
+    "DP"
+  ],
+  "question": "House Robber II",
+  "description": "All houses are arranged in a **circle**. That means the first house is the neighbor of the last one. Given an integer array `nums` representing the amount of money of each house, return the maximum amount you can rob without robbing adjacent houses.\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: nums = [2,3,2]\\nOutput: 3\\nExplanation: Cannot rob house 1 ($2) and house 3 ($2) since they are adjacent.\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: nums = [1,2,3,1]\\nOutput: 4\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- `1 <= nums.length <= 100`\\n' +\n        '- `0 <= nums[i] <= 1000`",
+  "requirements": [
+    "Run House Robber twice: exclude first or exclude last"
+  ],
+  "hints": [
+    "Return max(rob(0..n-2), rob(1..n-1))."
+  ]
+}

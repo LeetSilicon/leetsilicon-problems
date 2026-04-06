@@ -1,0 +1,17 @@
+{
+  "id": "dp7",
+  "shortName": "Climbing Stairs",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Easy",
+  "topics": [
+    "DP"
+  ],
+  "question": "Climbing Stairs",
+  "description": "You are climbing a staircase. It takes `n` steps to reach the top.\\n\\n' +\n        'Each time you can either climb `1` or `2` steps. In how many distinct ways can you climb to the top?\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: n = 2\\nOutput: 2\\nExplanation: 1+1 or 2\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: n = 3\\nOutput: 3\\nExplanation: 1+1+1, 1+2, 2+1\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- `1 <= n <= 45`",
+  "requirements": [
+    "Time: O(n), Space: O(1) optimized",
+    "Fibonacci pattern"
+  ],
+  "hints": []
+}

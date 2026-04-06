@@ -1,0 +1,29 @@
+{
+  "id": "bit3",
+  "shortName": "Equal 1s and 0s",
+  "domain": "design-verification",
+  "category": "Constraints",
+  "difficulty": "Medium",
+  "topics": [
+    "Constraints",
+    "Balance"
+  ],
+  "question": "Generate Value with Equal Number of 1-Bits and 0-Bits",
+  "description": "Write uvm sv constraint for variable where number of 1-bits equals number of 0-bits. Balanced bit pattern. Requires even bit width. Implement popcount without $countones if needed.",
+  "requirements": [
+    "WIDTH: Must be even (W % 2 == 0). Odd width makes equal 1s/0s impossible. Specify W (e.g., W=10).",
+    "BALANCE: Number of 1s = Number of 0s = W/2.",
+    "ODD WIDTH HANDLING: If W is odd, constraint is UNSAT. Verify randomize fails or define W as even.",
+    "POPCOUNT: Exactly W/2 bits set.",
+    "NO $COUNTONES IN CONSTRAINTS: Implement via explicit sum or construction.",
+    "Test Case 1 - Even Width Balance: W=10. Verify $countones(x) == 5 in testbench.",
+    "Test Case 2 - Odd Width UNSAT: W=11. Add constraint for equal 1s/0s. Verify randomize() fails.",
+    "Test Case 3 - Pattern Variety: Randomize 100 times. Verify different balanced patterns appear.",
+    "Test Case 4 - W=2: Minimal case. Possible values: 01 (1 one, 1 zero) or 10. Both valid.",
+    "Test Case 5 - Large W: W=32. Verify 16 ones, 16 zeros."
+  ],
+  "hints": [
+    "Width check: Assert W is even before applying constraint. static assert(W % 2 == 0);",
+    "Popcount constraint: int k = W/2; int cnt = sum of all bits; constraint { cnt == k; }"
+  ]
+}

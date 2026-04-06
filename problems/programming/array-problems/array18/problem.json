@@ -1,0 +1,21 @@
+{
+  "id": "array18",
+  "shortName": "Maximum Product Subarray",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "DP"
+  ],
+  "question": "Maximum Product Subarray",
+  "description": "Given an integer array `nums`, find a subarray that has the largest product, and return the product.\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: nums = [2,-5,-2,-4,3]\\nOutput: 24\\nExplanation: [-5,-2,-4,3] or [2,-5,-2] variants\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: nums = [-2]\\nOutput: -2\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- `1 <= nums.length <= 2 * 10⁴`\\n' +\n        '- `-10 <= nums[i] <= 10`",
+  "requirements": [
+    "Time complexity: O(n)",
+    "Space complexity: O(1)",
+    "Track both max and min product (negatives can flip)"
+  ],
+  "hints": [
+    "At each index, keep curMax and curMin because a negative flips sign."
+  ]
+}

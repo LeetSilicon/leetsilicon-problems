@@ -1,0 +1,28 @@
+{
+  "id": "unique3",
+  "shortName": "Map to N Non-Empty Queues",
+  "domain": "design-verification",
+  "category": "Constraints",
+  "difficulty": "Hard",
+  "topics": [
+    "Constraints",
+    "Queue"
+  ],
+  "question": "Randomly Distribute Array into N Non-Empty Queues",
+  "description": "Given an input array, randomly map elements to N output queues (N parameterized). Use UVM SystemVerilog constraints so that: (1) each input element appears in exactly one output queue, (2) all N output queues are non-empty, and (3) feasibility requires N ≤ input_size.",
+  "requirements": [
+    "INPUT ARRAY: Fixed size array arr with M elements.",
+    "PARAMETER N: Number of output queues. Must satisfy N ≤ M for feasibility (cannot create N non-empty queues from fewer than N elements).",
+    "OUTPUT QUEUES: Array of queues out_q[N].",
+    "EXACT ASSIGNMENT: Each arr[i] assigned to exactly one out_q[k]. No element dropped, no duplication.",
+    "NON-EMPTY: For all k in [0:N-1], out_q[k].size() >= 1. Every output queue has at least one element.",
+    "DUPLICATE VALUES: If input has duplicate values, assignment is by position (index), not value. Value duplicates can go to same or different queues.",
+    "FEASIBILITY CONDITION: N ≤ M. If N > M, constraint is UNSAT (cannot create more non-empty queues than elements).",
+    "Test Case 1 - Exact Cover: After randomize, collect all elements from all output queues. Verify multiset equals input array.",
+    "Test Case 2 - Non-Empty Check: For each out_q[k], assert size() >= 1. All queues populated.",
+    "Test Case 3 - Feasibility Boundary: Set N=M (each queue gets exactly 1 element). Verify randomize succeeds.",
+    "Test Case 4 - Infeasibility: Set N=M+1. Verify randomize() fails (returns 0).",
+    "Test Case 5 - Distribution Variety: Randomize many times with N<M. Verify different elements go to different queues across runs (not deterministic)."
+  ],
+  "hints": []
+}

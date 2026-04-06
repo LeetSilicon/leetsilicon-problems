@@ -1,0 +1,25 @@
+{
+  "id": "misc1",
+  "shortName": "Fixed Index Value",
+  "domain": "design-verification",
+  "category": "Constraints",
+  "difficulty": "Easy",
+  "topics": [
+    "Constraints",
+    "Array"
+  ],
+  "question": "Array with Specific Element Fixed at Index 5",
+  "description": "Write uvm sv constraints to generate array where element at index 5 is always fixed to value 100, while all other elements are randomized within defined bounds. Array size must be at least 6 to have index 5.",
+  "requirements": [
+    "ARRAY SIZE: Fixed size >= 6. Define exact size (e.g., size=10).",
+    "FIXED ELEMENT: a[5] must always equal 100. Hard constraint, no randomization.",
+    "OTHER ELEMENTS: All indices except 5 are randomized. Define bounds (e.g., [0:200]).",
+    "NO CONFLICTS: Ensure index 5 constraint doesnt conflict with range constraints (100 must be within allowed range).",
+    "Test Case 1 - Fixed Value: Randomize 1000 times. For every randomization, verify a[5] == 100.",
+    "Test Case 2 - Other Elements Random: Verify at least one other index changes across randomizations. Not all elements fixed.",
+    "Test Case 3 - Bounds Check: If element bounds are [0:200], verify 100 is in range. If bounds are [0:50], constraint would be UNSAT (verify failure).",
+    "Test Case 4 - Index Boundary: Test with size=6 (exactly index 5 exists). Verify works.",
+    "Test Case 5 - Distribution: For other indices, verify values distributed across allowed range."
+  ],
+  "hints": []
+}

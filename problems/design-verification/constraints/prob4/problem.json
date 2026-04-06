@@ -1,0 +1,29 @@
+{
+  "id": "prob4",
+  "shortName": "5 Bits Set with Consecutive Probability",
+  "domain": "design-verification",
+  "category": "Constraints",
+  "difficulty": "Hard",
+  "topics": [
+    "Constraints",
+    "Probability"
+  ],
+  "question": "5 Set Bits, 80% Consecutive, 20% Non-Consecutive",
+  "description": "Write uvm sv constraints to generate random number with exactly 5 bits set. With 80% probability, the 5 bits are consecutive (contiguous run). With 20% probability, the 5 bits are non-consecutive (spread out). Define word width to accommodate.",
+  "requirements": [
+    "POPCOUNT: Exactly 5 bits set (popcount = 5). Always.",
+    "WORD WIDTH: Define width W (must be ≥5). Example: W=16 or W=32.",
+    "CONSECUTIVE (80%): 5 bits form contiguous run. Pattern: 00011111000 (example). Run can start at any position 0 to W-5.",
+    "NON-CONSECUTIVE (20%): 5 bits set but NOT all consecutive. Example: 01010100100 (5 bits spread). No length-5 run exists.",
+    "PROBABILITY: 80% consecutive, 20% non-consecutive.",
+    "MODE SELECTION: Use helper variable to select mode. Then apply pattern constraint.",
+    "Test Case 1 - Popcount Always 5: For every randomization, verify $countones(x) == 5 in testbench.",
+    "Test Case 2 - Consecutive Rate: Randomize 10,000 times. Detect if x has contiguous 5-bit run. Expected ~8,000 have run (80% ± tolerance).",
+    "Test Case 3 - Non-Consecutive Valid: In 20% cases (no run), verify popcount still 5 and no length-5 run exists.",
+    "Test Case 4 - Start Position Variety: For consecutive mode, verify run starts at different positions across randomizations.",
+    "Test Case 5 - Pattern Validity: Manually inspect samples to confirm 80/20 split visually."
+  ],
+  "hints": [
+    "Mode selection: rand bit is_consec; constraint c_mode { is_consec dist {1:=80, 0:=20}; }"
+  ]
+}

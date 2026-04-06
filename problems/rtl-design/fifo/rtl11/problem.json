@@ -1,0 +1,25 @@
+{
+  "id": "rtl11",
+  "shortName": "Clock Divide by 3 (50%)",
+  "domain": "rtl-design",
+  "category": "FIFO / Queue",
+  "difficulty": "Hard",
+  "topics": [
+    "RTL",
+    "Clock Divider"
+  ],
+  "question": "Divide-by-3 with ~50% Duty Cycle (Glitch-Free)",
+  "description": "Implement a divide-by-3 clock divider with approximately 50% duty cycle using both edges and glitch-free construction.\\n\\n' +\n        '**Constraints:**\\n' +\n        '- Output frequency = clk/3\\n' +\n        '- ~50% duty cycle\\n' +\n        '- No runt pulses (glitch-free)",
+  "requirements": [
+    "INPUTS: clk, rst_n.",
+    "OUTPUT: clk_div3_50.",
+    "DIVIDE: Output frequency = clk/3.",
+    "DUTY: Approximately 50% duty.",
+    "GLITCH FREE: Output must not generate runt pulses.",
+    "Test Case - Output period equals 3 input cycles.",
+    "Test Case - Glitch-free enable/reset behavior: transitions occur only at intended clock boundaries with no runt pulses."
+  ],
+  "hints": [
+    "Common approach: posedge counter + negedge capture + OR/AND combine."
+  ]
+}

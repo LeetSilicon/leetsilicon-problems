@@ -1,0 +1,31 @@
+{
+  "id": "rtl-debug-onehot-fsm-nextstate",
+  "domain": "rtl-debug",
+  "category": "FSM",
+  "difficulty": "Medium",
+  "bugType": "always_comb stale next_state",
+  "summary": "One-hot FSM misses a default next_state assignment in combinational logic, causing stale transitions and hard-to-read waveforms.",
+  "signals": [
+    "clk",
+    "rst",
+    "start",
+    "done",
+    "state",
+    "next_state"
+  ],
+  "expectedBehavior": [
+    "next_state should be fully assigned in every combinational evaluation.",
+    "FSM should transition IDLE->BUSY on start and BUSY->IDLE on done.",
+    "Reset must return to IDLE one-hot encoding."
+  ],
+  "hiddenChecks": [
+    "No-start idle cycles",
+    "Done pulse without busy state",
+    "Repeated start/done activity"
+  ],
+  "hints": [
+    "Check always_comb for a default assignment such as next_state = state.",
+    "Missing assignments can infer latches or stale combinational values.",
+    "Waveforms often show next_state stuck at a previous value when no branch executes."
+  ]
+}

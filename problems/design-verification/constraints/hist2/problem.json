@@ -1,0 +1,22 @@
+{
+  "id": "hist2",
+  "shortName": "No Repeat in Next 3 Draws",
+  "domain": "design-verification",
+  "category": "Constraints",
+  "difficulty": "Hard",
+  "topics": [
+    "Constraints",
+    "Pattern"
+  ],
+  "question": "Pick Ball from 10 Colors, No Repeat in Next 3 Picks",
+  "description": "Randomly select a colored ball from 10 options. Once picked, that color cannot be selected in the next 3 draws (cooldown period). Write uvm sv constraint to implement sliding exclusion window of last 3 picks.",
+  "requirements": [
+    "COLORS: 10 different colored balls (e.g., values 0-9).",
+    "EXCLUSION RULE: If color C picked at time t, then C cannot be picked at times t+1, t+2, t+3.",
+    "SLIDING WINDOW: Maintain last 3 picks. Next pick must not match any of last 3.",
+    "FEASIBILITY: 10 colors, exclude 3 → 7 available each turn. Always feasible.",
+    "WITH REPLACEMENT: Same color can be picked multiple times (not permanent removal), just not within cooldown window.",
+    "COOLDOWN EXPIRY: After 3 draws, color becomes available again. Color picked at t becomes available again at t+4."
+  ],
+  "hints": []
+}

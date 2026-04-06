@@ -1,0 +1,29 @@
+{
+  "id": "cache2",
+  "shortName": "Pseudo-LRU Tree-Based",
+  "domain": "computer-architecture",
+  "category": "Cache & Memory",
+  "difficulty": "Hard",
+  "topics": [
+    "Cache",
+    "Replacement Policy",
+    "RTL"
+  ],
+  "question": "Implement Pseudo-LRU Using Binary Tree Structure",
+  "description": "Design a pseudo-LRU (PLRU) replacement policy using a binary tree structure for an N-way set-associative cache (N is power of 2).\\n\\n' +\n        'Use `N-1` bits per set for tree node states. On access, update only the tree nodes along the path from root to the accessed way. For victim selection, traverse root to leaf following node bits.\\n\\n' +\n        '**Example (4-way):**\\n' +\n        '```\\nTree has 3 nodes: 1 root, 2 children\\nAccess way 0 → flip path bits away from way 0\\nVictim selection → follow bits root-to-leaf\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- N must be a power of 2\\n' +\n        '- Tree uses N-1 bits per set\\n' +\n        '- Support parameterizable N",
+  "requirements": [
+    "PARAMETERIZATION: Support parameterizable N-way associativity where N must be a power of 2. Calculate tree bits required as N-1.",
+    "PATH UPDATE: On cache access to way W, update only the log2(N) tree node bits along the path from root to that way. Do not update nodes on other paths.",
+    "TREE SEMANTICS: Each tree node bit indicates which subtree was less recently used. 0 points to left subtree, 1 points to right subtree (or document your convention clearly).",
+    "VICTIM SELECTION: To find victim way, start at root and follow tree bits: if bit=0 go left, if bit=1 go right, until reaching a leaf node representing the victim way.",
+    "EDGE CASES: Handle reset (initialize tree to known state), invalid inputs, and support different N values.",
+    "Test Case 1 - 4-Way Tree Update: For 4-way cache, access way 0, then way 3. Verify tree bits flip correctly along each path (3 bits total: root, left/right children).",
+    "Test Case 2 - Victim Selection: Set tree to known state (e.g., bits = 0b101). Perform victim walk from root following bit values. Verify selected victim way matches expected leaf.",
+    "Test Case 3 - Parameterized 8-Way: Synthesize/simulate with N=8 parameter. Verify tree uses 7 bits per set and victim selection works correctly for all 8 ways."
+  ],
+  "hints": [
+    "For N=4: root points to LRU half, children point to LRU quarter.",
+    "Path update: flip each node bit to point AWAY from accessed subtree.",
+    "Way mapping: way 0 = left-left, way 1 = left-right, way 2 = right-left, way 3 = right-right."
+  ]
+}

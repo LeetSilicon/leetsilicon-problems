@@ -1,0 +1,31 @@
+{
+  "id": "assert3",
+  "shortName": "Count Zero on Reset",
+  "domain": "design-verification",
+  "category": "Constraints",
+  "difficulty": "Easy",
+  "topics": [
+    "Assertions",
+    "Basic",
+    "Reset"
+  ],
+  "question": "Counter Zero When Reset Asserted",
+  "description": "Write SystemVerilog assertion to ensure that \"count\" signal is zero whenever \"reset\" signal is asserted. This is synchronous or asynchronous reset check depending on design.",
+  "requirements": [
+    "RESET POLARITY: Define if reset is active-high (rst) or active-low (rst_n). Document clearly.",
+    "RESET TYPE: Synchronous (sampled at clock edge) or Asynchronous (immediate). Affects assertion structure.",
+    "SYNCHRONOUS RESET: Check count==0 at clock edge when reset asserted. Property: reset |-> (count==0).",
+    "ASYNCHRONOUS RESET: Use immediate assertion or concurrent with special handling. Typically still use clocked assertion with disable iff.",
+    "RESET HANDLING: Do NOT use disable iff for this assertion. Or use separate assertion for reset state.",
+    "Test Case 1 - Reset Active: reset=1, verify count==0. Assertion passes.",
+    "Test Case 2 - Reset Violation: reset=1, count=5. Assertion fails.",
+    "Test Case 3 - Reset Inactive: reset=0, count=10. Assertion passes (antecedent false).",
+    "Test Case 4 - Reset Edge (sync): reset rises at clock edge. count should be 0 at that edge. Test.",
+    "Test Case 5 - Reset Edge (async): For async reset, count should become 0 immediately when reset asserted (not at clock edge). May need immediate assertion."
+  ],
+  "hints": [
+    "Synchronous reset assertion: @(posedge clk) reset |-> (count==0);",
+    "Active-low reset: @(posedge clk) !rst_n |-> (count==0);",
+    "Asynchronous reset: Count becomes 0 immediately upon reset assertion, not synchronized to clock. Standard clocked assertion may miss immediate behavior. Consider: always @(reset) if(reset) assert(count==0); (immediate assertion in procedural block)."
+  ]
+}

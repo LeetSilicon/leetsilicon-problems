@@ -1,0 +1,28 @@
+{
+  "id": "rtl1",
+  "shortName": "Edge / Toggle Detector",
+  "domain": "rtl-design",
+  "category": "FIFO / Queue",
+  "difficulty": "Easy",
+  "topics": [
+    "RTL",
+    "Sequential Logic"
+  ],
+  "question": "Detect Rising, Falling, and Any Transition",
+  "description": "Design synchronous RTL detecting transitions of a 1-bit input.\\n\\n' +\n        '**Outputs:**\\n' +\n        '```\\nrise_pulse:   1 cycle on 0→1\\nfall_pulse:   1 cycle on 1→0\\ntoggle_pulse: 1 cycle on any change\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- Uses previous-cycle register for comparison\\n' +\n        '- Single-cycle pulse on each detection",
+  "requirements": [
+    "INPUTS: clk, rst_n (optional), sig_in.",
+    "OUTPUTS: rise_pulse, fall_pulse, toggle_pulse.",
+    "REGISTER: Capture previous value of sig_in each cycle.",
+    "TOGGLE: toggle_pulse asserts for 1 cycle when sig_in != sig_prev.",
+    "RISING: rise_pulse asserts for 1 cycle when sig_in=1 and sig_prev=0.",
+    "FALLING: fall_pulse asserts for 1 cycle when sig_in=0 and sig_prev=1.",
+    "Test Case - Rising: 0→1 transition produces rise_pulse=1 for one cycle.",
+    "Test Case - Falling: 1→0 transition produces fall_pulse=1 for one cycle.",
+    "Test Case - No Toggle: constant input produces no pulses."
+  ],
+  "hints": [
+    "Use always_ff for sig_prev register.",
+    "Use combinational compares for pulse generation."
+  ]
+}

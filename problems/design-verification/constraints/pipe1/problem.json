@@ -1,0 +1,30 @@
+{
+  "id": "pipe1",
+  "shortName": "Instruction Repetition Constraints",
+  "domain": "design-verification",
+  "category": "Constraints",
+  "difficulty": "Hard",
+  "topics": [
+    "Constraints",
+    "Pipeline",
+    "Instructions"
+  ],
+  "question": "Instruction Stream with Repetition Window Constraints",
+  "description": "Write uvm sv constraints to generate instruction stream from {ADD, SUB, MUL, NOP} with rules: (1) ADD cannot repeat within last 3 cycles, (2) SUB cannot repeat within last 3 valid instructions, (3) NOP not allowed at all.",
+  "requirements": [
+    "INSTRUCTION SET: {ADD, SUB, MUL}. NOP excluded entirely.",
+    "STREAM LENGTH: Define T cycles (e.g., T=30 for testing).",
+    "ADD SPACING: If instr[t]==ADD, then instr[t-1], instr[t-2], instr[t-3] must not be ADD (cycle-based window).",
+    "SUB SPACING: SUB cannot repeat within last 3 valid (non-bubble) instructions. Define ",
+    " (all instructions valid or handle bubbles).",
+    "NOP EXCLUSION: No instruction can be NOP. constraint { instr[t] != NOP; }",
+    "Test Case 1 - ADD Window: Generate sequence length 30. For each t where instr[t]==ADD, verify instr[t-1], instr[t-2], instr[t-3] ≠ ADD.",
+    "Test Case 2 - SUB Window: Track last 3 valid SUB positions. Verify spacing >= 3 valid instructions.",
+    "Test Case 3 - No NOP: Verify instr[] contains only {ADD, SUB, MUL}.",
+    "Test Case 4 - Feasibility: With 3 opcodes and spacing constraints, verify randomize succeeds over many seeds.",
+    "Test Case 5 - Distribution: Over many runs, verify all 3 opcodes appear (not stuck on one)."
+  ],
+  "hints": [
+    "Stateful generation: Maintain history queue. Generate one instruction at a time with constraints against history."
+  ]
+}

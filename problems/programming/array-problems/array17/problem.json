@@ -1,0 +1,21 @@
+{
+  "id": "array17",
+  "shortName": "Contains Nearby Duplicate",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Easy",
+  "topics": [
+    "Array",
+    "Hash Table",
+    "Sliding Window"
+  ],
+  "question": "Contains Duplicate II",
+  "description": "Given an integer array `nums` and an integer `k`, return `true` if there are two distinct indices `i` and `j` such that `nums[i] == nums[j]` and `|i - j| <= k`.\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: nums = [1,2,3,1], k = 3\\nOutput: true\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: nums = [1,2,3,1,2,3], k = 2\\nOutput: false\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- `1 <= nums.length <= 10⁵`\\n' +\n        '- `0 <= k <= 10⁵`",
+  "requirements": [
+    "Time complexity: O(n)"
+  ],
+  "hints": [
+    "Keep a map from value → last index seen.",
+    "When you see a value again, check if i - lastIndex <= k."
+  ]
+}

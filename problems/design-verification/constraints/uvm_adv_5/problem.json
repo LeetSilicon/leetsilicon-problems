@@ -1,0 +1,33 @@
+{
+  "id": "uvm_adv_5",
+  "shortName": "Split-Beat Monitor Reassembly",
+  "domain": "design-verification",
+  "category": "Constraints",
+  "difficulty": "Hard",
+  "topics": [
+    "UVM",
+    "Monitor",
+    "Split Transactions"
+  ],
+  "question": "Design Monitor that Reassembles 64-bit Transactions from Two 32-bit Beats",
+  "description": "Implement UVM monitor for 32-bit data interface that receives split 64-bit transactions as two consecutive 32-bit beats. Monitor detects beat boundaries using valid/ready handshake, correlates beats using transaction_id, reassembles into single 64-bit transaction, and publishes via analysis port. Handle timeout for missing second beat and out-of-order beats (if IDs present).",
+  "requirements": [
+    "CLASS STRUCTURE: Extend uvm_monitor. Implement analysis_port to publish reassembled 64-bit transactions.",
+    "BEAT DETECTION: Sample data when valid=1 and ready=1 (handshake). Each sample is one beat.",
+    "BEAT CORRELATION: Use transaction_id (if present on bus) to correlate first and second beats. If no ID, assume consecutive beats belong to same transaction.",
+    "REASSEMBLY STORAGE: Maintain associative array keyed by transaction_id: partial_trans[id] stores first beat data.",
+    "FIRST BEAT: On beat with beat_num=0 (or first of pair): store data[31:0] in partial_trans[id].",
+    "SECOND BEAT: On beat with beat_num=1 (or second of pair): retrieve partial_trans[id], combine with current data[31:0] to form 64-bit value, publish transaction, delete from partial_trans.",
+    "TIMEOUT: If first beat received but second beat doesnt arrive within N cycles, report `uvm_error(",
+    ") and remove from partial_trans.",
+    "OUT-OF-ORDER: If beats from different transactions interleave (ID-based), handle correctly. Example: ID1_beat0, ID2_beat0, ID1_beat1, ID2_beat1.",
+    "NO ID CASE: If no transaction_id on bus, assume strict beat pairs (consecutive). Use simple toggle or counter.",
+    "Test Case 1 - In-Order Beats: Two beats arrive consecutively with same ID. Monitor reassembles, publishes 64-bit transaction.",
+    "Test Case 2 - Out-of-Order: ID1_b0, ID2_b0, ID2_b1, ID1_b1. Monitor reassembles both transactions correctly using IDs.",
+    "Test Case 3 - Timeout: First beat arrives, second beat never comes. After timeout, `uvm_error reported.",
+    "Test Case 4 - No ID (Sequential): Beats alternate: b0, b1, b0, b1. Monitor pairs them sequentially into two transactions.",
+    "Test Case 5 - Backpressure: Beats separated by cycles where ready=0. Monitor correctly samples only valid beats.",
+    "Test Case 6 - Multiple Transactions: Stream of many beat pairs. Verify all reassembled correctly."
+  ],
+  "hints": []
+}

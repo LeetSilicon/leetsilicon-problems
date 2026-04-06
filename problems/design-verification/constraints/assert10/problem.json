@@ -1,0 +1,35 @@
+{
+  "id": "assert10",
+  "shortName": "No Signal Overlap",
+  "domain": "design-verification",
+  "category": "Constraints",
+  "difficulty": "Medium",
+  "topics": [
+    "Assertions",
+    "Temporal",
+    "Mutual Exclusion"
+  ],
+  "question": "Start and End Signals Do Not Overlap",
+  "description": "Write temporal assertion to ensure that signals \"start\" and \"end\" do not overlap in time, meaning both cannot be asserted simultaneously in any clock cycle.",
+  "requirements": [
+    "NON-OVERLAP: start and end cannot both be 1 in same cycle. !(start && end).",
+    "SIMPLE INVARIANT: This is Boolean check every cycle, not complex temporal pattern.",
+    "ALTERNATIVE: property p_no_overlap; @(posedge clk) disable iff (rst) (start && end) == 0; endproperty",
+    "PULSE ORDERING (Optional): If start and end are pulses with ordering (start before end), add: start |-> !end[*1:$] ##1 end. But basic non-overlap is simpler.",
+    "UNKNOWN HANDLING: !(start===1'b1 && end===1'b1) for 4-state safety.",
+    "RESET: disable iff (rst).",
+    "Test Case 1 - No Overlap: start=1, end=0 for some cycles. Then start=0, end=1. Assertion passes.",
+    "Test Case 2 - Overlap: start=1, end=1 simultaneously. Assertion fails.",
+    "Test Case 3 - Both Low: start=0, end=0. Assertion passes.",
+    "Test Case 4 - Start Pulse Then End Pulse: start pulse at cycle 5, end pulse at cycle 10. No overlap. Assertion passes.",
+    "Test Case 5 - Overlapping Pulses: start pulse cycles 5-7, end pulse cycles 6-8. Overlap at cycles 6-7. Assertion fails."
+  ],
+  "hints": [
+    "Mutual exclusion: assert property (@(posedge clk) disable iff (rst) !(start && end));",
+    "Equivalent forms: (start && end) == 0; or start |-> !end; or end |-> !start;",
+    "Bitwise AND: !(start & end) for bit-level. Same for 1-bit signals.",
+    "Unknown gating: !(start===1\\",
+    "b1) or (start!==1\\",
+    "b1)."
+  ]
+}

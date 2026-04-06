@@ -1,0 +1,29 @@
+{
+  "id": "unique4",
+  "shortName": "Two Arrays with Sorted Relationship",
+  "domain": "design-verification",
+  "category": "Constraints",
+  "difficulty": "Hard",
+  "topics": [
+    "Constraints",
+    "Dynamic Array",
+    "Sorting"
+  ],
+  "question": "Generate Two Dynamic Arrays with Size, Sorted, and Membership Constraints",
+  "description": "Generate two related dynamic arrays using UVM SystemVerilog constraints: (1) array1 size is in [6:9], (2) array2 size equals array1 size, (3) array1 is sorted in ascending order, and (4) every array2 element is a member of array1.",
+  "requirements": [
+    "ARRAY1 SIZE: Size must be in range [6:9]. Can be 6, 7, 8, or 9 elements.",
+    "ARRAY2 SIZE: Must equal array1.size(). Both arrays same length.",
+    "SORTING: array1 sorted in ascending order. For all i, array1[i] ≤ array1[i+1]. Non-strictly ascending (duplicates allowed) unless specified otherwise.",
+    "MEMBERSHIP: Every element in array2 must exist in array1. array2[i] inside {array1} for all i.",
+    "STRICTLY ASCENDING (OPTIONAL): If requiring strict: array1[i] < array1[i+1]. Document choice. Default: non-decreasing (≤).",
+    "VALUE DOMAIN: Define element ranges (e.g., [0:100]) for both arrays.",
+    "MULTIPLICITY: array2 can have duplicates from array1. Not required to be permutation, just subset.",
+    "Test Case 1 - Size Range: Randomize 100 times. Verify array1.size() in {6,7,8,9}. All values in range appear.",
+    "Test Case 2 - Equal Sizes: For each randomization, assert array1.size() == array2.size().",
+    "Test Case 3 - Sorted Property: For array1, verify for all i: array1[i] ≤ array1[i+1] (or < if strict).",
+    "Test Case 4 - Membership: For each array2[i], verify value exists in array1. Check array2[i] in set(array1).",
+    "Test Case 5 - Multiplicity Handling: array1=[1,2,3,4,5,6]. array2 can be [2,2,3,4,5,6] (2 appears twice). Both 2s are valid (both from array1)."
+  ],
+  "hints": []
+}

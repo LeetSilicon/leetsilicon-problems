@@ -1,0 +1,21 @@
+{
+  "id": "array22",
+  "shortName": "Container With Most Water",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Two Pointers"
+  ],
+  "question": "Container With Most Water",
+  "description": "You are given an integer array `height` of length `n`. There are `n` vertical lines drawn such that the two endpoints of the `i`th line are `(i, 0)` and `(i, height[i])`.\\n\\n' +\n        'Find two lines that together with the x-axis form a container that holds the most water.\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: height = [1,8,6,2,5,4,8,3,7]\\nOutput: 49\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: height = [1,1]\\nOutput: 1\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- `n == height.length`\\n' +\n        '- `2 <= n <= 10⁵`\\n' +\n        '- `0 <= height[i] <= 10⁴`",
+  "requirements": [
+    "Time complexity: O(n)",
+    "Use two-pointer technique"
+  ],
+  "hints": [
+    "Start with pointers at both ends for maximum width.",
+    "Move the pointer with the smaller height inward."
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "uvm_adv_6",
+  "shortName": "Functional Coverage Subscriber",
+  "domain": "design-verification",
+  "category": "Constraints",
+  "difficulty": "Medium",
+  "topics": [
+    "UVM",
+    "Coverage",
+    "Subscriber"
+  ],
+  "question": "Implement UVM Subscriber with Covergroup for Transaction Coverage",
+  "description": "Create UVM subscriber component that receives transactions via TLM analysis export and samples functional coverage using covergroup. Subscriber automatically connected to monitor analysis port. Covergroup includes coverpoints for transaction fields and crosses for corner case coverage. Report coverage statistics at end of test.",
+  "requirements": [
+    "CLASS STRUCTURE: Extend uvm_subscriber#(my_transaction). Subscriber has built-in analysis_export (no need to declare).",
+    "COVERGROUP DECLARATION: Declare covergroup with relevant coverpoints and crosses. Include in class.",
+    "COVERPOINTS: Cover key transaction fields. Example: address ranges, data values, transaction types, burst lengths.",
+    "BINS: Define bins for coverpoints. Use explicit bins, ranges, or transitions.",
+    "CROSSES: Create cross coverage for correlated fields. Example: cross address and transaction type.",
+    "SAMPLING: In write(T t) method (required override), call covergroup.sample() with transaction data.",
+    "COVERAGE REPORTING: In report_phase, call $get_coverage() or covergroup.get_coverage() to report percentage.",
+    "OPTIONS: Set covergroup options: option.per_instance = 1; option.at_least = 1; etc.",
+    "Test Case 1 - Basic Coverage: Send transactions covering all bins. Verify coverage increments.",
+    "Test Case 2 - Cross Coverage: Send transactions hitting cross bins. Verify cross coverage updates.",
+    "Test Case 3 - Unreached Bins: Some bins not hit. Report shows <100% coverage.",
+    "Test Case 4 - Coverage Goal: Reach 100% coverage. Report shows complete coverage.",
+    "Test Case 5 - Multiple Instances: Multiple subscribers (if testing). Verify per-instance coverage tracked correctly."
+  ],
+  "hints": []
+}

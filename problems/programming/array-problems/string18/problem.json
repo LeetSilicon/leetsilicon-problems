@@ -1,0 +1,22 @@
+{
+  "id": "string18",
+  "shortName": "Permutation in String",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Medium",
+  "topics": [
+    "String",
+    "Sliding Window",
+    "Hash Table"
+  ],
+  "question": "Permutation in String",
+  "description": "Given two strings `s1` and `s2`, return `true` if `s2` contains a permutation of `s1`, or `false` otherwise.\\n\\n' +\n        'In other words, return `true` if one of `s1`\\'s permutations is a substring of `s2`.\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: s1 = \"ab\", s2 = \"eidbaooo\"\\nOutput: true\\nExplanation: s2 contains \"ba\" which is a permutation of \"ab\".\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: s1 = \"ab\", s2 = \"eidboaoo\"\\nOutput: false\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- `1 <= s1.length, s2.length <= 10⁴`",
+  "requirements": [
+    "Time complexity: O(n)",
+    "Sliding window with frequency comparison"
+  ],
+  "hints": [
+    "Maintain a frequency array for s1.",
+    "Use a window of size |s1| over s2 and compare counts efficiently."
+  ]
+}

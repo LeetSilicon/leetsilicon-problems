@@ -1,0 +1,20 @@
+{
+  "id": "string5",
+  "shortName": "Subsequence Check",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Easy",
+  "topics": [
+    "String",
+    "Two Pointers"
+  ],
+  "question": "Is Subsequence",
+  "description": "Given two strings `s` and `t`, return `true` if `s` is a **subsequence** of `t`, or `false` otherwise.\\n\\n' +\n        'A subsequence is a string that can be derived from another by deleting some or no characters without changing the order of the remaining characters.\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: s = \"ace\", t = \"abcde\"\\nOutput: true\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: s = \"aec\", t = \"abcde\"\\nOutput: false\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- `0 <= s.length <= 100`\\n' +\n        '- `0 <= t.length <= 10⁴`",
+  "requirements": [
+    "Use two pointers: one for s, one for t"
+  ],
+  "hints": [
+    "Advance pointer on s only when characters match.",
+    "If you consume all of s, it is a subsequence."
+  ]
+}

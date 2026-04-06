@@ -1,0 +1,22 @@
+{
+  "id": "array10",
+  "shortName": "Pair Sum",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Easy",
+  "topics": [
+    "Array",
+    "Hash Table",
+    "Two Pointers"
+  ],
+  "question": "Two Sum Exists",
+  "description": "Given an array of integers `nums` and an integer `target`, return `true` if there exist two distinct elements whose sum equals `target`.\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: nums = [2,7,11,15], target = 9\\nOutput: true\\nExplanation: 2 + 7 = 9\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: nums = [1,2,3], target = 7\\nOutput: false\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- `2 <= nums.length <= 10⁴`\\n' +\n        '- `-10⁹ <= nums[i] <= 10⁹`\\n' +\n        '- Each input has at most one valid answer",
+  "requirements": [
+    "Time complexity: O(n)",
+    "Cannot use the same element twice"
+  ],
+  "hints": [
+    "For each x, check whether target - x has been seen.",
+    "Store seen numbers in a set as you iterate."
+  ]
+}

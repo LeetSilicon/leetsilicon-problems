@@ -1,0 +1,36 @@
+{
+  "id": "assert24",
+  "shortName": "UVM RAL Register Access",
+  "domain": "design-verification",
+  "category": "Constraints",
+  "difficulty": "Hard",
+  "topics": [
+    "Assertions",
+    "UVM",
+    "RAL"
+  ],
+  "question": "Write UVM RAL Assertion for Register Reads and Writes",
+  "description": "Write assertions for UVM Register Abstraction Layer (RAL) to verify register read/write access policies (RO/WO/RW) and mirror value updates. Ensure register behavior correct.",
+  "requirements": [
+    "ACCESS POLICY: Verify read/write access restrictions. RO: read-only (writes ignored). WO: write-only (reads return 0 or undefined). RW: read-write.",
+    "MIRROR VALUE: Verify RAL mirror value updated correctly after read/write.",
+    "RESET VALUE: Check register resets to default value after reset.",
+    "PREDICTED VALUE: After write, predicted value should match written value (for RW registers).",
+    "CALLBACKS: Hook into uvm_reg_cbs or monitor to sample register transactions.",
+    "Test Case 1 - RW Register: Write value to RW register. Read back. Verify value matches.",
+    "Test Case 2 - RO Register: Write to RO register. Verify write has no effect. Read returns original value.",
+    "Test Case 3 - WO Register: Write to WO register. Verify write accepted. Read returns 0 or undefined (per spec).",
+    "Test Case 4 - Reset Value: After reset, verify register value equals default from RAL model.",
+    "Test Case 5 - Mirror Update: After write, verify RAL mirror reflects new value. After read, mirror matches read value."
+  ],
+  "hints": [
+    "RAL callbacks: class reg_cb extends uvm_reg_cbs; virtual task post_write(uvm_reg_item rw); assert(rw.status == UVM_IS_OK) else `uvm_error(...) endtask endclass",
+    "Access policy check: In callback: if(rw.element_kind == UVM_REG) begin uvm_reg r = rw.element; if(r.get_rights() == ",
+    ") assert(!rw.kind == UVM_WRITE) else `uvm_error(...) end",
+    "Mirror check: After write: assert(reg.get() == written_value) else `uvm_error(...)",
+    "Reset check: After reset: assert(reg.get() == reg.get_reset()) else `uvm_error(...)",
+    "Monitor-based: In bus monitor: On write transaction: if(addr == REG_ADDR) assert(access_allowed(addr, WRITE)) else `uvm_error(...)",
+    "Immediate assertion: In sequence after read: reg.read(status, rdata); assert(status == UVM_IS_OK && rdata == reg.get()) else `uvm_error(...)",
+    "Test: Use RAL backdoor/frontdoor access. Test all access types (RO/WO/RW). Verify assertions catch violations."
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "cache5",
+  "shortName": "Write-Back Dirty Bit Management",
+  "domain": "computer-architecture",
+  "category": "Cache & Memory",
+  "difficulty": "Medium",
+  "topics": [
+    "Cache",
+    "Write-Back",
+    "RTL"
+  ],
+  "question": "Implement Dirty Bit Logic for Write-Back Cache",
+  "description": "Design dirty bit management for a write-back cache.\\n\\n' +\n        'Set dirty on write hit, clear after writeback completes. Generate writeback requests when evicting dirty lines. Clean lines are replaced without writeback.\\n\\n' +\n        '**Example:**\\n' +\n        '```\\nRead miss fills line A → dirty=0\\nWrite hit to A → dirty=1\\nEvict A → writeback request generated\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- Dirty bit stored per cache line alongside tag and valid\\n' +\n        '- Writeback address = victim tag + cache index\\n' +\n        '- Clean eviction requires no memory traffic",
+  "requirements": [
+    "DIRTY BIT UPDATE: On write hit to cache line, set dirty bit for that line to 1. On cache miss with refill (read), initialize dirty bit to 0 for newly filled line.",
+    "WRITE-ALLOCATE: If cache uses write-allocate policy and write occurs on refill, set dirty=1. Otherwise keep dirty=0 on read refill.",
+    "EVICTION CHECK: On cache line eviction (replacement), check victim line dirty bit. If dirty=1, must writeback before reusing line. If dirty=0, can immediately reuse.",
+    "WRITEBACK REQUEST: When evicting dirty line, assert writeback request signal with victim address (tag + index). Provide victim data for writeback.",
+    "DIRTY BIT CLEAR: After writeback completes (acknowledgment from memory), clear dirty bit for that line. Line can now be safely reused.",
+    "EDGE CASES: Handle reset (all dirty bits cleared), line invalidation (clear dirty), concurrent write and eviction.",
+    "Test Case 1 - Write Hit Sets Dirty: Read miss fills line A (dirty=0). Write hit to line A. Expected: dirty bit for A becomes 1.",
+    "Test Case 2 - Clean Eviction: Line B is victim for replacement, dirty=0. Expected: no writeback request generated, line immediately reusable.",
+    "Test Case 3 - Dirty Eviction Writeback: Line C is victim, dirty=1. Expected: (1) writeback request asserted with address from tag+index of C, (2) writeback data provided, (3) after memory ack, dirty bit cleared."
+  ],
+  "hints": [
+    "Update dirty in same cycle as write commit.",
+    "Writeback FSM: IDLE → WB_REQ → WB_WAIT → WB_DONE → clear dirty.",
+    "Separate need_writeback from writeback_in_flight to avoid double-issue."
+  ]
+}

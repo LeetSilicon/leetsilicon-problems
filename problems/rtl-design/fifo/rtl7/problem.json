@@ -1,0 +1,27 @@
+{
+  "id": "rtl7",
+  "shortName": "Divisible by 3",
+  "domain": "rtl-design",
+  "category": "FIFO / Queue",
+  "difficulty": "Medium",
+  "topics": [
+    "RTL",
+    "FSM",
+    "Arithmetic"
+  ],
+  "question": "FSM for Divisibility by 3 with Serial Bit Input",
+  "description": "Implement an FSM with 3 remainder states that updates on each incoming bit and asserts output when remainder is 0.\\n\\n' +\n        '**Constraints:**\\n' +\n        '- 3 states representing remainder mod 3\\n' +\n        '- Track only remainder, not the full number\\n' +\n        '- Start at remainder 0",
+  "requirements": [
+    "INPUTS: clk, rst_n, bit_in.",
+    "OUTPUT: div_by_3.",
+    "FSM: 3 states represent remainder modulo 3.",
+    "UPDATE: On each bit, transition to next remainder state.",
+    "RESET: Start at remainder 0.",
+    "Test Case - Divisible value: serial stream representing 3, 6, or 9 eventually drives div_by_3=1 when remainder returns to 0.",
+    "Test Case - Non-divisible value: serial stream representing 1, 2, 4, or 5 leaves div_by_3=0.",
+    "Test Case - Reset: immediately after reset, the FSM is in remainder-0 state and div_by_3 reflects that state per the documented convention."
+  ],
+  "hints": [
+    "Track only remainder, not the full number."
+  ]
+}

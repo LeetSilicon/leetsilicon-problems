@@ -1,0 +1,28 @@
+{
+  "id": "assert18",
+  "shortName": "Array Index Valid Range",
+  "domain": "design-verification",
+  "category": "Constraints",
+  "difficulty": "Medium",
+  "topics": [
+    "Assertions",
+    "Coverage",
+    "Array"
+  ],
+  "question": "Array Access Index Within Valid Range",
+  "description": "Write assertion to ensure that array \"data_array\" is accessed only with valid indices within range [0, SIZE-1]. Catch out-of-bounds accesses.",
+  "requirements": [
+    "ARRAY SIZE: Define array size (fixed or dynamic). Example: logic [7:0] data_array [0:15]; SIZE=16.",
+    "ACCESS CONTROL: Index valid only when access occurring (read_en or write_en asserted).",
+    "INDEX RANGE: index must be in [0:SIZE-1] when accessing.",
+    "DYNAMIC ARRAY: For dynamic array, use data_array.size(): index < data_array.size().",
+    "UNKNOWN INDEX: Gate X: !$isunknown(index) when accessing.",
+    "COVERAGE: Cover boundary indices (0, SIZE-1) to ensure edge access tested.",
+    "Test Case 1 - Valid Index: read_en=1, index=5 (within [0:15]). Assertion passes.",
+    "Test Case 2 - Index 0: Access with index=0. Assertion passes. Coverage bin hits.",
+    "Test Case 3 - Index MAX: Access with index=15 (SIZE-1). Assertion passes. Coverage bin hits.",
+    "Test Case 4 - Index Out-of-Bounds (Negative): index=-1. Assertion fails (if signed index).",
+    "Test Case 5 - Index Out-of-Bounds (Over): index=16 (>= SIZE). Assertion fails."
+  ],
+  "hints": []
+}

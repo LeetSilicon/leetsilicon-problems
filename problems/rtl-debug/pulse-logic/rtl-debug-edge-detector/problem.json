@@ -1,0 +1,30 @@
+{
+  "id": "rtl-debug-edge-detector",
+  "domain": "rtl-debug",
+  "category": "Pulse Logic",
+  "difficulty": "Medium",
+  "bugType": "pulse generation / ordering",
+  "summary": "Rising-edge detector incorrectly behaves like level detect and keeps pulsing while input stays high.",
+  "signals": [
+    "clk",
+    "rst",
+    "sig_in",
+    "prev_in",
+    "pulse"
+  ],
+  "expectedBehavior": [
+    "pulse should be high for exactly one cycle on a rising edge only.",
+    "Holding sig_in high for multiple cycles must not generate repeated pulses.",
+    "Reset should clear pulse and previous-sample state."
+  ],
+  "hiddenChecks": [
+    "Long high hold",
+    "Rapid toggle 010101",
+    "Reset during asserted input"
+  ],
+  "hints": [
+    "A pulse output usually needs a default deassert every cycle.",
+    "Compare edge-detect expression with level-detect expression.",
+    "Check how prev_in is updated relative to pulse generation."
+  ]
+}

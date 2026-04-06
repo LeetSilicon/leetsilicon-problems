@@ -1,0 +1,22 @@
+{
+  "id": "array7",
+  "shortName": "Majority Element",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Easy",
+  "topics": [
+    "Array",
+    "Boyer-Moore"
+  ],
+  "question": "Majority Element",
+  "description": "Given an array `nums` of size `n`, return the majority element.\\n\\n' +\n        'The majority element is the element that appears more than `⌊n / 2⌋` times. You may assume that the majority element always exists in the array.\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: nums = [2,2,1,1,1,2,2]\\nOutput: 2\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: nums = [3,3,4,3]\\nOutput: 3\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- `n == nums.length`\\n' +\n        '- `1 <= n <= 5 * 10⁴`\\n' +\n        '- The majority element is **guaranteed** to exist",
+  "requirements": [
+    "Time complexity: O(n)",
+    "Space complexity: O(1)",
+    "Use Boyer-Moore Voting Algorithm"
+  ],
+  "hints": [
+    "Maintain a candidate and counter (increment for same, decrement for different).",
+    "When counter hits zero, pick the current element as new candidate."
+  ]
+}

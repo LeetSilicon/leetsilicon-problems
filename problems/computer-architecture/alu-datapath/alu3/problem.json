@@ -1,0 +1,25 @@
+{
+  "id": "alu3",
+  "shortName": "Overflow Detection",
+  "domain": "computer-architecture",
+  "category": "ALU / Datapath Blocks",
+  "difficulty": "Easy",
+  "topics": [
+    "ALU",
+    "Overflow",
+    "RTL"
+  ],
+  "question": "Implement Signed Addition Overflow Detection Logic",
+  "description": "Design overflow detection for signed two\\'s complement addition.\\n\\n' +\n        'Overflow occurs when adding two same-sign numbers produces an opposite-sign result. Must be independent of carry-out.\\n\\n' +\n        '**Example (WIDTH=8, range -128 to +127):**\\n' +\n        '```\\nA=127, B=1 → sum=128(0x80=-128) → overflow=1\\nA=-128, B=-1 → sum=-129(0x7F=+127) → overflow=1\\nA=50, B=20 → sum=70 → overflow=0\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- Parameterizable WIDTH\\n' +\n        '- Purely combinational logic on sign bits\\n' +\n        '- Independent of carry-out",
+  "requirements": [
+    "OVERFLOW CONDITION: Overflow occurs when: (1) Adding two positive numbers produces negative result, OR (2) Adding two negative numbers produces positive result.",
+    "FORMULA: overflow = (A[MSB] == B[MSB]) && (A[MSB] != sum[MSB]), where MSB = WIDTH-1.",
+    "INDEPENDENCE FROM CARRY: Overflow detection must work correctly regardless of carry-out value. Carry and overflow are distinct conditions.",
+    "NO OVERFLOW CASES: (1) Adding positive and negative never overflows, (2) Result has same sign as inputs means no overflow.",
+    "PARAMETERIZATION: Support parameterizable WIDTH. MSB position = WIDTH-1.",
+    "Test Case 1 - Positive Overflow: WIDTH=8 (range -128 to +127), A=127 (0x7F), B=1 (0x01). sum=128 (0x80 = -128 in signed). Expected: overflow=1.",
+    "Test Case 2 - Negative Overflow: WIDTH=8, A=-128 (0x80), B=-1 (0xFF). sum=-129 (wraps to 0x7F = +127). Expected: overflow=1.",
+    "Test Case 3 - No Overflow: WIDTH=8, A=50 (0x32), B=20 (0x14). sum=70 (0x46). Expected: overflow=0."
+  ],
+  "hints": []
+}

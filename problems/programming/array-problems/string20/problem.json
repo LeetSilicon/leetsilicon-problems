@@ -1,0 +1,20 @@
+{
+  "id": "string20",
+  "shortName": "Shortest Palindrome by Appending",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Hard",
+  "topics": [
+    "String",
+    "KMP"
+  ],
+  "question": "Shortest Palindrome by Appending",
+  "description": "Given a string `s`, find the shortest palindrome you can form by appending characters to the **end** of `s`.\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: s = \"abc\"\\nOutput: \"abcba\"\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: s = \"race\"\\nOutput: \"racecar\"\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- `0 <= s.length <= 5 * 10⁴`",
+  "requirements": [
+    "Only append to the end"
+  ],
+  "hints": [
+    "Find the longest palindromic suffix; append the reverse of the remaining prefix.",
+    "KMP/LPS can compute this efficiently."
+  ]
+}

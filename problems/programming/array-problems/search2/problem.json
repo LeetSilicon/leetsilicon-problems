@@ -1,0 +1,20 @@
+{
+  "id": "search2",
+  "shortName": "Search in Rotated Sorted Array",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Medium",
+  "topics": [
+    "Binary Search",
+    "Array"
+  ],
+  "question": "Search in Rotated Sorted Array",
+  "description": "Given the array `nums` after a possible rotation and an integer `target`, return the index of `target` if it is in `nums`, or `-1` if it is not.\\n\\n' +\n        'You must write an algorithm with `O(log n)` runtime complexity.\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: nums = [4,5,6,7,0,1,2], target = 0\\nOutput: 4\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: nums = [4,5,6,7,0,1,2], target = 3\\nOutput: -1\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- `1 <= nums.length <= 5000`\\n' +\n        '- All values are **unique**",
+  "requirements": [
+    "Time complexity: O(log n)"
+  ],
+  "hints": [
+    "At each step, one half of the array is sorted.",
+    "Check if target lies in the sorted half; if not, search the other half."
+  ]
+}

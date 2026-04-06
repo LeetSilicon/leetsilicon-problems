@@ -1,0 +1,19 @@
+{
+  "id": "string15",
+  "shortName": "Find All Occurrences of Substring",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Medium",
+  "topics": [
+    "String",
+    "KMP"
+  ],
+  "question": "Find All Occurrences of Pattern",
+  "description": "Given strings `text` and `pattern`, return all starting indices where `pattern` occurs in `text` (including overlapping matches).\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: text = \"abababab\", pattern = \"ab\"\\nOutput: [0,2,4,6]\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: text = \"aaaa\", pattern = \"aa\"\\nOutput: [0,1,2]\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- Handle overlapping matches\\n' +\n        '- `1 <= text.length <= 10⁵`",
+  "requirements": [
+    "Return array of 0-based indices"
+  ],
+  "hints": [
+    "Use KMP to find all matches in O(n+m)."
+  ]
+}

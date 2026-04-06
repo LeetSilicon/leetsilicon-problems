@@ -1,0 +1,40 @@
+{
+  "id": "fsm2",
+  "shortName": "Traffic Light Controller",
+  "domain": "rtl-design",
+  "category": "FIFO / Queue",
+  "difficulty": "Medium",
+  "topics": [
+    "FSM",
+    "Moore Machine",
+    "Design"
+  ],
+  "question": "Implement Traffic Light Controller Using Moore FSM",
+  "description": "Design a traffic light controller for a two-way intersection using a Moore FSM with timers.\\n\\n' +\n        '**State sequence:**\\n' +\n        '```\\nNS_GREEN(10cy) → NS_YELLOW(2cy) → EW_GREEN(10cy) → EW_YELLOW(2cy) → repeat\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- Moore FSM: outputs depend only on current state\\n' +\n        '- Never both directions green simultaneously\\n' +\n        '- Always transition through yellow (safety)",
+  "requirements": [
+    "MOORE FSM: Outputs (light states) depend only on current state, not on inputs. Outputs change only on state transitions (synchronous to clock).",
+    "TRAFFIC DIRECTIONS: Two directions: North-South (NS) and East-West (EW). Each direction has three lights: RED, YELLOW, GREEN.",
+    "STATES: Define at least 4 states: (1) NS_GREEN (NS green, EW red), (2) NS_YELLOW (NS yellow, EW red), (3) EW_GREEN (EW green, NS red), (4) EW_YELLOW (EW yellow, NS red).",
+    "TIMING: Each state has a duration controlled by a timer/counter. Example: NS_GREEN lasts 10 seconds, NS_YELLOW lasts 2 seconds, EW_GREEN lasts 10 seconds, EW_YELLOW lasts 2 seconds. Parameterize or define durations.",
+    "TIMER IMPLEMENTATION: Maintain a counter that counts down (or up to threshold) in each state. When timer expires, transition to next state and reset timer.",
+    "STATE SEQUENCE: Normal cycle: NS_GREEN → NS_YELLOW → EW_GREEN → EW_YELLOW → (repeat). Never go directly from GREEN to RED (always through YELLOW for safety).",
+    "RESET BEHAVIOR: On reset, enter a safe initial state (e.g., NS_GREEN with EW_RED, or an ALL_RED state). Timer initializes to state duration.",
+    "OUTPUTS: Generate signals for each light: ns_red, ns_yellow, ns_green, ew_red, ew_yellow, ew_green. Exactly one light per direction asserted (except during all-red if implemented).",
+    "NO GLITCHES: Outputs change only on clock edges (Moore property). No combinational hazards in output logic.",
+    "Test Case 1 - Normal Cycle: After reset, observe state sequence: NS_GREEN (10 cycles) → NS_YELLOW (2 cycles) → EW_GREEN (10 cycles) → EW_YELLOW (2 cycles) → repeat. Verify light outputs match states.",
+    "Test Case 2 - Reset Mid-Cycle: Start in NS_GREEN, wait 5 cycles. Assert reset. Expected: FSM returns to initial state (NS_GREEN or defined reset state), timer resets, correct outputs.",
+    "Test Case 3 - Output Stability (Moore Property): During a state, even if there were inputs (e.g., sensor), outputs remain constant until next clock edge when state changes. Verify no glitches.",
+    "Test Case 4 - Timer Boundaries: Verify timer counts correctly and transitions occur at exact cycle count. For NS_YELLOW with duration=2, verify transition happens after exactly 2 cycles.",
+    "Test Case 5 - Illegal Light Combinations: Verify never both directions green simultaneously, never both directions yellow simultaneously. Only one active light per direction."
+  ],
+  "hints": [
+    "Timer implementation: Maintain counter register. Decrement each cycle (or increment to threshold). When counter reaches 0 (or threshold), transition to next state and reload counter with next state duration.",
+    "State encoding: Can use binary (2 bits for 4 states) or one-hot (4 bits). One-hot makes output decode simpler.",
+    "Output assignment (Moore): In separate always_comb or assign statements, decode current state to light signals. Example: assign {ns_red, ns_yellow, ns_green} = (state==NS_GREEN) ? 3\\",
+    "b010 : 3\\",
+    ",\n        ",
+    ",\n        ",
+    ",\n        ",
+    ",\n        "
+  ]
+}

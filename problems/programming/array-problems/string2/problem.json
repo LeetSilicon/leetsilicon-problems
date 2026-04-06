@@ -1,0 +1,21 @@
+{
+  "id": "string2",
+  "shortName": "Valid Palindrome",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Easy",
+  "topics": [
+    "String",
+    "Two Pointers"
+  ],
+  "question": "Valid Palindrome",
+  "description": "A phrase is a **palindrome** if, after converting all uppercase letters into lowercase and removing all non-alphanumeric characters, it reads the same forward and backward.\\n\\n' +\n        'Given a string `s`, return `true` if it is a palindrome, or `false` otherwise.\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: s = \"racecar\"\\nOutput: true\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: s = \"hello\"\\nOutput: false\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- `1 <= s.length <= 2 * 10⁵`\\n' +\n        '- `s` consists only of printable ASCII characters",
+  "requirements": [
+    "Ignore non-alphanumeric characters",
+    "Case-insensitive comparison"
+  ],
+  "hints": [
+    "Use two pointers from both ends, skip non-alphanumeric characters.",
+    "Compare lowercase versions."
+  ]
+}

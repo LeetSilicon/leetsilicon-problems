@@ -1,0 +1,18 @@
+{
+  "id": "string12",
+  "shortName": "Digits Only String",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Easy",
+  "topics": [
+    "String"
+  ],
+  "question": "Is Digits Only",
+  "description": "Given a string `s`, return `true` if every character is a digit (`0`-`9`), otherwise return `false`.\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: s = \"12345\"\\nOutput: true\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: s = \"12a45\"\\nOutput: false\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- `0 <= s.length <= 10⁵`\\n' +\n        '- Empty string returns `true`",
+  "requirements": [
+    "Time complexity: O(n)"
+  ],
+  "hints": [
+    "Scan each character and verify isdigit. Return false immediately on a non-digit."
+  ]
+}

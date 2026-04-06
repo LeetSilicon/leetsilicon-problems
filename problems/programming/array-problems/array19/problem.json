@@ -1,0 +1,21 @@
+{
+  "id": "array19",
+  "shortName": "Indexes of Subarray Sum",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Sliding Window"
+  ],
+  "question": "Subarray Sum Equals Target",
+  "description": "Given an array of non-negative integers `arr` and a target sum, find the first contiguous subarray whose sum equals the target. Return 1-based `[left, right]` indices, or `[-1]` if not found.\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: arr = [1,2,3,7,5], target = 12\\nOutput: [2,4]\\nExplanation: arr[2..4] = [2,3,7] sums to 12\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: arr = [5,3,4], target = 2\\nOutput: [-1]\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- `1 <= arr.length <= 10⁵`\\n' +\n        '- `arr[i] >= 0`",
+  "requirements": [
+    "Time complexity: O(n)",
+    "Use sliding window for non-negative arrays"
+  ],
+  "hints": [
+    "Expand right to increase sum, shrink left while sum > target.",
+    "Return as soon as sum == target."
+  ]
+}

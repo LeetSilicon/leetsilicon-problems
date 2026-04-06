@@ -1,0 +1,34 @@
+{
+  "id": "arith3",
+  "shortName": "Sequential Divider",
+  "domain": "rtl-design",
+  "category": "FIFO / Queue",
+  "difficulty": "Hard",
+  "topics": [
+    "Arithmetic",
+    "Divider",
+    "Design"
+  ],
+  "question": "Design Sequential Divider using Restoring or Non-Restoring Algorithm",
+  "description": "Implement a sequential divider computing quotient and remainder.\\n\\n' +\n        '**Example (WIDTH=8):**\\n' +\n        '```\\n20 / 5 → quotient=4, remainder=0\\n22 / 5 → quotient=4, remainder=2\\n7 / 0  → divide_by_zero=1\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- Typically WIDTH+1 cycles\\n' +\n        '- Handshake: start, busy, done\\n' +\n        '- Define divide-by-zero behavior",
+  "requirements": [
+    "PARAMETERIZATION: Parameter WIDTH defines operand width. Dividend and divisor are WIDTH bits. Quotient and remainder are WIDTH bits.",
+    "ALGORITHM: Choose restoring division or non-restoring division. Document choice. Restoring is simpler and recommended. Typical cycle count: WIDTH+1 cycles.",
+    "INPUTS: dividend (WIDTH bits), divisor (WIDTH bits), start (initiate division).",
+    "OUTPUTS: quotient (WIDTH bits), remainder (WIDTH bits), done (completion pulse), divide_by_zero (error flag).",
+    "DIVIDE-BY-ZERO: When divisor=0, division undefined. Define behavior: (1) Assert divide_by_zero flag=1, (2) Set quotient and remainder to defined values (e.g., quotient=all 1s, remainder=dividend), (3) Complete operation without computing (don't hang).",
+    "SIGNED VS UNSIGNED: Choose and document. Unsigned is simpler. Signed requires handling signs separately, dividing absolute values, adjusting sign of quotient/remainder at end.",
+    "HANDSHAKE: Start initiates operation. Busy during computation. Done pulses when complete. Support back-to-back operations.",
+    "RESTORING DIVISION ALGORITHM: (1) Initialize remainder=0, quotient=0. (2) For each bit position (MSB to LSB of quotient): Shift remainder left, bring in next dividend bit from MSB. Subtract divisor from remainder. If result >= 0: set quotient bit=1, keep new remainder. Else: restore remainder (add divisor back), set quotient bit=0. (3) Repeat WIDTH times.",
+    "CYCLE COUNT: Typically WIDTH iterations + overhead = WIDTH+1 to WIDTH+2 cycles.",
+    "Test Case 1 - Exact Division: WIDTH=8, dividend=20 (0x14), divisor=5 (0x05). Expected: quotient=4, remainder=0, divide_by_zero=0.",
+    "Test Case 2 - Non-Exact Division: dividend=22 (0x16), divisor=5 (0x05). Expected: quotient=4, remainder=2.",
+    "Test Case 3 - Divide by Zero: dividend=7, divisor=0. Expected: divide_by_zero=1, quotient and remainder per defined spec (e.g., quotient=0xFF, remainder=0x07).",
+    "Test Case 4 - Divisor Greater Than Dividend: dividend=3, divisor=10. Expected: quotient=0, remainder=3.",
+    "Test Case 5 - Maximum Dividend: dividend=255 (0xFF), divisor=1. Expected: quotient=255, remainder=0.",
+    "Test Case 6 - Back-to-Back Operations: First: 20/5. After done, immediately start 22/5. Verify both results correct."
+  ],
+  "hints": [
+    "Restoring division state machine: States: IDLE, COMPUTE, DONE. In COMPUTE: Iterate WIDTH times, performing shift-subtract-restore steps. Track iteration with counter."
+  ]
+}

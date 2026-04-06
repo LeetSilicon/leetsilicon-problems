@@ -1,0 +1,25 @@
+{
+  "id": "rtl13",
+  "shortName": "Glitch-Free Clock Gate",
+  "domain": "rtl-design",
+  "category": "FIFO / Queue",
+  "difficulty": "Medium",
+  "topics": [
+    "RTL",
+    "Clock Gating"
+  ],
+  "question": "Glitch-Free Clock Gating Cell with Enable",
+  "description": "Implement a latch-based glitch-free clock gating cell (ICG style).\\n\\n' +\n        '**Operation:** `clk_gated = clk_in & enable_latched`\\n\\n' +\n        '**Constraints:**\\n' +\n        '- Sample enable when clk_in is low (latch)\\n' +\n        '- Hold when clk_in is high\\n' +\n        '- Enable toggle while clk high must not glitch output",
+  "requirements": [
+    "INPUTS: clk_in, enable.",
+    "OUTPUT: clk_gated.",
+    "LATCH: Sample enable when clk_in is low; hold when clk_in is high.",
+    "GATE: clk_gated = clk_in & enable_latched.",
+    "Test Case - Disabled gate: when enable=0, clk_gated stays low.",
+    "Test Case - Enabled gate: when enable=1 and sampled during clk low, clk_gated follows clk_in.",
+    "Test Case - enable toggles while clk_in high does not glitch clk_gated."
+  ],
+  "hints": [
+    "Model latch with always_latch; use synthesis-safe coding style."
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "id": "rtl-debug-valid-ready",
+  "domain": "rtl-debug",
+  "category": "Protocol",
+  "difficulty": "Medium",
+  "bugType": "handshake stability",
+  "summary": "Data changes while valid remains asserted and ready is low. Fix producer-side holding behavior.",
+  "signals": [
+    "clk",
+    "rst",
+    "src_valid",
+    "src_ready",
+    "src_data",
+    "load_new"
+  ],
+  "expectedBehavior": [
+    "When valid=1 and ready=0, src_data must remain stable.",
+    "Data may change only on a successful transfer or when idle.",
+    "Reset should clear valid cleanly."
+  ],
+  "hiddenChecks": [
+    "Backpressure for 3+ cycles",
+    "Random ready toggles with repeated loads",
+    "Reset during backpressure"
+  ],
+  "hints": [
+    "Check whether src_data is updated whenever load_new is high, regardless of backpressure.",
+    "Hold valid/data until a handshake occurs (valid && ready).",
+    "Think in terms of “accept new request” vs “present current request”."
+  ]
+}

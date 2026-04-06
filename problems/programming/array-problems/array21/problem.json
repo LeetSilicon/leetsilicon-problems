@@ -1,0 +1,23 @@
+{
+  "id": "array21",
+  "shortName": "3Sum",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Two Pointers",
+    "Sorting"
+  ],
+  "question": "3Sum",
+  "description": "Given an integer array `nums`, return all the triplets `[nums[i], nums[j], nums[k]]` such that `i != j`, `i != k`, `j != k`, and `nums[i] + nums[j] + nums[k] == 0`.\\n\\n' +\n        'Notice that the solution set must not contain duplicate triplets.\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: nums = [-1,0,1,2,-1,-4]\\nOutput: [[-1,-1,2],[-1,0,1]]\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: nums = [0,0,0]\\nOutput: [[0,0,0]]\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- `3 <= nums.length <= 3000`\\n' +\n        '- `-10⁵ <= nums[i] <= 10⁵`",
+  "requirements": [
+    "Time complexity: O(n²)",
+    "Must avoid duplicate triplets"
+  ],
+  "hints": [
+    "Sort the array first.",
+    "Fix one element and use two pointers for the remaining pair.",
+    "Skip duplicates by advancing pointers past equal values."
+  ]
+}

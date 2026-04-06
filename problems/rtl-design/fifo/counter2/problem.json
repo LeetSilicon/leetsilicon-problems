@@ -1,0 +1,31 @@
+{
+  "id": "counter2",
+  "shortName": "Gray-Code Counter",
+  "domain": "rtl-design",
+  "category": "FIFO / Queue",
+  "difficulty": "Medium",
+  "topics": [
+    "Counter",
+    "Gray Code",
+    "Design"
+  ],
+  "question": "Implement Gray Code Counter",
+  "description": "Design a counter where successive values differ by exactly one bit (Hamming distance = 1).\\n\\n' +\n        '**Conversion:**\\n' +\n        '```\\ngray = (binary >> 1) ^ binary\\n4-bit sequence: 0000,0001,0011,0010,0110,...\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- Parameterizable N-bit width\\n' +\n        '- Successive values differ by exactly 1 bit\\n' +\n        '- Useful for CDC (clock domain crossing)",
+  "requirements": [
+    "GRAY CODE PROPERTY: Successive values differ by exactly 1 bit. For example, 4-bit Gray: 0000, 0001, 0011, 0010, 0110, 0111, 0101, 0100, 1100, 1101, 1111, 1110, 1010, 1011, 1001, 1000, (wrap to 0000).",
+    "PARAMETERIZATION: Parameter N defines counter width.",
+    "IMPLEMENTATION APPROACH: Option 1 (Recommended): Maintain binary counter internally, convert to Gray code each cycle. Option 2: Directly implement Gray sequence (complex). Document chosen approach.",
+    "BINARY TO GRAY CONVERSION: Formula: gray = (binary >> 1) ^ binary; Apply to binary counter value to produce Gray output.",
+    "ENABLE CONTROL: When enable=1, counter advances. When enable=0, holds current value.",
+    "RESET: On reset, counter initializes to 0 (Gray code 0000...0).",
+    "WRAPAROUND: After maximum Gray value, wraps back to 0.",
+    "OUTPUT: Gray code counter value ",
+    " (N bits).",
+    "Test Case 1 - Gray Conversion Correctness: For N=3, binary sequence 0-7 converts to Gray: 000, 001, 011, 010, 110, 111, 101, 100. Verify conversion formula produces correct Gray values.",
+    "Test Case 2 - Single-Bit Change Property: Enable counter continuously. For each transition, compute Hamming distance between successive gray_count values. Expected: Hamming distance = 1 for all transitions (exactly one bit changes).",
+    "Test Case 3 - Wraparound: N=4. Count through full sequence (16 values). After gray_count=1000 (Gray for binary 15), next value is 0000 (Gray for binary 0). Verify transition 1000→0000 also has Hamming distance 1.",
+    "Test Case 4 - Enable Control: Count to Gray value 0011. Disable (enable=0) for 3 cycles. Expected: gray_count remains 0011. Re-enable, advances to next Gray value 0010.",
+    "Test Case 5 - Reset: At arbitrary Gray count. Assert reset. Expected: gray_count=0."
+  ],
+  "hints": []
+}

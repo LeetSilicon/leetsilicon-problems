@@ -1,0 +1,29 @@
+{
+  "id": "pipe3",
+  "shortName": "Achieve Without Constraints",
+  "domain": "design-verification",
+  "category": "Constraints",
+  "difficulty": "Hard",
+  "topics": [
+    "Alternative",
+    "Pipeline",
+    "Implementation"
+  ],
+  "question": "Implement Instruction Generation Rules Without SystemVerilog Constraints",
+  "description": "Write uvm sv constraints to implement the instruction repetition and non-overlap rules from pipe1 and pipe2 using procedural code (algorithmic random generation) instead of declarative constraints. Must maintain same functional behavior: spacing rules, no-overlap, deterministic seed-based reproduction.",
+  "requirements": [
+    "NO SV CONSTRAINTS: Cannot use rand variables with constraint blocks. Pure procedural/algorithmic approach.",
+    "FUNCTIONAL EQUIVALENCE: Must enforce same rules as constrained versions (ADD spacing, SUB spacing, latency-based overlap).",
+    "RANDOM GENERATION: Use $urandom or $random with seed for randomness. Not deterministic selection.",
+    "STATE MANAGEMENT: Maintain history, cooldown counters, or other state to track constraints.",
+    "LEGAL FILTERING: Each step, determine legal opcodes (those not violating rules), then randomly select from legal set.",
+    "SEED REPRODUCIBILITY: Same seed must produce same instruction sequence (deterministic).",
+    "NO DEADLOCK: If no legal opcode exists, define behavior: insert bubble/NOP (if allowed), backtrack, or restart. Document choice.",
+    "Test Case 1 - Rule Compliance: Generate long sequence (1000 instructions). Verify all spacing and overlap rules hold.",
+    "Test Case 2 - Stress Test: Worst-case latencies and small opcode sets. Verify generator produces outputs without hanging.",
+    "Test Case 3 - Determinism: Generate sequence with seed=42. Reset and regenerate with same seed. Verify identical sequences.",
+    "Test Case 4 - Distribution: Over many seeds, verify opcodes distributed reasonably (not heavily biased unless required).",
+    "Test Case 5 - No Deadlock: Test with tight constraints. Verify generator handles cases where few/no legal opcodes remain."
+  ],
+  "hints": []
+}

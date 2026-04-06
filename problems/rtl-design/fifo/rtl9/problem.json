@@ -1,0 +1,24 @@
+{
+  "id": "rtl9",
+  "shortName": "ms to sec/min/hr",
+  "domain": "rtl-design",
+  "category": "FIFO / Queue",
+  "difficulty": "Easy",
+  "topics": [
+    "RTL",
+    "Counters"
+  ],
+  "question": "Generate Second/Minute/Hour Pulses from 1 ms Tick",
+  "description": "Use counters driven by a 1 ms pulse to generate derived timebase pulses.\\n\\n' +\n        '**Conversion:** `1000 ticks → sec, 60 sec → min, 60 min → hr`\\n\\n' +\n        '**Constraints:**\\n' +\n        '- Each pulse is 1 cycle wide at rollover\\n' +\n        '- Cascaded counters",
+  "requirements": [
+    "INPUTS: clk, rst_n, tick_1ms.",
+    "OUTPUTS: sec_pulse, min_pulse, hour_pulse.",
+    "COUNT: 1000 ticks => 1 second, 60 seconds => 1 minute, 60 minutes => 1 hour.",
+    "PULSE WIDTH: 1 cycle asserted at rollover event.",
+    "Test Case - 1000 ticks produce one sec_pulse.",
+    "Test Case - 60 sec_pulse events produce one min_pulse."
+  ],
+  "hints": [
+    "Use tick_1ms as clock-enable for cascaded counters."
+  ]
+}

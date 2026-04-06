@@ -1,0 +1,41 @@
+{
+  "id": "uvm_adv_10",
+  "shortName": "Protocol Assertion Monitor",
+  "domain": "design-verification",
+  "category": "Constraints",
+  "difficulty": "Hard",
+  "topics": [
+    "UVM",
+    "Monitor",
+    "Protocol Checks"
+  ],
+  "question": "Implement Protocol Checking Monitor with Inline Assertions",
+  "description": "Design lightweight UVM monitor that performs protocol violation checking using procedural assertions (if statements with `uvm_error). Monitor samples interface continuously and checks for protocol violations: (1) valid deasserted mid-packet, (2) ready toggling when not allowed, (3) data stability violations, (4) illegal state transitions. No SystemVerilog Assertions (SVA) used, only procedural checks. Report violations immediately with detailed error messages.",
+  "requirements": [
+    "MONITOR CLASS: Extend uvm_monitor. Sample interface signals in run_phase.",
+    "PROTOCOL RULES: Define specific protocol rules to check. Examples: (1) valid must remain high once asserted until packet complete, (2) data must be stable while valid high and ready low, (3) ready cannot toggle during specific phases.",
+    "VIOLATION DETECTION: Use if statements to detect violations. Example: if(valid_dropped_mid_packet) `uvm_error(",
+    ", ",
+    ");",
+    "STATE TRACKING: Maintain FSM or flags to track protocol state (idle, packet_in_progress, waiting_for_ready, etc.).",
+    "VALID PERSISTENCE: Once valid asserted, track expected duration. Error if deasserted early.",
+    "DATA STABILITY: Store data value when valid asserted. If valid remains high and ready low, data must not change.",
+    "READY TOGGLING: Track ready state. Error if ready toggles when protocol forbids (e.g., during ACK phase).",
+    "SEVERITY: Use `uvm_error for violations. Use `uvm_warning for suspicious patterns.",
+    "ERROR MESSAGES: Include detailed context in error messages: cycle count, signal values, expected vs actual.",
+    "Test Case 1 - Valid Drop Mid-Packet: Start packet (valid=1), deassert valid before completion. Monitor reports error.",
+    "Test Case 2 - Data Change: valid=1, ready=0, data changes. Monitor reports stability violation.",
+    "Test Case 3 - Ready Toggle: ready toggles during forbidden phase. Monitor reports error.",
+    "Test Case 4 - Valid Packet: Protocol followed correctly. No errors reported.",
+    "Test Case 5 - Multiple Violations: Inject multiple violations in sequence. Verify all detected and reported.",
+    "Test Case 6 - Edge Cases: Back-to-back packets, zero-length packets, reset during packet. Verify correct checking."
+  ],
+  "hints": [
+    "State tracking: typedef enum {IDLE, PKT_IN_PROGRESS, WAITING_ACK} state_t; state_t state; In run_phase: always @(posedge vif.clk) case(state) IDLE: if(vif.valid) begin state = PKT_IN_PROGRESS; ... end PKT_IN_PROGRESS: if(!vif.valid) `uvm_error(",
+    ", ",
+    "); ... endcase",
+    "Valid persistence: int pkt_length; int beat_count; if(state == PKT_IN_PROGRESS) begin if(!vif.valid) `uvm_error(",
+    ", $sformatf(",
+    ", beat_count, pkt_length)); beat_count++; end"
+  ]
+}

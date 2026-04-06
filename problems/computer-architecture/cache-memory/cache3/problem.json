@@ -1,0 +1,30 @@
+{
+  "id": "cache3",
+  "shortName": "LFU Cache Design",
+  "domain": "computer-architecture",
+  "category": "Cache & Memory",
+  "difficulty": "Hard",
+  "topics": [
+    "Cache",
+    "Replacement Policy",
+    "RTL"
+  ],
+  "question": "Design LFU Cache with Counter-Based Replacement",
+  "description": "Implement a Least Frequently Used (LFU) cache with per-line frequency counters.\\n\\n' +\n        'Increment the counter on each hit. On miss, evict the line with lowest frequency. Handle counter saturation and define a tie-breaking strategy.\\n\\n' +\n        '**Example:**\\n' +\n        '```\\nFill lines A (freq=3) and B (freq=1)\\nMiss on C → Evicts B (lower frequency)\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- Configurable counter width (e.g., 4 bits)\\n' +\n        '- Counters saturate at max, do not wrap\\n' +\n        '- Deterministic tie-breaking required",
+  "requirements": [
+    "COUNTER MANAGEMENT: Maintain one frequency counter per cache line. Define counter width (e.g., 4 bits) and saturation behavior at maximum value (hold at max, do not wrap).",
+    "INCREMENT POLICY: On cache hit, increment the frequency counter for the accessed line. On cache miss with refill, initialize new line counter to 1 (or 0, document your choice).",
+    "EVICTION SELECTION: On cache miss requiring eviction, find the line with minimum frequency count. If multiple lines have the same minimum frequency, apply tie-breaking rule.",
+    "TIE-BREAKING: Define deterministic tie-breaker when multiple lines have minimum frequency. Options: (1) use LRU timestamp among tied lines, (2) select lowest way index, (3) other documented policy.",
+    "COUNTER RESET: On line invalidation or replacement, reset counter to initial value. On line fill, set counter appropriately.",
+    "EDGE CASES: Handle all-invalid cache (cold start), counter saturation, all counters at same value.",
+    "Test Case 1 - Frequency-Based Eviction: Fill lines A and B. Hit A three times (freq=3), hit B once (freq=1). Miss on C requiring eviction. Expected: B evicted (lower frequency).",
+    "Test Case 2 - Counter Saturation: Use 2-bit counter (max=3). Hit line A repeatedly. Expected: counter saturates at 3, does not wrap to 0.",
+    "Test Case 3 - Tie-Breaking: Lines A and B both have freq=1 but different timestamps/indices. Miss on C. Expected: evict older line (or lower index) per documented tie-break policy."
+  ],
+  "hints": [
+    "Saturation: use conditional increment (if counter < MAX).",
+    "Always define tie-break rule explicitly.",
+    "Consider periodic global decay (right-shift all counters) to prevent saturation."
+  ]
+}

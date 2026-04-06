@@ -1,0 +1,21 @@
+{
+  "id": "array20",
+  "shortName": "Count the Triplets",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Easy",
+  "topics": [
+    "Array",
+    "Two Pointers",
+    "Sorting"
+  ],
+  "question": "Count Triplets with Zero Sum",
+  "description": "Given an array `arr`, count the number of triplets `(i, j, k)` where `i < j < k` and `arr[i] + arr[j] + arr[k] = 0`.\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: arr = [-1,0,1]\\nOutput: 1\\nExplanation: (-1) + 0 + 1 = 0\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: arr = [1,5,3,2]\\nOutput: 0\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- `3 <= arr.length <= 10³`\\n' +\n        '- `-10⁶ <= arr[i] <= 10⁶`",
+  "requirements": [
+    "Time complexity: O(n²)",
+    "Sort and use two-pointer technique"
+  ],
+  "hints": [
+    "Sort ascending, then fix one element and use two pointers for the remaining pair."
+  ]
+}

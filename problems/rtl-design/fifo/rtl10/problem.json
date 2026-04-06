@@ -1,0 +1,24 @@
+{
+  "id": "rtl10",
+  "shortName": "Clock Divide by 2",
+  "domain": "rtl-design",
+  "category": "FIFO / Queue",
+  "difficulty": "Easy",
+  "topics": [
+    "RTL",
+    "Clock Divider"
+  ],
+  "question": "Divide-by-2 Clock Divider",
+  "description": "Implement divide-by-2 clock using a toggling flip-flop.\\n\\n' +\n        '**Constraints:**\\n' +\n        '- Output toggles on each rising edge of clk\\n' +\n        '- 50% duty cycle\\n' +\n        '- Define initial state on reset",
+  "requirements": [
+    "INPUTS: clk, rst_n.",
+    "OUTPUT: clk_div2.",
+    "TOGGLE: clk_div2 toggles on each rising edge of clk.",
+    "RESET: Define initial output state.",
+    "Test Case - Frequency: output frequency is clk/2.",
+    "Test Case - Reset: after reset, clk_div2 returns to the documented initial state before toggling resumes."
+  ],
+  "hints": [
+    "clk_div2 <= ~clk_div2 in always_ff."
+  ]
+}

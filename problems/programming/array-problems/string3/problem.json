@@ -1,0 +1,22 @@
+{
+  "id": "string3",
+  "shortName": "Anagram Check",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Easy",
+  "topics": [
+    "String",
+    "Hash Table",
+    "Sorting"
+  ],
+  "question": "Valid Anagram",
+  "description": "Given two strings `s` and `t`, return `true` if `t` is an anagram of `s`, and `false` otherwise.\\n\\n' +\n        'An **Anagram** is a word formed by rearranging the letters of a different word, using all the original letters exactly once.\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: s = \"anagram\", t = \"nagaram\"\\nOutput: true\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: s = \"rat\", t = \"car\"\\nOutput: false\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- `1 <= s.length, t.length <= 5 * 10⁴`\\n' +\n        '- `s` and `t` consist of lowercase English letters",
+  "requirements": [
+    "Sorting: O(n log n)",
+    "Hash map: O(n)"
+  ],
+  "hints": [
+    "If lengths differ, return false immediately.",
+    "Count character frequencies with a hash map or fixed array."
+  ]
+}

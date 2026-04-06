@@ -1,0 +1,19 @@
+{
+  "id": "array11",
+  "shortName": "Common Elements in Three Sorted Arrays",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Medium",
+  "topics": [
+    "Array",
+    "Two Pointers"
+  ],
+  "question": "Common Elements in Three Sorted Arrays",
+  "description": "Given three sorted arrays `a`, `b`, and `c`, find all elements that are common in all three.\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: a = [1,2,3], b = [2,3,4], c = [2,3,5]\\nOutput: [2,3]\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: a = [1,2], b = [3,4], c = [5,6]\\nOutput: []\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- Arrays are sorted in non-decreasing order\\n' +\n        '- `1 <= length <= 10⁵`",
+  "requirements": [
+    "Time complexity: O(n1 + n2 + n3)",
+    "Use three pointers",
+    "Skip duplicates in output"
+  ],
+  "hints": []
+}

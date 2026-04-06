@@ -1,0 +1,21 @@
+{
+  "id": "string6",
+  "shortName": "Remove Duplicate Characters",
+  "domain": "programming",
+  "category": "Array Problems",
+  "difficulty": "Medium",
+  "topics": [
+    "String",
+    "Hash Table"
+  ],
+  "question": "Remove Duplicate Letters (Preserve Order)",
+  "description": "Given a string `s`, remove duplicate characters while preserving the original order of first occurrences.\\n\\n' +\n        '**Example 1:**\\n' +\n        '```\\nInput: s = \"abracadabra\"\\nOutput: \"abrcd\"\\n```\\n\\n' +\n        '**Example 2:**\\n' +\n        '```\\nInput: s = \"programming\"\\nOutput: \"progamin\"\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- `1 <= s.length <= 10⁵`",
+  "requirements": [
+    "Keep first occurrence of each character",
+    "Maintain original order"
+  ],
+  "hints": [
+    "Use a set of seen characters and build output left to right.",
+    "Only append a character the first time you see it."
+  ]
+}

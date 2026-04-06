@@ -1,0 +1,25 @@
+{
+  "id": "rtl4",
+  "shortName": "Pattern in Last N",
+  "domain": "rtl-design",
+  "category": "FIFO / Queue",
+  "difficulty": "Medium",
+  "topics": [
+    "RTL",
+    "Shift Register"
+  ],
+  "question": "Detect Pattern 10110 Anywhere in Last N Samples",
+  "description": "Use an N-bit shift register and combinational decode to detect a K-bit pattern at any alignment in the window.\\n\\n' +\n        '**Constraints:**\\n' +\n        '- Parameterizable N (window), K=5, PATTERN=10110\\n' +\n        '- Compare each K-bit slice, OR all matches\\n' +\n        '- found=0 once pattern shifts out of window",
+  "requirements": [
+    "PARAM: N (window size), K=5, PATTERN=5b10110.",
+    "INPUTS: clk, rst_n, bit_in.",
+    "OUTPUT: found.",
+    "SHIFT: Maintain last N samples in a shift register.",
+    "DECODE: Compare each K-bit slice to PATTERN and OR matches.",
+    "Test Case - Found: pattern appears within last N → found=1.",
+    "Test Case - Shift out: once pattern moves out of window → found=0."
+  ],
+  "hints": [
+    "Generate compares with a for-generate loop."
+  ]
+}

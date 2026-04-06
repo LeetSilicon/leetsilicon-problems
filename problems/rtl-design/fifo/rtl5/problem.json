@@ -1,0 +1,26 @@
+{
+  "id": "rtl5",
+  "shortName": "Debounce + Sync",
+  "domain": "rtl-design",
+  "category": "FIFO / Queue",
+  "difficulty": "Medium",
+  "topics": [
+    "RTL",
+    "CDC",
+    "Debounce"
+  ],
+  "question": "Debounce an Asynchronous Input (2-cycle stable) + Rising Pulse",
+  "description": "Synchronize async input, filter glitches (require 2 consecutive stable highs), and generate debounced rising-edge pulse.\\n\\n' +\n        '**Constraints:**\\n' +\n        '- 2-flop synchronizer for async input\\n' +\n        '- Accept high only after 2 stable samples\\n' +\n        '- Output: debounced_level + debounced_rise_pulse",
+  "requirements": [
+    "INPUTS: clk, rst_n, async_in.",
+    "OUTPUTS: debounced_level, debounced_rise_pulse.",
+    "SYNC: 2-flop synchronizer for async_in.",
+    "FILTER: Accept high only after 2 consecutive synchronized high samples.",
+    "PULSE: debounced_rise_pulse asserted for 1 cycle on 0→1 of debounced_level.",
+    "Test Case - Glitch: short high glitch rejected.",
+    "Test Case - Stable high: stable high accepted and pulse generated once."
+  ],
+  "hints": [
+    "Filter using 2-bit shift history or small saturating counter."
+  ]
+}

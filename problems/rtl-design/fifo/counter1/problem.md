@@ -1,0 +1,83 @@
+# N-bit Synchronous Counter
+
+**Domain:** rtl-design — FIFO / Queue  
+**Difficulty:** Easy  
+**Topics:** Counter, Sequential, Design
+
+---
+
+## Problem Statement
+
+Design N-bit Synchronous Counter with Enable and Reset
+
+Implement a parameterizable N-bit up counter with enable and reset.\n\n' +
+        '**Behavior:**\n' +
+        '```\nenable=1 → count increments each cycle\nenable=0 → count holds\nWraps from 2^N-1 to 0 automatically\n```\n\n' +
+        '**Constraints:**\n' +
+        '- Parameterizable N (counter width)\n' +
+        '- Synchronous or asynchronous reset (document choice)\n' +
+        '- Modulo 2^N wraparound
+
+---
+
+## Requirements
+
+1. PARAMETERIZATION: Parameter N defines counter width (number of bits). Counter range: 0 to 2^N - 1.
+
+2. ENABLE CONTROL: Input signal 
+
+3. . When enable=1, counter increments on rising clock edge. When enable=0, counter holds current value.
+
+4. INCREMENT: Counter increments by 1 each enabled clock cycle: count <= count + 1.
+
+5. WRAPAROUND: When counter reaches maximum value (2^N - 1) and increments, wraps to 0 naturally (modulo 2^N arithmetic).
+
+6. RESET: Define reset type (synchronous or asynchronous). On reset assertion, counter initializes to 0 (or parameterizable RESET_VALUE).
+
+7. OUTPUT: Counter value 
+
+8.  (N bits).
+
+9. Test Case 1 - Counting with Enable: N=4 (4-bit counter, range 0-15). Assert enable=1. After 3 clock cycles, count=3. After 10 cycles total, count=10.
+
+10. Test Case 2 - Hold on Disable: Count at value 5. Deassert enable (enable=0) for 2 cycles. Expected: count remains 5. Re-enable, count increments to 6.
+
+11. Test Case 3 - Wraparound: N=4. Count at 15 (0xF, maximum). Enable=1. Next cycle: count wraps to 0.
+
+12. Test Case 4 - Reset: Count at arbitrary value (e.g., 7). Assert reset. Expected: count becomes 0 (or RESET_VALUE). Release reset and enable, counting resumes from 0.
+
+13. Test Case 5 - Continuous Counting: Enable always high. Observe count sequence: 0,1,2,3,...,15,0,1,... for N=4.
+
+---
+
+## Hints
+
+<details>
+<summary>Hint 1</summary>
+Synchronous counter with enable: always_ff @(posedge clk or posedge rst) if (rst) count <= 0; else if (enable) count <= count + 1;
+</details>
+
+<details>
+<summary>Hint 2</summary>
+Wraparound is automatic with fixed-width arithmetic. When count=2^N-1, adding 1 results in 0 due to overflow (wraps modulo 2^N).
+</details>
+
+<details>
+<summary>Hint 3</summary>
+For parameterizable reset value: parameter RESET_VALUE = 0; ... if (rst) count <= RESET_VALUE;
+</details>
+
+<details>
+<summary>Hint 4</summary>
+Output: assign count_out = count; or count is directly output if register.
+</details>
+
+<details>
+<summary>Hint 5</summary>
+Optional: Add terminal_count output: assign terminal_count = (count == (2**N - 1)); Pulses when counter at maximum.
+</details>
+
+<details>
+<summary>Hint 6</summary>
+Test extensively: Start at reset, count through full range including wraparound, disable and re-enable at various points.
+</details>
