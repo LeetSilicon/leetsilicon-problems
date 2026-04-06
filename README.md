@@ -1,4 +1,4 @@
-# RTL Problem Bank 🔧
+# Question Bank 🔧
 
 An open-source collection of hardware design problems covering RTL Design, Computer Architecture, Design Verification, RTL Debugging, and HDL Programming. Built for students, interview prep, and anyone learning digital design.
 
