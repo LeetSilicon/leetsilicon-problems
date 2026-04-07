@@ -9,13 +9,13 @@ Thank you for contributing! There are three ways to contribute, each with its ow
 ### Step 1 — Choose a domain and create a folder
 
 ```
-problems/<domain>/<category>/<problem-id>/
+problems/<domain>/<problem-id>/
 ```
 
 Examples:
-- `problems/rtl-design/fifo/fifo4-credit-based/`
-- `problems/computer-architecture/cache/cache5-victim-cache/`
-- `problems/rtl-debug/pipeline/rtl-debug-pipeline-hazard/`
+- `problems/rtl-design/<que-no>/`
+- `problems/computer-architecture/<que-no>/`
+- `problems/rtl-debug<que-no>/`
 
 ### Step 2 — Create the required files
 
@@ -80,7 +80,7 @@ If a reference solution is incorrect, a testbench has a mistake, or a problem de
 
 1. Open an issue using the **Bug Report** template first.
 2. Fork the repo and fix the file in place.
-3. PR title format: `fix(fifo1): correct almost-full flag boundary condition`
+3. PR title format: `fix(<que-no>): correct almost-full flag boundary condition`
 
 ---
 
