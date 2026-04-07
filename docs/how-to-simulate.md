@@ -18,7 +18,7 @@ brew install icarus-verilog
 ### Run a Testbench
 
 ```bash
-cd problems/rtl-design/fifo/fifo1-sync-fifo/
+cd problems/rtl-design/<que-no>/
 
 # Compile
 iverilog -g2012 -o sim testbench.sv solution.sv
@@ -86,9 +86,9 @@ vsim -c work.tb_top -do "run -all; quit"
 bash scripts/run_tests.sh
 
 # Output:
-# [PASS] rtl-design/fifo/fifo1-sync-fifo
-# [PASS] rtl-design/fifo/fifo2-async-fifo
-# [FAIL] rtl-design/fsm/fsm3-mealy     ← needs fix
+# [PASS] rtl-design/<que-no>
+# [PASS] rtl-design/<que-no>
+# [FAIL] rtl-design/<que-no>     ← needs fix
 ```
 
 ---
