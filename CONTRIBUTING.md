@@ -65,7 +65,7 @@ For **RTL Debug** problems, replace `solution.sv` + `testbench.sv` with:
 ### Step 3 — Validate
 
 ```bash
-node scripts/validate_problem.js problems/rtl-design/fifo/fifo4-credit-based/problem.json
+node scripts/validate_problem.js problems/rtl-design/<problem-id>/problem.json
 ```
 
 ### Step 4 — Open a Pull Request
