@@ -10,12 +10,10 @@
     "Precedence"
   ],
   "question": "Event1 Precedes Event2 by At Least 10 Cycles",
-  "description": "Write sequence assertion to verify that event1 always occurs at least 10 clock cycles before event2. When event2 occurs, event1 must have occurred at least 10 cycles prior.",
+  "description": "Write a SystemVerilog sequence assertion to verify the following temporal relationship between two events: When event2 occurs, event1 must have occurred at least 10 cycles prior.",
   "requirements": [
-    "PRECEDENCE: event1 must happen first, and event2 cannot occur until at least 10 cycles after event1.",
+    "PRECEDENCE:event1 must occur before event2. event2 is not allowed until at least 10 clock cycles after event1",
     "TRIGGER: On event2 occurrence, check that event1 occurred at least 10 cycles earlier.",
-    "ALTERNATIVE (Forward): On event1, event2 cannot occur in next 9 cycles: $rose(event1) |-> ##[1:9] !$rose(event2).",
-    "MULTIPLE OCCURRENCES: If event1 and event2 can occur multiple times, track latest event1 relative to each event2.",
     "PAST FUNCTION: $past(sig, N) references signal value N cycles ago. Must be within simulation history.",
     "RESET: disable iff (rst). Also ensure $past not accessed before N cycles elapsed (use $past validity or cycle counter).",
     "Test Case 1 - Correct Precedence: event1 at cycle 5, event2 at cycle 15 (10 cycles gap). Assertion passes.",
