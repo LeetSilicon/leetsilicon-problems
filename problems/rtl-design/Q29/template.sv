@@ -18,12 +18,10 @@ module edge_toggle_detect (
 
   // TODO: Sequential sample of sig_in into sig_prev (always_ff).
   // Why: makes comparison synchronous and stable.
-  // always_ff @(posedge clk or negedge rst_n) ...
+  // On reset (rst_n=0), initialize sig_prev to 0 to prevent false pulses.
+  // always_ff @(posedge clk) ...
 
   // TODO: Combinational pulse equations.
   // Why: each pulse is a pure function of (sig_in, sig_prev).
-
-  // TODO: Decide reset init for sig_prev.
-  // Why: prevents spurious pulse after reset release.
 
 endmodule
