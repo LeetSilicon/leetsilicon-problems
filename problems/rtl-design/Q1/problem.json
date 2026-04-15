@@ -10,23 +10,27 @@
     "Flags"
   ],
   "question": "Design Synchronous FIFO with Full, Empty, Almost-Full, and Almost-Empty Flags",
-  "description": "Implement a synchronous FIFO (single clock domain) with comprehensive status flags and programmable thresholds.\\n\\n' +\n        '**Interface:**\\n' +\n        '```\\nwrite_en + write_data → push (when not full)\\nread_en → pop (when not empty)\\nFlags: full, empty, almost_full, almost_empty\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- Parameterizable DEPTH (power of 2) and WIDTH\\n' +\n        '- Simultaneous read+write when neither full nor empty\\n' +\n        '- Overflow/underflow: ignore operation (no corruption)\\n' +\n        '- Configurable ALMOST_FULL and ALMOST_EMPTY thresholds",
+  "description": "Implement a synchronous FIFO (single clock domain) with status flags and programmable thresholds.\n\n**Interface:**\n```\nInputs:  clk, rst_n, write_en, write_data[WIDTH-1:0], read_en\nOutputs: read_data[WIDTH-1:0], full, empty, almost_full, almost_empty\n```\n\n**Constraints:**\n- Parameterizable DEPTH (power of 2) and WIDTH\n- Simultaneous read+write allowed when neither full nor empty\n- Overflow/underflow: ignore operation silently (no data corruption)\n- Configurable ALMOST_FULL_THRESH and ALMOST_EMPTY_THRESH",
   "requirements": [
-    "PARAMETERIZATION: Support parameters DEPTH (number of entries, power of 2 recommended) and WIDTH (data width in bits).",
-    "RESET BEHAVIOR: Define reset type (synchronous or asynchronous). On reset: (1) read/write pointers initialize to 0, (2) occupancy counter initializes to 0, (3) all flags clear (full=0, empty=1, almost flags depend on thresholds).",
-    "WRITE OPERATION: Input write_en signal. When write_en=1 and full=0, store write_data at write pointer location and increment write pointer. When full=1, ignore write (data not stored).",
-    "READ OPERATION: Input read_en signal. When read_en=1 and empty=0, output data from read pointer location and increment read pointer. When empty=1, ignore read (output can be previous value or don't care).",
+    "PARAMETERS: Support parameters DEPTH =8 (number of entries), WIDTH =8 (data width in bits), ALMOST_FULL_THRESH =(DEPTH - 1) and ALMOST_EMPTY_THRESH =1. DEPTH and WIDTH MUST be a power of 2.",
+    "INPUTS: `clk` (clock), `rst_n` (active-low asynchronous reset), `write_en` (1-bit input signal), `write_data`, `read_en` (1-bit input signal).",
+    "OUTPUTS: `read_data`, `full`, `empty`, `almost_full`, `almost_empty` (all flags are 1-bit signals)",
+    "RESET BEHAVIOR: Uses active-low asynchronous reset (rst_n). When rst_n=0: read and write pointers reset to 0, occupancy counter resets to 0, full=0, empty=1, almost_full=0, almost_empty=1.",
+    "WRITE OPERATION: Input `write_en` signal. When `write_en=1` and `full=0`, store write_data at write pointer location and increment write pointer. Once there are no more pointers to write, the FIFO should output `full=1`,  and ignore any .",
+    "READ OPERATION: When `read_en=1` and `empty=0`, `read_data` reflects the entry at the current read pointer and the read pointer increments. When `empty=1`, the read is ignored, read pointer does not advance and `read_data` retains its previous value.",
+    
+    
     "OCCUPANCY TRACKING: Maintain counter tracking number of valid entries. Increment on write (when not full), decrement on read (when not empty). On simultaneous read+write when neither full nor empty, count unchanged.",
-    "FLAG GENERATION: (1) full = (count == DEPTH), (2) empty = (count == 0), (3) almost_full = (count >= ALMOST_FULL_THRESHOLD), (4) almost_empty = (count <= ALMOST_EMPTY_THRESHOLD).",
-    "THRESHOLD PARAMETERS: ALMOST_FULL_THRESHOLD (default: DEPTH-1) and ALMOST_EMPTY_THRESHOLD (default: 1). Must satisfy: 0 <= ALMOST_EMPTY_THRESHOLD < ALMOST_FULL_THRESHOLD <= DEPTH.",
-    "SIMULTANEOUS READ+WRITE: When read_en=1 and write_en=1 and FIFO is neither full nor empty: perform both operations in same cycle. Net occupancy change is zero.",
+    "FLAG GENERATION: (1) full = (count == DEPTH), (2) empty = (count == 0), (3) almost_full = (count >= ALMOST_FULL_THRESH), (4) almost_empty = (count <= ALMOST_EMPTY_THRESH).",
+    "THRESHOLD PARAMETERS: Must satisfy: 0 <= ALMOST_EMPTY_THRESH < ALMOST_FULL_THRESH <= DEPTH.",
+    "SIMULTANEOUS READ+WRITE: When `read_en=1` and `write_en=1` and FIFO is neither full nor empty: perform both operations in same cycle. The occupancy counter stays unchanged.",
     "OVERFLOW/UNDERFLOW: Define behavior: (1) Option A: ignore operation (recommended), (2) Option B: assert error flag. Document chosen behavior.",
     "Test Case 1 - Basic FIFO Operation: DEPTH=8, WIDTH=8. Push values [0xAA, 0xBB, 0xCC]. Then pop 3 times. Expected: outputs are [0xAA, 0xBB, 0xCC] in order (FIFO property).",
     "Test Case 2 - Full Flag Boundary: DEPTH=8. Write 8 entries. Expected: full=1 after 8th write. Attempt 9th write with write_en=1. Expected: write ignored, full remains 1, count=8.",
     "Test Case 3 - Empty Flag Boundary: Start with 3 entries. Read 3 times. Expected: empty=1 after 3rd read. Attempt 4th read with read_en=1. Expected: read ignored, empty remains 1, count=0.",
-    "Test Case 4 - Almost-Full Threshold: DEPTH=8, ALMOST_FULL_THRESHOLD=6. Write 6 entries. Expected: almost_full=1, full=0. Write 7th entry. Expected: almost_full=1, full=0. Write 8th entry. Expected: full=1.",
-    "Test Case 5 - Almost-Empty Threshold: DEPTH=8, ALMOST_EMPTY_THRESHOLD=2, start with 3 entries. Read 1 entry (count=2). Expected: almost_empty=1, empty=0. Read another (count=1). Expected: almost_empty=1. Read last (count=0). Expected: empty=1.",
-    "Test Case 6 - Simultaneous Read+Write: FIFO has 4 entries (not full, not empty). Assert read_en=1 and write_en=1 in same cycle. Expected: oldest entry read out, new entry written in, count remains 4."
+    "Test Case 4 - Almost-Full Threshold: DEPTH=8, ALMOST_FULL_THRESH=6. Write 6 entries. Expected: almost_full=1, full=0.",
+    "Test Case 5 - Almost-Empty Threshold: DEPTH=8, ALMOST_EMPTY_THRESH=2. Start with 3 entries. Read 1st entry (count=2): Expected almost_empty=1, empty=0. Read 2nd entry (count=1): Expected almost_empty=1, empty=0. Read 3rd entry (count=0): Expected empty=1. All three checks must pass for TC5 to pass.",
+    "Test Case 6 - Simultaneous Read+Write: Write 4 entries (count=4, neither full nor empty). Assert write_en=1 and read_en=1 in the same clock cycle. Expected: full=0 and empty=0 — count must remain 4 since one entry is read out and one is written in simultaneously."
   ],
   "hints": [
     "Counter method: increment on write, decrement on read, unchanged on both.",

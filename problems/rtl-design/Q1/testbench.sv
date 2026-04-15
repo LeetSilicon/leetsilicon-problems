@@ -52,7 +52,9 @@ module tb;
     rst_n = 1;
     @(posedge clk);
 
-    // TC1 — Basic FIFO order
+    // =========================================================
+    // TC1 — Basic FIFO Order
+    // =========================================================
     push(8'hAA); push(8'hBB); push(8'hCC);
     pop(rd);
     if (rd == 8'hAA) begin p++; $display("PASS: TC1 pop 0xAA"); end
@@ -64,7 +66,9 @@ module tb;
     if (rd == 8'hCC) begin p++; $display("PASS: TC1 pop 0xCC"); end
     else begin f++; $display("FAIL: TC1 pop 0xCC got %h", rd); end
 
-    // TC2 — Full flag: fill all 8 slots
+    // =========================================================
+    // TC2 — Full Flag Boundary (fill all 8 slots)
+    // =========================================================
     repeat (8) push(8'hFF);
     @(negedge clk);
     if (full) begin p++; $display("PASS: TC2 full after 8 writes"); end
@@ -78,7 +82,9 @@ module tb;
     // Reset before TC3
     rst_n = 0; @(posedge clk); @(posedge clk); rst_n = 1; @(posedge clk);
 
-    // TC3 — Empty flag
+    // =========================================================
+    // TC3 — Empty Flag Boundary
+    // =========================================================
     push(8'h01); push(8'h02); push(8'h03);
     pop(rd); pop(rd); pop(rd);
     @(negedge clk);
@@ -91,30 +97,45 @@ module tb;
     // Reset before TC4
     rst_n = 0; @(posedge clk); @(posedge clk); rst_n = 1; @(posedge clk);
 
-    // TC4 — Almost-full threshold (threshold = 6)
+    // =========================================================
+    // TC4 — Almost-Full Threshold (threshold=6)
+    // =========================================================
     repeat (6) push(8'hAA);
     @(negedge clk);
     if (almost_full && !full) begin p++; $display("PASS: TC4 almost_full=1 at count=6"); end
     else begin f++; $display("FAIL: TC4 almost_full"); end
 
-    // TC5 — Almost-empty threshold (threshold = 2)
+    // =========================================================
+    // TC5 — Almost-Empty Threshold (threshold=2)
+    // =========================================================
     rst_n = 0; @(posedge clk); @(posedge clk); rst_n = 1; @(posedge clk);
     repeat (3) push(8'hBB);
-    pop(rd); @(negedge clk);  // count=2
-    if (almost_empty && !empty) begin p++; $display("PASS: TC5 almost_empty=1 at count=2"); end
-    else begin f++; $display("FAIL: TC5 almost_empty"); end
+    begin : tc5
+      bit tc5_ok;
+      tc5_ok = 1;
+      pop(rd); @(negedge clk);  // count=2
+      if (!(almost_empty && !empty)) begin tc5_ok = 0; $display("FAIL: TC5 expected almost_empty=1, empty=0 at count=2"); end
+      pop(rd); @(negedge clk);  // count=1
+      if (!(almost_empty && !empty)) begin tc5_ok = 0; $display("FAIL: TC5 expected almost_empty=1, empty=0 at count=1"); end
+      pop(rd); @(negedge clk);  // count=0
+      if (!empty) begin tc5_ok = 0; $display("FAIL: TC5 expected empty=1 at count=0"); end
+      if (tc5_ok) begin p++; $display("PASS: TC5 almost_empty threshold (count=2,1,0)"); end
+      else f++;
+    end
 
-    // TC6 — Simultaneous read+write
+
+    // =========================================================
+    // TC6 — Simultaneous Read+Write
+    // =========================================================
     rst_n = 0; @(posedge clk); @(posedge clk); rst_n = 1; @(posedge clk);
-    repeat (4) push(8'hCD);          // count=4
-    write_en = 1; write_data = 8'hEF;
-    read_en  = 1;
-    @(posedge clk);
-    write_en = 0; read_en = 0;
+    repeat (4) push(8'hAA);  // count=4, neither full nor empty
     @(negedge clk);
-    // count must still be 4
+    write_en = 1; write_data = 8'hBB;
+    read_en  = 1;
+    @(posedge clk); @(negedge clk);
+    write_en = 0; read_en = 0;
     if (!full && !empty) begin p++; $display("PASS: TC6 simultaneous R+W"); end
-    else begin f++; $display("FAIL: TC6 simultaneous R+W"); end
+    else begin f++; $display("FAIL: TC6 simultaneous R+W full=%0b empty=%0b", full, empty); end
 
     // Summary
     $display("=== %0d passed %0d failed ===", p, f);

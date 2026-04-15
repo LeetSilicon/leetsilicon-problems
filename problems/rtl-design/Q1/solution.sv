@@ -58,7 +58,7 @@ module sync_fifo #(
       unique case ({write_en && !full, read_en && !empty})
         2'b10:   count <= count + 1;
         2'b01:   count <= count - 1;
-        default: count <= count;   // Both or neither
+        default: count <= count;  
       endcase
     end
   end

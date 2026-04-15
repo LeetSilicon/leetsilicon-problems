@@ -3,12 +3,7 @@
 // ============================================================
 // Single clock domain FIFO; typical implementation uses memory + rd/wr pointers and/or
 // an occupancy counter to generate full/empty and threshold flags.
-//
-// TODO: Choose reset type (sync vs async) and document it.
-// TODO: Decide read data semantics:
-// - Option A: registered read (rd_data updates only on successful read)
-// - Option B: combinational read (rd_data reflects mem at rd_ptr)
-// TODO: Define overflow/underflow behavior (ignore operation vs optional internal bookkeeping).
+
 
 module sync_fifo #(
   parameter int unsigned DEPTH = 8,    // TODO: power-of-2 recommended
@@ -73,7 +68,6 @@ module sync_fifo #(
   // TODO: Reset:
   // rd_ptr=0; wr_ptr=0; count=0; empty=1; full=0; read_data defined.
   // almost flags depend on thresholds.
-  // Optional internal error bookkeeping, if added, would reset here.
   end else begin
   // TODO: Write operation:
   // - If write_fire: mem[wr_ptr] <= write_data; wr_ptr++ (wrap); count++ if no read_fire.
