@@ -2,14 +2,14 @@
   "id": "rtl1",
   "shortName": "Edge / Toggle Detector",
   "domain": "rtl-design",
-  "category": "FIFO / Queue",
+  "category": "Edge Detection",
   "difficulty": "Easy",
   "topics": [
     "RTL",
     "Sequential Logic"
   ],
   "question": "Detect Rising, Falling, and Any Transition",
-  "description": "Design synchronous RTL that detects transitions on a 1-bit input signal `sig_in` and produces three single-cycle pulse outputs.\n A *pulse* is a single-cycle high (1 followed immediately by 0). `rise_pulse` fires one cycle after a 0→1 transition, `fall_pulse` \n fires one cycle after a 1→0 transition, and `toggle_pulse` fires one cycle after any change in either direction. When `rst_n` is \n asserted, `sig_in` should be treated as 0.\\n\\n' +\n        '**Outputs:**\\n' +\n        '```\\nrise_pulse:   1 cycle on 0→1\\nfall_pulse:   1 cycle on 1→0\\ntoggle_pulse: 1 cycle on any change\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- Uses previous-cycle register for comparison\\n' +\n        '- Single-cycle pulse on each detection",
+  "description": "Design synchronous RTL that detects transitions on a 1-bit input signal `sig_in` and produces three single-cycle pulse outputs.\n\nA pulse is a single-cycle high (1 followed immediately by 0). `rise_pulse` fires one cycle after a 0→1 transition, `fall_pulse` fires one cycle after a 1→0 transition, and `toggle_pulse` fires one cycle after any change in either direction. When `rst_n` is asserted low, `sig_in` should be treated as 0.\n\n**Outputs:**\n```text\nrise_pulse:   1 cycle on 0→1\nfall_pulse:   1 cycle on 1→0\ntoggle_pulse: 1 cycle on any change\n```\n\n**Constraints:**\n- Uses previous-cycle register for comparison\n- Single-cycle pulse on each detection",
   "requirements": [
     "INPUTS: `clk` (clock), `rst_n` (active-low synchronous reset), `sig_in` (1-bit input signal).",
     "OUTPUTS: `rise_pulse`, `fall_pulse`, `toggle_pulse` — all 1-bit, all purely combinational.",
@@ -17,9 +17,10 @@
     "RISING: `rise_pulse = 1` when `sig_in=1` and `sig_prev=0`, else 0.",
     "FALLING: `fall_pulse = 1` when `sig_in=0` and `sig_prev=1`, else 0.",
     "TOGGLE: `toggle_pulse = rise_pulse | fall_pulse`. Asserts for any transition in either direction.",
-    "Test Case 1 - Rising Edge: Drive `sig_in=0` for 2 cycles, then `sig_in=1`. Expected: on the next cycle `rise_pulse=1`, `fall_pulse=0`, `toggle_pulse=1` for exactly one cycle.",
-    "Test Case 2 - Falling Edge: Drive `sig_in=1` for 2 cycles, then `sig_in=0`. Expected: on the next cycle `fall_pulse=1`, `rise_pulse=0`, `toggle_pulse=1` for exactly one cycle.",
-    "Test Case 3 - No Change: Hold `sig_in` constant at 0 or 1 for 5 cycles. Expected: all three outputs remain 0 every cycle."
+    "Test Case 1 - Reset Behavior: Assert `rst_n=0` for 2 cycles. Expected: all outputs (`rise_pulse`, `fall_pulse`, `toggle_pulse`) are 0 and `sig_prev` is 0.",
+    "Test Case 2 - Rising Edge: Drive `sig_in=0` for 2 cycles, then `sig_in=1`. Expected: on the next cycle `rise_pulse=1`, `fall_pulse=0`, `toggle_pulse=1` for exactly one cycle.",
+    "Test Case 3 - Falling Edge: Drive `sig_in=1` for 2 cycles, then `sig_in=0`. Expected: on the next cycle `fall_pulse=1`, `rise_pulse=0`, `toggle_pulse=1` for exactly one cycle.",
+    "Test Case 4 - No Change: Hold `sig_in` constant at 0 or 1 for 5 cycles. Expected: all three outputs remain 0 every cycle."
   ],
   "hints": [
     "Use always_ff for `sig_prev` register.",
