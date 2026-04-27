@@ -14,51 +14,98 @@ module cache_lru4 #(
   output logic                          victim_valid,
   output logic [$clog2(WAY_COUNT)-1:0] victim_way
 );
-  // Flattened rank storage: rank_flat[set*WAY_COUNT + way]
-  logic [1:0] rank_flat [NUM_SETS * WAY_COUNT];
 
+  // -----------------------------
+  // LRU state (0 = LRU, 3 = MRU)
+  // -----------------------------
+  logic [1:0] rank [NUM_SETS][WAY_COUNT];
+
+  // -----------------------------
+  // Register inputs (FIX timing bug)
+  // -----------------------------
+  logic [WAY_COUNT-1:0] way_valid_q;
   logic [$clog2(WAY_COUNT)-1:0] acc;
   logic [1:0] old_r;
-  logic [$clog2(NUM_SETS * WAY_COUNT)-1:0] base;
 
+  // Latch inputs to avoid race
+  always_ff @(posedge clk or negedge rst_n) begin
+    if (!rst_n)
+      way_valid_q <= '1;
+    else
+      way_valid_q <= way_valid;
+  end
+
+  // -----------------------------
+  // Access decode
+  // -----------------------------
   always_comb begin
-    acc  = hit ? hit_way : refill_way;
-    base = req_set * WAY_COUNT;
-    old_r = rank_flat[base + acc];
+    acc = '0;
+    if (req_valid && (hit || refill))
+      acc = hit ? hit_way : refill_way;
   end
 
   always_comb begin
-    victim_valid = 1;
+    old_r = rank[req_set][acc];
+  end
+
+  // -----------------------------
+  // Victim selection (FIXED priority)
+  // -----------------------------
+  always_comb begin
+    victim_valid = req_valid;
     victim_way   = '0;
-    if (way_valid != '1) begin
+
+    if (!req_valid) begin
+      victim_valid = 0;
+    end
+    else begin
+      logic found;
+
+      found = 0;
+
+      // -------------------------
+      // PRIORITY 1: invalid ways
+      // -------------------------
       for (int i = 0; i < WAY_COUNT; i++) begin
-        if (!way_valid[i]) begin
-          victim_way = i[$clog2(WAY_COUNT)-1:0];
-          break;
+        if (!found && !way_valid_q[i]) begin
+          victim_way = i;
+          found = 1;
         end
       end
-    end else begin
-      for (int i = 0; i < WAY_COUNT; i++) begin
-        if (rank_flat[base + i] == 0) begin
-          victim_way = i[$clog2(WAY_COUNT)-1:0];
-          break;
+
+      // -------------------------
+      // PRIORITY 2: true LRU
+      // -------------------------
+      if (!found) begin
+        for (int i = 0; i < WAY_COUNT; i++) begin
+          if (!found && rank[req_set][i] == 0) begin
+            victim_way = i;
+            found = 1;
+          end
         end
       end
     end
   end
 
+  // -----------------------------
+  // LRU update logic
+  // -----------------------------
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-      for (int s = 0; s < NUM_SETS; s++)
-        for (int w = 0; w < WAY_COUNT; w++)
-          rank_flat[s * WAY_COUNT + w] <= w[1:0];
-    end else if (req_valid && (hit || refill)) begin
+      for (int s = 0; s < NUM_SETS; s++) begin
+        for (int w = 0; w < WAY_COUNT; w++) begin
+          rank[s][w] <= w; 
+        end
+      end
+    end
+    else if (req_valid && (hit || refill)) begin
       for (int w = 0; w < WAY_COUNT; w++) begin
-        if (w[$clog2(WAY_COUNT)-1:0] == acc)
-          rank_flat[base + w] <= 2'd3;
-        else if (rank_flat[base + w] > old_r)
-          rank_flat[base + w] <= rank_flat[base + w] - 1;
+        if (w == acc)
+          rank[req_set][w] <= 2'd3; // MRU
+        else if (rank[req_set][w] > old_r)
+          rank[req_set][w] <= rank[req_set][w] - 1;
       end
     end
   end
+
 endmodule
