@@ -17,13 +17,18 @@
     "EVICTION POLICY: On cache miss with all ways valid, select and evict the way with the oldest access timestamp (true LRU).",
     "STATE MANAGEMENT: Maintain per-set LRU state using either timestamps (one per way) or a ranking/ordering scheme that clearly identifies the LRU way.",
     "EDGE CASES: Handle reset (initialize all ways as invalid), concurrent accesses, and invalid inputs gracefully.",
-    "Test Case 1 - Cold Miss: Starting from empty cache, access set S with tag A (read operation). Expected: miss detected, allocate any invalid way, mark valid, set that way as Most Recently Used (MRU).",
-    "Test Case 2 - LRU Update on Hit: Fill cache set with tags A, B, C, D in order. Access tag B (hit). Expected: B becomes MRU. Then access new tag E (miss). Expected: E evicts the true LRU (not B), which should be A.",
-    "Test Case 3 - Write Hit Updates: After filling set with A, B, C, D, perform write to tag C. Expected: C becomes MRU. Verify LRU victim selection excludes C on next miss (victim should be A or whichever is true LRU)."
+    "IDLE BEHAVIOR: If req_valid = 0, no victim selection or state update must occur. Outputs must remain stable.",
+    "TEST CASE 1 - Cold Miss: Starting from empty cache, access set S with tag A. Expected: miss detected, allocate lowest invalid way, mark it valid, and set it as MRU.", 
+    "TEST CASE 2 - LRU Update on Hit: Fill cache set with tags A, B, C, D in order. Access tag B (hit). Expected: B becomes MRU. Then access new tag E (miss). Expected: E evicts the true LRU (A).",
+    "TEST CASE 3 - Write Hit Updates: After filling set with A, B, C, D, perform write to tag C. Expected: C becomes MRU. On next miss, C must not be evicted unless it becomes LRU.",
+    "TEST CASE 4 - Invalid Way Priority: If any way is invalid, eviction must NOT use LRU. The lowest-index invalid way must always be selected.",
+    "TEST CASE 5 - Repeated Hit Stability: Repeated accesses to the same way must preserve correctness of LRU ordering and must not introduce duplicate ranks.",
+    "TEST CASE 6 - Multi-Set Independence: Each cache set must maintain independent LRU state. Operations on one set must not affect another."
   ],
   "hints": [
-    "Implement using: (1) timestamp counter per way, (2) LRU ordering matrix, or (3) LRU stack.",
-    "On each access, update accessed way to MRU and shift others down.",
-    "Check all ways for invalid status before evicting any valid way."
+    "Use a strict rank system (0–3) per set to avoid sorting.",
+    "On access, promote accessed way to MRU and decrement affected ranks.",
+    "Ensure invalid ways override LRU logic completely.",
+    "Maintain per-set isolation using proper indexing."
   ]
 }
