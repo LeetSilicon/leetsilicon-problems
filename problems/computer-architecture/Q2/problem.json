@@ -13,17 +13,22 @@
   "description": "Design a pseudo-LRU (PLRU) replacement policy using a binary tree structure for an N-way set-associative cache (N is power of 2).\\n\\n' +\n        'Use `N-1` bits per set for tree node states. On access, update only the tree nodes along the path from root to the accessed way. For victim selection, traverse root to leaf following node bits.\\n\\n' +\n        '**Example (4-way):**\\n' +\n        '```\\nTree has 3 nodes: 1 root, 2 children\\nAccess way 0 → flip path bits away from way 0\\nVictim selection → follow bits root-to-leaf\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- N must be a power of 2\\n' +\n        '- Tree uses N-1 bits per set\\n' +\n        '- Support parameterizable N",
   "requirements": [
     "PARAMETERIZATION: Support parameterizable N-way associativity where N must be a power of 2. Calculate tree bits required as N-1.",
-    "PATH UPDATE: On cache access to way W, update only the log2(N) tree node bits along the path from root to that way. Do not update nodes on other paths.",
-    "TREE SEMANTICS: Each tree node bit indicates which subtree was less recently used. 0 points to left subtree, 1 points to right subtree (or document your convention clearly).",
+    "PATH UPDATE: On cache access to way W, traverse from root to leaf following W’s binary path. At each level of traversal (log2(N) levels), update the corresponding tree node on that path. Only nodes along this path are modified; all other nodes remain unchanged.",
+    "TREE SEMANTICS: Each node stores the direction of the least recently used subtree. A value of 0 means the left subtree is currently considered LRU, and 1 means the right subtree is LRU. On access, the node is updated to the opposite of the accessed direction (node_bit = ~dir).",
     "VICTIM SELECTION: To find victim way, start at root and follow tree bits: if bit=0 go left, if bit=1 go right, until reaching a leaf node representing the victim way.",
     "EDGE CASES: Handle reset (initialize tree to known state), invalid inputs, and support different N values.",
-    "Test Case 1 - 4-Way Tree Update: For 4-way cache, access way 0, then way 3. Verify tree bits flip correctly along each path (3 bits total: root, left/right children).",
-    "Test Case 2 - Victim Selection: Set tree to known state (e.g., bits = 0b101). Perform victim walk from root following bit values. Verify selected victim way matches expected leaf.",
-    "Test Case 3 - Parameterized 8-Way: Synthesize/simulate with N=8 parameter. Verify tree uses 7 bits per set and victim selection works correctly for all 8 ways."
+    "TEST CASE 1 - RESET + COLD MISS: After reset, without any access, perform victim selection. Expected victim is way 0 (path 00).",
+    "TEST CASE 2 - ACCESS WAY 0: Access way 0. Verify path root→left→left updates only those nodes using node_bit = ~dir rule.",
+    "TEST CASE 3 - ACCESS WAY 3: Access way 3. Verify path root→right→right updates correctly and previous unrelated nodes remain unchanged.",
+    "TEST CASE 4 - ACCESS WAY 1: Access way 1. Verify correct update along root→left→right path and correct bit inversion behavior.",
+    "TEST CASE 5 - REPEATED ACCESS STABILITY: Re-access same way multiple times (way 1). Verify deterministic convergence and stable victim prediction.",
+    "TEST CASE 6 - FULL ROTATION STRESS: Apply sequence 0 → 1 → 2 → 3. Verify PLRU state evolves correctly and golden model matches DUT after each step."
+  ],
+
   ],
   "hints": [
-    "For N=4: root points to LRU half, children point to LRU quarter.",
-    "Path update: flip each node bit to point AWAY from accessed subtree.",
-    "Way mapping: way 0 = left-left, way 1 = left-right, way 2 = right-left, way 3 = right-right."
+    "For N=4: the tree has 3 nodes (root, left child, right child). Each node stores an LRU direction bit used to guide traversal (0=left, 1=right).",
+    "Path update: for each node along the access path, set node_bit = ~dir, where dir is the direction taken (0=left, 1=right). Only nodes on the access path are updated.",
+    "Way mapping (2-level tree): - 00 = way 0 (left-left), - 01 = way 1 (left-right), - 10 = way 2 (right-left), - 11 = way 3 (right-right)"
   ]
 }
