@@ -16,9 +16,12 @@
     "ENABLE CONTROL: Input enable signal. When enable=1, perform decoding. When enable=0, all outputs=0.",
     "ONE-HOT OUTPUT: Exactly one output bit is 1 when enabled. Verify one-hot property.",
     "EDGE CASES: Handle N=1 (2 outputs), large N values, enable transitions.",
-    "Test Case 1 - N=3 Decode: Input=5 (101 binary), enable=1. Expected: output=0b00100000 (bit 5 high, all others low).",
-    "Test Case 2 - Enable Low: Input=3, enable=0. Expected: output=0b00000000 (all zeros).",
-    "Test Case 3 - Sweep All Inputs: For N=3, iterate input from 0 to 7 with enable=1. Verify each output is one-hot and matches input index."
+    "TEST CASE 1 - Decode Input Zero: enable=1, in=0. Expected: one-hot output bit0.",
+    "TEST CASE 2 - Decode Input Three: enable=1, in=3. Expected: one-hot output bit3.",
+    "TEST CASE 3 - Decode Input Seven: enable=1, in=7. Expected: one-hot output bit7.",
+    "TEST CASE 4 - Disabled All Zero: enable=0. Expected: output all zeros regardless of in.",
+    "TEST CASE 5 - Full One-Hot Sweep: enable=1 for in=0..7. Expected: each output equals 8'b1 shifted by index.",
+    "TEST CASE 6 - Enable Toggle: Same in with enable high then low. Expected: active decode then all zeros."
   ],
   "hints": [
     "output = enable ? (1 << input) : 0;"

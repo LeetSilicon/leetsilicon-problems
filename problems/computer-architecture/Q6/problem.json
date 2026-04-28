@@ -18,9 +18,12 @@
     "METADATA UPDATE: Only set valid bit and update tag after receiving complete cache line (all beats). Avoid partial-valid bug where line is marked valid before all data arrives.",
     "PIPELINE STALL: While FSM is not IDLE, assert cache stall signal to prevent new requests. Release stall only after returning to IDLE.",
     "RESET HANDLING: On reset assertion during refill, immediately return to IDLE. Do not leave partially filled line marked as valid.",
-    "Test Case 1 - Basic Refill: Cache miss triggers FSM. States: IDLE→REQUEST→WAIT→FILL(beat0)→FILL(beat1)→...→FILL(last_beat)→COMPLETE→IDLE. Verify tag updated, valid=1, data array filled.",
-    "Test Case 2 - Reset Mid-Refill: Assert reset while FSM in WAIT or FILL state. Expected: FSM returns to IDLE immediately. Cache line remains invalid (valid=0), no partial data visible.",
-    "Test Case 3 - Back-to-Back Misses: First miss starts refill (FSM busy). Second miss occurs before first completes. Expected: second miss stalls until first refill reaches COMPLETE/IDLE."
+    "TEST CASE 1 - Miss Request: From IDLE, assert miss. Expected: stall and mem_req asserted in REQUEST phase.",
+    "TEST CASE 2 - WAIT Phase: After request sent. Expected: stall remains, mem_req deasserted in WAIT.",
+    "TEST CASE 3 - First Fill Beat: First mem_rvalid in FILL. Expected: beat_count at first index (0).",
+    "TEST CASE 4 - Mid Fill Beat: Additional mem_rvalid beats. Expected: beat_count advances (e.g., to 1).",
+    "TEST CASE 5 - Last Beat Complete: Final beat with mem_rlast (or terminal count). Expected: beat_count at last index and refill_done pulses.",
+    "TEST CASE 6 - Second Miss: After first refill sequence completes to IDLE, assert a new miss. Expected: mem_req asserts again for a new refill."
   ],
   "hints": [
     "Beat counter: 0 to (line_size/bus_width - 1), increment on each data_valid.",

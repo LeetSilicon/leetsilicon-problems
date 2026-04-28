@@ -18,10 +18,12 @@
     "INSTRUCTION FORMAT DECODE: Identify instruction type (R/I/S/B/U/J) from opcode. Extract and sign-extend immediate based on format.",
     "ILLEGAL INSTRUCTION HANDLING: For undefined opcodes: (1) Set all write enables (RegWrite, MemWrite) to 0 (prevent state changes), (2) Optionally assert illegal_instruction flag, (3) Can also trigger exception in later design.",
     "LATCH AVOIDANCE: Assign default values to all control signals, then override in case statement for legal opcodes.",
-    "Test Case 1 - R-Type Decode: Instruction: add x3, x1, x2. Expected: RegWrite=1, ALUSrc=0 (use register), MemRead=0, MemWrite=0, ALUOp=ADD.",
-    "Test Case 2 - Load Decode: Instruction: lw x5, 8(x2). Expected: MemRead=1, RegWrite=1, ALUSrc=1 (use immediate), MemToReg=1 (write from memory), ALUOp=ADD (for address calc).",
-    "Test Case 3 - Store Decode: Instruction: sw x6, 12(x3). Expected: MemWrite=1, RegWrite=0, ALUSrc=1, MemToReg=X",
-    "Test Case 4 - Illegal Instruction: Opcode: 0x7F (undefined). Expected: RegWrite=0, MemWrite=0, MemRead=0, illegal_instruction=1."
+    "TEST CASE 1 - R-Type ADD: add encoding. Expected: RegWrite=1, MemRead=0, MemWrite=0, branch=0, jump=0, MemToReg=0, illegal=0.",
+    "TEST CASE 2 - LW: load encoding. Expected: RegWrite=1, MemRead=1, MemWrite=0, MemToReg=1, illegal=0.",
+    "TEST CASE 3 - SW: store encoding. Expected: RegWrite=0, MemWrite=1, illegal=0.",
+    "TEST CASE 4 - BEQ: branch encoding. Expected: branch=1, other memory/write flags safe, illegal=0.",
+    "TEST CASE 5 - JAL: jump encoding. Expected: RegWrite=1, jump=1, illegal=0.",
+    "TEST CASE 6 - Illegal: undefined opcode pattern. Expected: illegal_instruction=1 and no memory/reg write activity."
   ],
   "hints": [
     "Case on opcode: 0110011 → R-type, 0000011 → Load, 0100011 → Store."

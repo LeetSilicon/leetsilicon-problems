@@ -18,9 +18,12 @@
     "RESET BEHAVIOR: On reset, initialize register to safe NOP state (all control signals inactive).",
     "REGISTER CONTENTS: Typical fields: (1) instruction bits, (2) PC value, (3) control signals (RegWrite, MemRead, MemWrite, ALUOp, etc.), (4) decoded source/destination registers, (5) immediate values.",
     "VALID BIT: Optional: include valid bit that is set on normal update, cleared on flush.",
-    "Test Case 1 - Stall Holds State: Load registers with instruction A and control signals. Assert stall=1 for 3 cycles. Expected: register outputs remain unchanged for all 3 cycles.",
-    "Test Case 2 - Flush Inserts Bubble: Load registers with valid instruction. Assert flush=1 for 1 cycle. Expected: control signals become 0 (NOP semantics), valid bit cleared (if present).",
-    "Test Case 3 - Simultaneous Stall+Flush: Load instruction A. Assert both stall=1 and flush=1. Expected: behavior matches documented priority (e.g., if flush wins, output is NOP; if stall wins, output is unchanged A)."
+    "TEST CASE 1 - Normal Load: stall=0, flush=0. Expected: q captures d on rising clock.",
+    "TEST CASE 2 - Stall Holds: stall=1 with new d. Expected: q unchanged from previous value.",
+    "TEST CASE 3 - Unstall Propagate: stall deasserted. Expected: q updates to pending d.",
+    "TEST CASE 4 - Flush: flush=1. Expected: q cleared (bubble) regardless of d.",
+    "TEST CASE 5 - Reload After Flush: flush=0 then new d. Expected: q follows new d.",
+    "TEST CASE 6 - Stall Plus Flush: Both stall and flush asserted. Expected: flush priority clears q (bubble) per DUT."
   ],
   "hints": [
     "Combine: if (flush) reg <= NOP; else if (!stall) reg <= input;",

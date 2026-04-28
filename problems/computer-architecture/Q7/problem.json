@@ -18,9 +18,12 @@
     "MATCHING/MERGING: On subsequent miss, check all valid MSHR entries for matching line address. If match found, merge request with existing entry (add requester to waiter list) instead of allocating new entry or issuing duplicate memory request.",
     "DEALLOCATION: When memory refill completes for an MSHR entry, deallocate that entry (clear valid bit). Wake up all merged requesters waiting on that entry.",
     "REQUESTER TRACKING: Support multiple requesters per entry (bitmask or list). On refill completion, signal all waiting requesters.",
-    "Test Case 1 - Allocate and Complete: CPU miss to address A allocates MSHR[0]. Memory returns data. MSHR[0] deallocated, CPU request completes.",
-    "Test Case 2 - Merge Same Line: CPU0 misses on address A (allocates MSHR[0]). CPU1 misses on same address A before refill completes. Expected: MSHR[0] records both CPU0 and CPU1 as waiters. Only one memory request issued. On refill, both CPUs served.",
-    "Test Case 3 - MSHR Full Backpressure: Fill all N MSHR entries. New miss occurs on different address. Expected: cache pipeline stalls/backpressures until an MSHR entry is freed by completing refill."
+    "TEST CASE 1 - New Miss Allocate: First miss on line address A. Expected: issue_mem_req asserted, no hit, entry allocated on posedge.",
+    "TEST CASE 2 - Merge Same Line: Second miss on same line (different offset). Expected: comb hit before merge commit.",
+    "TEST CASE 3 - Waiter Mask: After merge commit. Expected: merged_waiters includes both requester IDs.",
+    "TEST CASE 4 - Refill Deallocate: refill_done for occupied entry. Expected: valid_vec for that entry clears.",
+    "TEST CASE 5 - Full Backpressure: Allocate distinct lines until all entries valid; next distinct line. Expected: full asserted and no issue_mem_req.",
+    "TEST CASE 6 - Reset Clears State: Assert reset after activity. Expected: all valid bits clear, not full."
   ],
   "hints": [
     "Match on (tag + index), ignore block offset.",

@@ -18,9 +18,12 @@
     "DEFAULT/ILLEGAL HANDLING: For undefined or illegal opcode combinations, output safe defaults (e.g., alu_op=ADD, reg_write=0, no memory access).",
     "LATCH AVOIDANCE: Assign default values to all outputs before case statement, then override specific cases. Prevents inferred latches.",
     "OPTIONAL ILLEGAL FLAG: Generate illegal_instruction output flag when opcode is not recognized.",
-    "Test Case 1 - Known Opcodes: Provide opcode mapping table. For each entry, verify decoder produces correct control signal combination.",
-    "Test Case 2 - Illegal Opcode: Input opcode=0xFF (undefined). Expected: outputs are safe defaults (no writes, no memory access), optional illegal_instruction=1.",
-    "Test Case 3 - One-Hot Control Check: If using one-hot encoding for certain controls, verify exactly one bit is set for all legal opcodes."
+    "TEST CASE 1 - Load/Store ALU: alu_op for load/store path. Expected: alu_ctrl selects ADD (0).",
+    "TEST CASE 2 - Branch ALU: alu_op for branch path. Expected: alu_ctrl selects SUB (1).",
+    "TEST CASE 3 - R-Type ADD: funct3=000, funct7_b5=0. Expected: alu_ctrl ADD (0).",
+    "TEST CASE 4 - R-Type SUB: funct3=000, funct7_b5=1. Expected: alu_ctrl SUB (1).",
+    "TEST CASE 5 - R-Type AND/OR: funct3=111 then 110. Expected: alu_ctrl AND (2) then OR (3).",
+    "TEST CASE 6 - R-Type SLT: funct3=010. Expected: alu_ctrl SLT (5)."
   ],
   "hints": [
     "Truth table: (opcode, funct3, funct7) → controls.",

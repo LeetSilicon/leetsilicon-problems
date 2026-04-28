@@ -1,72 +1,93 @@
 module tb;
+
   logic        clk;
   logic        rst_n, stall, flush;
   logic [63:0] d, q;
-  int          p = 0, f = 0;
 
-  // Clock generation
+  int pass = 0, fail = 0;
+
   initial clk = 0;
   always #5 clk = ~clk;
-  // DUT instantiation
+
   pipe_reg #(.W(64)) dut (.*);
 
-  task automatic check(input string msg, input logic [63:0] exp);
+  task automatic check(string name, logic [63:0] exp);
     @(negedge clk);
     if (q === exp) begin
-      p++;
-      $display("PASS: %s", msg);
+      pass++;
+      $display("PASS: %s", name);
     end else begin
-      f++;
-      $display("FAIL: %s", msg);
+      fail++;
+      $display("FAIL: %s exp=%h got=%h", name, exp, q);
     end
   endtask
 
   initial begin
-    // Reset sequence
-    rst_n = 0;
-    stall = 0;
-    flush = 0;
-    d     = 0;
+    rst_n  = 0;
+    stall  = 0;
+    flush  = 0;
+    d      = 0;
     @(posedge clk);
     @(posedge clk);
     rst_n = 1;
 
-    // Normal load
+    // -------------------------
+    // TEST 1 - Normal load
+    // -------------------------
     d = 64'hCAFE;
     @(posedge clk);
-    check("load", 64'hCAFE);
+    check("TEST1 Normal load", 64'hCAFE);
 
-    // Stall holds old value
+    // -------------------------
+    // TEST 2 - Stall holds
+    // -------------------------
     stall = 1;
     d     = 64'hDEAD;
     @(posedge clk);
-    check("stall holds", 64'hCAFE);
+    check("TEST2 Stall holds", 64'hCAFE);
 
-    // Unstall propagates new value
+    // -------------------------
+    // TEST 3 - Unstall propagates
+    // -------------------------
     stall = 0;
     @(posedge clk);
-    check("unstall", 64'hDEAD);
+    check("TEST3 Unstall propagate", 64'hDEAD);
 
-    // Flush clears register
+    // -------------------------
+    // TEST 4 - Flush clears
+    // -------------------------
     flush = 1;
     @(posedge clk);
-    check("flush", 0);
+    check("TEST4 Flush zero", 64'h0);
     flush = 0;
 
-    // Simultaneous stall+flush: flush should win (insert bubble)
+    // -------------------------
+    // TEST 5 - Reload after flush
+    // -------------------------
     d = 64'hBEEF;
     @(posedge clk);
-    check("reload", 64'hBEEF);
+    check("TEST5 Reload after flush", 64'hBEEF);
+
+    // -------------------------
+    // TEST 6 - Stall+flush priority (flush wins)
+    // -------------------------
     stall = 1;
     flush = 1;
     d     = 64'h1234;
     @(posedge clk);
-    check("stall+flush: flush wins", 0);
+    check("TEST6 Stall+flush flush wins", 64'h0);
     stall = 0;
     flush = 0;
 
-    // Summary
-    $display("=== %0d passed %0d failed ===", p, f);
+    $display("=================================");
+    $display("TOTAL PASS = %0d", pass);
+    $display("TOTAL FAIL = %0d", fail);
+    $display("=================================");
+    if (fail == 0)
+      $display("ALL 6 TESTS PASSED");
+    else
+      $display("SOME TESTS FAILED");
     $finish;
   end
+
 endmodule

@@ -19,9 +19,12 @@
     "SAME-CYCLE ALLOCATE+FREE: Define behavior when same unit is freed and allocated in same cycle. Common: free takes effect first, then allocate (allows immediate reuse).",
     "INITIALIZATION: On reset, all units free (busy=0).",
     "OUTPUTS: (1) available vector (which units are free), (2) any_available flag (at least one unit free), (3) optional: suggested unit (lowest free unit ID).",
-    "Test Case 1 - Allocate Unit: All units initially free. Allocate unit 0. Expected: busy[0]=1, available[0]=0.",
-    "Test Case 2 - Free Unit: Unit 0 busy. Done signal for unit 0. Expected: busy[0]=0, available[0]=1, unit becomes available.",
-    "Test Case 3 - All Busy: Allocate all units. New request arrives. Expected: any_available=0, scheduler must stall."
+    "TEST CASE 1 - Issue First FU: Issue to FU0. Expected: FU0 busy and pool still has availability.",
+    "TEST CASE 2 - Fill All FUs: Issue across all FU indices. Expected: any_available false when all busy.",
+    "TEST CASE 3 - Done Frees FU: Pulse done for one busy FU. Expected: that FU not busy and availability returns.",
+    "TEST CASE 4 - Same-Cycle Issue And Done: Overlapping issue and done on different FUs. Expected: net busy state matches DUT ordering.",
+    "TEST CASE 5 - Post-Reset Issue: Reset then issue a single FU. Expected: correct busy tracking after clean reset.",
+    "TEST CASE 6 - Done Clears Issued FU: Complete the outstanding FU from TEST5. Expected: busy clears for that FU."
   ],
   "hints": [
     "available = ~busy; any_available = |available;",

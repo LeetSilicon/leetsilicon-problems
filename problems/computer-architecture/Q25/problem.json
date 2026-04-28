@@ -18,9 +18,12 @@
     "INACTIVE THREAD EXCLUSION: Threads with active_mask[i]=0 must not contribute to conflict detection (ignore their addresses).",
     "OUTPUTS: (1) conflict_detected (1 if any bank has multiple active accesses), (2) conflict_bank_id (which bank has conflict, if multiple conflicts, report one or all), (3) can_issue (0 if conflict, requires serialization).",
     "SERIALIZATION (OPTIONAL): Decide which access to service first. Can use priority scheme (lowest thread ID) or round-robin.",
-    "Test Case 1 - No Conflict: NUM_BANKS=4, active_mask=1111, addresses map to banks [0,1,2,3] (all different). Expected: conflict_detected=0, can_issue=1.",
-    "Test Case 2 - Conflict Detected: NUM_BANKS=4, active_mask=1111, addresses map to banks [1,1,2,3] (threads 0 and 1 → bank 1). Expected: conflict_detected=1, conflict_bank_id=1.",
-    "Test Case 3 - Masked Thread Ignored: NUM_BANKS=4, active_mask=0110, addresses map to banks [1,1,1,3]. Threads 0,2 inactive. Only threads 1,3 active → banks [1,3]. Expected: conflict_detected=0."
+    "TEST CASE 1 - Distinct Banks: All active threads map to different banks. Expected: no conflict, can_issue.",
+    "TEST CASE 2 - Two Threads Same Bank: Two active threads share a bank. Expected: conflict detected with correct bank id.",
+    "TEST CASE 3 - Mask Removes Conflict: Disable one conflicting thread via mask. Expected: conflict clears.",
+    "TEST CASE 4 - Single Active Thread: Only one thread active with arbitrary addresses. Expected: no conflict.",
+    "TEST CASE 5 - No Active Threads: active_mask zero. Expected: no conflict.",
+    "TEST CASE 6 - Triple Same Bank: Three active threads map to same bank. Expected: conflict detected."
   ],
   "hints": [
     "Bank index: (addr >> log2(bytes_per_bank)) % NUM_BANKS.",

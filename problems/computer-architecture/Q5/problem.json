@@ -18,9 +18,12 @@
     "WRITEBACK REQUEST: When evicting dirty line, assert writeback request signal with victim address (tag + index). Provide victim data for writeback.",
     "DIRTY BIT CLEAR: After writeback completes (acknowledgment from memory), clear dirty bit for that line. Line can now be safely reused.",
     "EDGE CASES: Handle reset (all dirty bits cleared), line invalidation (clear dirty), concurrent write and eviction.",
-    "Test Case 1 - Write Hit Sets Dirty: Read miss fills line A (dirty=0). Write hit to line A. Expected: dirty bit for A becomes 1.",
-    "Test Case 2 - Clean Eviction: Line B is victim for replacement, dirty=0. Expected: no writeback request generated, line immediately reusable.",
-    "Test Case 3 - Dirty Eviction Writeback: Line C is victim, dirty=1. Expected: (1) writeback request asserted with address from tag+index of C, (2) writeback data provided, (3) after memory ack, dirty bit cleared."
+    "TEST CASE 1 - Write Hit Dirty: Read refill then write hit to same line. Evict that line. Expected: evict_dirty and writeback_req asserted.",
+    "TEST CASE 2 - Clean Eviction: Read refill only (no write). Evict that line. Expected: no writeback, not dirty.",
+    "TEST CASE 3 - Writeback Address: Dirty line on set S. Expected: writeback_addr equals {evict_tag, evict_set} concatenation.",
+    "TEST CASE 4 - Writeback Clears Dirty: Assert wb_done after dirty eviction. Expected: dirty clears; re-evict same way shows clean.",
+    "TEST CASE 5 - Write-Allocate Refill: Refill with write_alloc_fill=1. Evict. Expected: line treated dirty with writeback request.",
+    "TEST CASE 6 - Reset Clears Dirty: Establish dirty then assert reset. Evict same way. Expected: clean, no writeback."
   ],
   "hints": [
     "Update dirty in same cycle as write commit.",

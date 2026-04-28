@@ -18,9 +18,12 @@
     "OPERATION: All active lanes execute the same opcode (e.g., ADD, SUB, MUL, AND, OR). Each lane processes its own operands independently.",
     "LANE MASKING: Inactive lanes (lane_mask[i]=0) should: (1) Not update their result (hold previous value), OR (2) Output zero (document choice).",
     "CONTROL SHARING: Single control logic decodes opcode and generates operation signals for all lanes. Each lane has its own datapath (ALU).",
-    "Test Case 1 - Vector Add: NUM_LANES=4, opcode=ADD, A=[1,2,3,4], B=[10,10,10,10], mask=1111. Expected: result=[11,12,13,14].",
-    "Test Case 2 - Lane Masking: NUM_LANES=4, opcode=ADD, A=[1,2,3,4], B=[10,10,10,10], mask=0b0101 (lanes 0 and 2 active). Expected: result lanes 0,2 updated to [11, ?, 13, ?]. Lanes 1,3 hold previous/zero per spec.",
-    "Test Case 3 - Overflow Wrap: DATA_WIDTH=8, opcode=ADD, A[0]=255, B[0]=1. Expected: result[0]=0 (wraps, standard unsigned add)."
+    "TEST CASE 1 - Vector Add All Lanes: ADD with full mask. Expected: each active lane sums operands.",
+    "TEST CASE 2 - Lane Masking: Partial mask. Expected: inactive lanes output zero per DUT semantics.",
+    "TEST CASE 3 - Vector SUB: SUB opcode across lanes. Expected: unsigned wrap subtraction on lane0 sample.",
+    "TEST CASE 4 - Vector AND: AND opcode on lane0 operands. Expected: bitwise AND result.",
+    "TEST CASE 5 - Vector XOR: XOR opcode on lane0. Expected: bitwise XOR result.",
+    "TEST CASE 6 - Lane0 Add Wrap: Single-lane mask with maximum unsigned add. Expected: wrapped sum on lane0."
   ],
   "hints": [
     "Generate loop to instantiate NUM_LANES scalar ALUs."

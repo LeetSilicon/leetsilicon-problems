@@ -18,9 +18,12 @@
     "ROUND-ROBIN BEHAVIOR: Maintain last_grant register. On grant, search for next ready warp starting from (last_grant+1) with wrap-around. Update last_grant to granted warp.",
     "NO READY WARPS: When ready mask is all zeros, grant_valid=0. Do not issue any warp. grant_warp_id can be dont care or held stable.",
     "GRANT STABILITY: When no valid grant (grant_valid=0), grant_warp_id should remain stable (hold last value or defined value).",
-    "Test Case 1 - Round-Robin Fairness: Ready mask = 0b0111 (warps 0,1,2 ready continuously). Expected: grants rotate 0→1→2→0→1→2... each cycle.",
-    "Test Case 2 - Sparse Readiness: Only warp 2 is ready (ready=0b0100). Expected: grant_warp_id=2 every cycle when granted.",
-    "Test Case 3 - No Ready Warps: Ready mask = 0b0000. Expected: grant_valid=0, no warp selected."
+    "TEST CASE 1 - First RR Selection: Multiple warps ready. Expected: first selected warp matches round-robin policy from reset.",
+    "TEST CASE 2 - RR Advances: Next cycle with same ready mask. Expected: selected warp advances to next ready warp.",
+    "TEST CASE 3 - No Ready Warps: All readiness bits low. Expected: grant invalid.",
+    "TEST CASE 4 - Single Ready Warp: Exactly one warp ready. Expected: scheduler always selects that warp when valid.",
+    "TEST CASE 5 - Wrap-Around: Ready mask after prior grants wraps priority. Expected: lowest-index ready warp after wrap.",
+    "TEST CASE 6 - Continued RR: Additional clock with same dual-warp mask. Expected: grant remains valid selecting a ready warp."
   ],
   "hints": [
     "Rotate ready mask to place last_grant at LSB, priority encode, rotate back.",

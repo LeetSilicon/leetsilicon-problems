@@ -19,9 +19,12 @@
     "WAKEUP: When writeback clears busy bit, all instructions waiting on that register become issuable (if other dependencies also satisfied).",
     "SAME-CYCLE WRITEBACK+ISSUE: Define precedence when register is written back and new instruction issues using it in same cycle. Common: writeback completes before issue check (new instruction sees ready state).",
     "ZERO REGISTER (OPTIONAL): If register 0 is hardwired zero, it should always be marked ready (scoreboard[0]=0).",
-    "Test Case 1 - Mark Busy on Issue: Issue instruction writing to register r4. Expected: scoreboard[4]=1 (busy). Dependent instruction cannot issue.",
-    "Test Case 2 - Clear Busy on Writeback: Writeback to register r4. Expected: scoreboard[4]=0 (ready). Dependent instruction becomes issuable.",
-    "Test Case 3 - Multiple Dependents: Two instructions wait for register r4. Writeback r4. Expected: both instructions become issuable simultaneously."
+    "TEST CASE 1 - Issue Sets Busy: Issue to a register then query that source. Expected: busy flag asserted.",
+    "TEST CASE 2 - Writeback Clears Busy: Writeback same register. Expected: busy flag cleared.",
+    "TEST CASE 3 - x0 Always Ready: Issue to x0. Expected: never busy on x0 read checks.",
+    "TEST CASE 4 - Second Port Busy: Issue to register used as rs2. Expected: rs2 busy asserted.",
+    "TEST CASE 5 - Same-Cycle Wb vs Issue: Simultaneous writeback and issue to same reg. Expected: writeback wins clearing busy per DUT ordering.",
+    "TEST CASE 6 - Another Issue Busy: Issue to a different register. Expected: corresponding busy asserted."
   ],
   "hints": []
 }

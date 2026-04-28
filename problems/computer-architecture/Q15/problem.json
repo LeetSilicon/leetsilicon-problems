@@ -18,9 +18,12 @@
     "SOURCE REGISTER USAGE: Only compare Rs1/Rs2 if they are actually used by the instruction. For immediate instructions (no Rs2), ignore Rs2 comparison. Use instruction format decode or control signals.",
     "STALL ACTIONS: On hazard detection: (1) Prevent PC update (PCWrite=0), (2) Prevent IF/ID update (IFIDWrite=0), (3) Insert NOP into EX stage by clearing ID/EX control signals (set RegWrite=0, MemWrite=0, etc.).",
     "STALL DURATION: Stall for exactly 1 cycle to allow load to complete. After 1 cycle, data forwarding can resolve remaining dependencies.",
-    "Test Case 1 - Load-Use Hazard Detected: EX stage: lw x1, 0(x2) (MemRead=1, Rd=x1). ID stage: add x3, x1, x4 (Rs1=x1). Expected: hazard detected, stall asserted for 1 cycle.",
-    "Test Case 2 - No Hazard Different Registers: EX stage: lw x1, 0(x2). ID stage: add x3, x5, x6 (does not use x1). Expected: no hazard, no stall.",
-    "Test Case 3 - Source Not Used (Immediate Instruction): EX stage: lw x1, 0(x2). ID stage: addi x3, x1, 10 (uses Rs1=x1, but Rs2 is immediate). Expected: hazard detected for Rs1, not for Rs2."
+    "TEST CASE 1 - Load-Use Rs1 And Rs2: EX load with Rd matching ID Rs1 then Rs2. Expected: stall asserted in both cases when sources used.",
+    "TEST CASE 2 - No Stall Without MemRead: EX not a load. Expected: stall deasserted.",
+    "TEST CASE 3 - Rd x0: Load with Rd=x0. Expected: no stall (x0 dependency ignored).",
+    "TEST CASE 4 - I-Type Rs2 Unused: id_uses_rs2=0 with Rs2 equal to Rd. Expected: no stall from Rs2 field.",
+    "TEST CASE 5 - I-Type Rs1 Hazard: id_uses_rs2=0 but Rs1 matches load Rd. Expected: stall asserted.",
+    "TEST CASE 6 - No Register Match: ID sources do not match EX load Rd. Expected: no stall."
   ],
   "hints": [
     "Hazard = ID_EX.MemRead & (ID_EX.Rd == IF_ID.Rs1 | ID_EX.Rd == IF_ID.Rs2) & (ID_EX.Rd != 0).",

@@ -18,9 +18,12 @@
     "POINTER UPDATE: On successful grant, update last_grant to granted index. If no grant (no requests), last_grant unchanged.",
     "NO REQUESTS: When request vector is all zeros, grant_valid=0, grant vector all zeros, last_grant unchanged.",
     "FAIRNESS: Over time, if all requestors continuously request, each gets grant in rotating order (fair share).",
-    "Test Case 1 - Continuous Requests: request[0:2]=111 (all request continuously). Expected: grants rotate: grant[0], grant[1], grant[2], grant[0], ... each cycle.",
-    "Test Case 2 - Sparse Requests: request changes dynamically (e.g., 110, 010, 101, ...). Expected: arbiter grants next eligible requestor after last_grant in round-robin order.",
-    "Test Case 3 - Single Requestor: Only request[2]=1. Expected: grant[2]=1 every cycle (no competition)."
+    "TEST CASE 1 - First Grant Among Sparse Req: Two request lines high. Expected: grant follows RR from last pointer.",
+    "TEST CASE 2 - RR Advance: Same req vector next cycle. Expected: grant advances to next requestor.",
+    "TEST CASE 3 - All Request First After Wrap: All req high with last at max. Expected: grant returns to index 0.",
+    "TEST CASE 4 - Three-Step Full Rotation: Continue all-one requests. Expected: grants walk through indices 1,2,3 in order.",
+    "TEST CASE 5 - No Requests: req=0. Expected: grant all zeros.",
+    "TEST CASE 6 - Single Requestor: One hot req. Expected: matching one-hot grant."
   ],
   "hints": [
     "Rotate request to place last_grant at LSB, priority encode, rotate back.",

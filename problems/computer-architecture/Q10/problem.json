@@ -17,9 +17,12 @@
     "INDEPENDENCE FROM CARRY: Overflow detection must work correctly regardless of carry-out value. Carry and overflow are distinct conditions.",
     "NO OVERFLOW CASES: (1) Adding positive and negative never overflows, (2) Result has same sign as inputs means no overflow.",
     "PARAMETERIZATION: Support parameterizable WIDTH. MSB position = WIDTH-1.",
-    "Test Case 1 - Positive Overflow: WIDTH=8 (range -128 to +127), A=127 (0x7F), B=1 (0x01). sum=128 (0x80 = -128 in signed). Expected: overflow=1.",
-    "Test Case 2 - Negative Overflow: WIDTH=8, A=-128 (0x80), B=-1 (0xFF). sum=-129 (wraps to 0x7F = +127). Expected: overflow=1.",
-    "Test Case 3 - No Overflow: WIDTH=8, A=50 (0x32), B=20 (0x14). sum=70 (0x46). Expected: overflow=0."
+    "TEST CASE 1 - Positive Overflow: Signed MAX_INT + 1. Expected: overflow asserted for addition.",
+    "TEST CASE 2 - No Overflow Small Add: Small same-sign add with correct sum. Expected: overflow deasserted.",
+    "TEST CASE 3 - Negative Overflow: MIN_INT + (-1). Expected: overflow asserted for addition.",
+    "TEST CASE 4 - Subtraction Overflow: MAX_INT - (-1). Expected: overflow asserted with is_sub=1.",
+    "TEST CASE 5 - Subtract No Overflow: Ordinary subtract. Expected: overflow deasserted.",
+    "TEST CASE 6 - Unsigned Carry: 0xFFFFFFFF + 1. Expected: carry asserted (unsigned MSB carry-out)."
   ],
   "hints": []
 }

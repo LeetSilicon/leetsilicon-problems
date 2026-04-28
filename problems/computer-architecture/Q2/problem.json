@@ -24,8 +24,6 @@
     "TEST CASE 5 - REPEATED ACCESS STABILITY: Re-access same way multiple times (way 1). Verify deterministic convergence and stable victim prediction.",
     "TEST CASE 6 - FULL ROTATION STRESS: Apply sequence 0 → 1 → 2 → 3. Verify PLRU state evolves correctly and golden model matches DUT after each step."
   ],
-
-  ],
   "hints": [
     "For N=4: the tree has 3 nodes (root, left child, right child). Each node stores an LRU direction bit used to guide traversal (0=left, 1=right).",
     "Path update: for each node along the access path, set node_bit = ~dir, where dir is the direction taken (0=left, 1=right). Only nodes on the access path are updated.",

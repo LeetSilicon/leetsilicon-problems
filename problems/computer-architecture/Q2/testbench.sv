@@ -189,12 +189,12 @@ module tb;
     // REPORT
     // -------------------------
     $display("=================================");
-    $display("PASS = %0d", pass);
-    $display("FAIL = %0d", fail);
+    $display("TOTAL PASS = %0d", pass);
+    $display("TOTAL FAIL = %0d", fail);
     $display("=================================");
 
     if (fail == 0)
-      $display("ALL PLRU TESTS PASSED");
+      $display("ALL 6 TESTS PASSED");
     else
       $display("SOME TESTS FAILED");
 

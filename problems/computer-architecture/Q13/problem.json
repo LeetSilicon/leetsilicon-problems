@@ -18,10 +18,12 @@
     "HANDSHAKE: (1) start input initiates division, (2) busy output indicates computation in progress, (3) done output pulses when result ready.",
     "SIGNED VS UNSIGNED: Document whether divider is signed or unsigned. Unsigned is simpler. Signed requires additional sign handling.",
     "BACK-TO-BACK OPERATIONS: Support starting new division immediately after done.",
-    "Test Case 1 - Exact Division: WIDTH=8, dividend=20, divisor=5. Expected: quotient=4, remainder=0.",
-    "Test Case 2 - Non-Exact Division: dividend=22, divisor=5. Expected: quotient=4, remainder=2.",
-    "Test Case 3 - Divide by Zero: dividend=7, divisor=0. Expected: divide_by_zero flag=1, quotient and remainder defined per spec (e.g., quotient=0xFF, remainder=0x07).",
-    "Test Case 4 - Divisor Greater Than Dividend: dividend=3, divisor=10. Expected: quotient=0, remainder=3."
+    "TEST CASE 1 - Exact Division: Divisible operands. Expected: correct quotient and zero remainder.",
+    "TEST CASE 2 - Non-Exact Division: Non-zero remainder. Expected: correct quotient and remainder.",
+    "TEST CASE 3 - Divisor Greater Than Dividend: Expected: quotient zero, remainder equals dividend.",
+    "TEST CASE 4 - Divide By Zero: divisor=0. Expected: divide_by_zero asserted, quotient=0, remainder=dividend per DUT spec.",
+    "TEST CASE 5 - Additional Division: Another non-trivial exact division after prior tests. Expected: correct q and r.",
+    "TEST CASE 6 - Post-Reset Division: Assert reset then run division. Expected: divider still produces correct result."
   ],
   "hints": [
     "Restoring: shift remainder left, subtract divisor, restore if negative.",

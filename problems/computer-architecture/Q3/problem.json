@@ -18,9 +18,12 @@
     "TIE-BREAKING: Define deterministic tie-breaker when multiple lines have minimum frequency. Options: (1) use LRU timestamp among tied lines, (2) select lowest way index, (3) other documented policy.",
     "COUNTER RESET: On line invalidation or replacement, reset counter to initial value. On line fill, set counter appropriately.",
     "EDGE CASES: Handle all-invalid cache (cold start), counter saturation, all counters at same value.",
-    "Test Case 1 - Frequency-Based Eviction: Fill lines A and B. Hit A three times (freq=3), hit B once (freq=1). Miss on C requiring eviction. Expected: B evicted (lower frequency).",
-    "Test Case 2 - Counter Saturation: Use 2-bit counter (max=3). Hit line A repeatedly. Expected: counter saturates at 3, does not wrap to 0.",
-    "Test Case 3 - Tie-Breaking: Lines A and B both have freq=1 but different timestamps/indices. Miss on C. Expected: evict older line (or lower index) per documented tie-break policy."
+    "TEST CASE 1 - Cold All-Invalid: All ways invalid in a set. Expected: victim_way selects lowest index (way 0) for allocation.",
+    "TEST CASE 2 - Counter Saturation: With 2-bit counters (max=3), after refill then repeated hits on one way. Expected: that way's counter saturates at 3 without wrapping.",
+    "TEST CASE 3 - LFU Victim: All ways valid; one way has strictly lower frequency than others. Expected: victim_way is the minimum-frequency way (lowest index on ties).",
+    "TEST CASE 4 - Invalid Way Priority: At least one invalid way exists. Expected: victim_way is the lowest-index invalid way, ignoring LFU among valid lines.",
+    "TEST CASE 5 - Tie All Minimum: All valid ways share the same minimum frequency. Expected: deterministic tie-break selects lowest way index.",
+    "TEST CASE 6 - Multi-Set Independence: Repeat cold victim check on a different req_set. Expected: victim_way is still lowest invalid for that set; set-0 state does not corrupt set-1 choice."
   ],
   "hints": [
     "Saturation: use conditional increment (if counter < MAX).",

@@ -19,9 +19,12 @@
     "COMMIT (RETIRE): Commit instructions in-order from head. Only commit if head entry is valid and ready. Increment head pointer. Free entry (valid=0).",
     "FLUSH: On mispredict or exception, invalidate all younger entries (between flush point and tail). Options: (1) Reset tail to flush point, (2) Invalidate entries individually.",
     "FULL/EMPTY STATUS: Full when (tail+1) % NUM_ENTRIES == head. Empty when tail == head.",
-    "Test Case 1 - Allocate, Writeback, Commit: Allocate instruction at tail. Later, mark ready. Then commit from head. Verify head increments, entry freed.",
-    "Test Case 2 - Not-Ready Blocks Commit: Head entry not ready (ready=0). Younger entry is ready. Expected: commit stalls at head, does not skip to younger entry.",
-    "Test Case 3 - Flush on Mispredict: Allocate several instructions. Mispredict detected. Flush entries after mispredict point. Expected: tail updated, flushed entries invalid."
+    "TEST CASE 1 - Dispatch Allocates: First dispatch creates valid ROB entry at tail.",
+    "TEST CASE 2 - Commit Blocked Until Ready: Commit while head not ready. Expected: commit_valid false.",
+    "TEST CASE 3 - Writeback Then Ready: Writeback head entry data. Expected: commit_valid true with correct arch and value.",
+    "TEST CASE 4 - Commit Frees Entry: Commit head. Expected: ROB becomes empty per empty flag.",
+    "TEST CASE 5 - Flush Younger Entries: Flush with tail pointer. Expected: younger entries invalidated, older retained.",
+    "TEST CASE 6 - Reset Clears ROB: Assert reset. Expected: ROB empty and safe idle state."
   ],
   "hints": []
 }

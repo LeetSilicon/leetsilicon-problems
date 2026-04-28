@@ -18,9 +18,12 @@
     "MULTI-HIT HANDLING: Define behavior if multiple ways match same tag (cache corruption scenario). Options: (1) select lowest way index, (2) assert error flag, (3) other documented behavior.",
     "VALID BIT INTEGRATION: Ensure invalid ways never generate false hits. Match condition: (tag[way] == request_tag) AND valid[way].",
     "EDGE CASES: Handle all-invalid set (all miss), all-valid but no match (miss), exactly one match (normal hit).",
-    "Test Case 1 - Single Hit: Set has 4 ways. Way 2 is valid with matching tag. Ways 0,1,3 are invalid or non-matching. Expected: hit=1, hit_way=2.",
-    "Test Case 2 - Miss Scenarios: (a) All ways invalid - hit=0. (b) All ways valid but no tag match - hit=0, miss=1.",
-    "Test Case 3 - Multi-Hit Error: Two ways (1 and 3) are valid with identical matching tag. Expected: hit=1, hit_way follows documented resolution (e.g., way 1), optionally assert multi_hit_error flag."
+    "TEST CASE 1 - Single Hit: Way 2 valid with matching tag; others invalid or non-matching. Expected: hit=1, hit_way=2, correct way_match, no multi_hit_error.",
+    "TEST CASE 2 - All Invalid Miss: All way_valid low. Expected: hit=0, miss=1.",
+    "TEST CASE 3 - All Valid No Match: All valid, no tag equals req_tag. Expected: hit=0, miss=1, way_match all zero.",
+    "TEST CASE 4 - Multi-Hit: Two valid ways match req_tag. Expected: hit=1, lowest-index hit_way wins, multi_hit_error asserted.",
+    "TEST CASE 5 - Consistency: One valid match. Expected: hit=1 and miss is negation of hit.",
+    "TEST CASE 6 - Single Hit Way0: Only way 0 valid and matching. Expected: hit=1, hit_way=0, way_match one-hot bit0."
   ],
   "hints": []
 }

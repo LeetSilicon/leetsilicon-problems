@@ -19,9 +19,12 @@
     "COMMIT/DEALLOCATION: On instruction commit (in-order): return old physical register (that was overwritten in map table) to free list. This physical register is no longer needed.",
     "RECOVERY (OPTIONAL): On branch mispredict or exception: restore map table to checkpoint state and return speculative physical registers to free list.",
     "OUTPUTS: (1) new_phys_reg (allocated physical register), (2) old_phys_reg (previous mapping, for recovery), (3) rename_grant (allocation successful), (4) stall (free list empty).",
-    "Test Case 1 - Simple Rename: Rename architectural register r1 twice in sequence. Expected: map table for r1 updates to new physical register each time. Two different physical registers allocated.",
-    "Test Case 2 - Free List Empty: Allocate physical registers until free list exhausted. Next rename request. Expected: rename_grant=0, stall asserted, no allocation.",
-    "Test Case 3 - Commit Frees Physical Register: Rename r1 (allocates p5, old mapping was p2). Later commit instruction. Expected: p2 returned to free list and becomes available for reallocation."
+    "TEST CASE 1 - First Rename: First rename of architectural dst. Expected: rename_grant with expected old and new physical mapping.",
+    "TEST CASE 2 - Second Rename Same Arch: Second rename updates mapping with distinct new physical register.",
+    "TEST CASE 3 - Stall When Free List Empty: Continue allocating until no physical registers free. Expected: stall asserted.",
+    "TEST CASE 4 - Flush Restores Checkpoint: Assert flush after checkpoint. Expected: architectural mapping matches checkpointed physical registers.",
+    "TEST CASE 5 - Rename After Flush: With rebuilt free list, rename another architectural register. Expected: rename_grant succeeds.",
+    "TEST CASE 6 - Post-Reset Rename: Full reset then first rename of r1. Expected: rename_grant with identity old mapping restored by reset."
   ],
   "hints": []
 }

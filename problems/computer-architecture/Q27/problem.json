@@ -17,9 +17,12 @@
     "ZERO INPUT: When input=0 (all zeros), valid=0. Index can be 0 or dont care (document choice).",
     "STABILITY: When valid=0, index output should be stable (held at defined value, e.g., 0).",
     "PARAMETERIZATION: Support parameter N for input width.",
-    "Test Case 1 - Single Bit: Input=0b001000, priority=LSB-first. Expected: index=3, valid=1.",
-    "Test Case 2 - Multiple Bits: Input=0b101100, priority=LSB-first. Expected: index=2 (lowest set bit). Priority=MSB-first: index=5 (highest set bit).",
-    "Test Case 3 - All Zeros: Input=0b000000. Expected: valid=0, index=0 (or defined value)."
+    "TEST CASE 1 - Upper Nibble Priority: Single hot in upper half. Expected: index and valid match LSB-first encoder.",
+    "TEST CASE 2 - Lowest Set LSB: Single hot at bit0. Expected: index 0, valid 1.",
+    "TEST CASE 3 - All Zeros: Input zero. Expected: valid 0.",
+    "TEST CASE 4 - Multiple Bits Lowest Wins: Several bits set. Expected: lowest-index set bit encoded.",
+    "TEST CASE 5 - Mid Word Single Hot: Another single-hot pattern. Expected: matching index and valid.",
+    "TEST CASE 6 - Two Separated Ones: Bits at MSB and LSB set. Expected: LSB-first picks lowest index."
   ],
   "hints": [
     "LSB-first: scan from bit 0 to N-1, return first set.",

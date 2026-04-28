@@ -1,63 +1,84 @@
 module tb;
+
   logic [31:0] a, b, result;
   logic        is_sub, overflow, carry;
-  int          p = 0, f = 0;
 
-  // DUT instantiation
+  int pass = 0, fail = 0;
+
   overflow_detect #(.W(32)) dut (.*);
 
+  task automatic check(string name, logic ok);
+    #1;
+    if (ok) begin
+      pass++;
+      $display("PASS: %s", name);
+    end else begin
+      fail++;
+      $display("FAIL: %s", name);
+    end
+  endtask
+
   initial begin
-    // Signed overflow: MAX_INT + 1
+    // -------------------------
+    // TEST 1 - Signed add positive overflow
+    // -------------------------
     is_sub = 0;
     a      = 32'h7FFF_FFFF;
     b      = 1;
     result = a + b;
-    #1;
-    if (overflow) begin p++; $display("PASS: MAX+1 overflow"); end
-    else begin f++; $display("FAIL: MAX+1 overflow"); end
+    check("TEST1 MAX_INT+1 overflow", overflow);
 
-    // No overflow: 5 + 3
+    // -------------------------
+    // TEST 2 - Signed add no overflow
+    // -------------------------
     a      = 5;
     b      = 3;
     result = 8;
-    #1;
-    if (!overflow) begin p++; $display("PASS: 5+3 no overflow"); end
-    else begin f++; $display("FAIL: 5+3 no overflow"); end
+    check("TEST2 Small add no overflow", !overflow);
 
-    // Negative overflow: MIN_INT + (-1)
-    a      = 32'h8000_0000; // -2147483648
-    b      = 32'hFFFF_FFFF; // -1
-    result = a + b;          // wraps to 0x7FFFFFFF = +2147483647
-    #1;
-    if (overflow) begin p++; $display("PASS: MIN+(-1) overflow"); end
-    else begin f++; $display("FAIL: MIN+(-1) overflow"); end
+    // -------------------------
+    // TEST 3 - Signed add negative overflow
+    // -------------------------
+    a      = 32'h8000_0000;
+    b      = 32'hFFFF_FFFF;
+    result = a + b;
+    check("TEST3 MIN_INT+(-1) overflow", overflow);
 
-    // Subtraction overflow: MAX_INT - (-1) = MAX_INT + 1
+    // -------------------------
+    // TEST 4 - Signed subtract overflow
+    // -------------------------
     is_sub = 1;
     a      = 32'h7FFF_FFFF;
-    b      = 32'hFFFF_FFFF; // -1
-    result = a - b;          // wraps to 0x80000000
-    #1;
-    if (overflow) begin p++; $display("PASS: MAX-(-1) sub overflow"); end
-    else begin f++; $display("FAIL: MAX-(-1) sub overflow"); end
+    b      = 32'hFFFF_FFFF;
+    result = a - b;
+    check("TEST4 MAX-(-1) sub overflow", overflow);
 
-    // No sub overflow: 10 - 3
-    a = 10; b = 3; result = 7; is_sub = 1;
-    #1;
-    if (!overflow) begin p++; $display("PASS: 10-3 no sub overflow"); end
-    else begin f++; $display("FAIL: 10-3 no sub overflow"); end
+    // -------------------------
+    // TEST 5 - Subtract no overflow
+    // -------------------------
+    a = 10;
+    b = 3;
+    result = 7;
+    check("TEST5 10-3 no sub overflow", !overflow);
 
-    // Carry: unsigned overflow 0xFFFFFFFF + 1
+    // -------------------------
+    // TEST 6 - Unsigned carry
+    // -------------------------
     is_sub = 0;
     a      = 32'hFFFF_FFFF;
     b      = 1;
     result = a + b;
-    #1;
-    if (carry) begin p++; $display("PASS: carry on FFFF+1"); end
-    else begin f++; $display("FAIL: carry on FFFF+1"); end
+    check("TEST6 Carry on FFFF+1", carry);
 
-    // Summary
-    $display("=== %0d passed %0d failed ===", p, f);
+    $display("=================================");
+    $display("TOTAL PASS = %0d", pass);
+    $display("TOTAL FAIL = %0d", fail);
+    $display("=================================");
+    if (fail == 0)
+      $display("ALL 6 TESTS PASSED");
+    else
+      $display("SOME TESTS FAILED");
     $finish;
   end
+
 endmodule

@@ -12,17 +12,18 @@
   "question": "Design Multicycle Iterative Multiplier",
   "description": "Implement a multicycle multiplier using shift-and-add. Takes two WIDTH-bit operands, produces a 2*WIDTH-bit result over multiple cycles.\\n\\n' +\n        '**Example (WIDTH=8):**\\n' +\n        '```\\nA=3, B=7 → result=21 (after ~8 cycles)\\nA=255, B=255 → result=65025 (fits in 16 bits)\\n```\\n\\n' +\n        '**Constraints:**\\n' +\n        '- Handshake: start, busy, done signals\\n' +\n        '- Result is 2*WIDTH bits (no truncation)\\n' +\n        '- Typically WIDTH cycles for radix-2",
   "requirements": [
-    "ALGORITHM: Implement iterative multiplication (e.g., shift-and-add, Booth encoding). Document algorithm clearly (e.g., ",
-    ").",
+    "ALGORITHM: Implement iterative multiplication (e.g., shift-and-add or Booth). Document the chosen algorithm clearly.",
     "HANDSHAKE INTERFACE: (1) start input: initiates multiplication on rising edge, (2) busy output: asserted during computation, (3) done output: pulsed for one cycle when result ready.",
     "OPERANDS AND RESULT: Inputs A and B are WIDTH bits each. Output result is 2*WIDTH bits (to hold full product without truncation).",
     "CYCLE COUNT: Define expected number of cycles (typically WIDTH cycles for radix-2). Document in specification.",
     "BACK-TO-BACK OPERATIONS: Support starting new multiplication immediately after done pulse (on next cycle).",
     "RESET HANDLING: On reset, clear busy/done signals and internal state (accumulator, counter).",
-    "Test Case 1 - Simple Multiply: WIDTH=8, A=3, B=7. After ~8 cycles, result=21 (0x0015). Verify done pulse and busy timing.",
-    "Test Case 2 - Zero Operand: A=0, B=any value. Expected: result=0, completes in defined cycle count.",
-    "Test Case 3 - Maximum Values: WIDTH=8, A=255, B=255. Expected: result=65025 (0xFE01), no overflow (fits in 16 bits).",
-    "Test Case 4 - Back-to-Back: Start first multiply (A=5, B=4). After done, immediately start second multiply (A=6, B=3) next cycle. Verify both results correct and timing proper."
+    "TEST CASE 1 - Simple Multiply: Non-trivial operands. Expected: correct product after done, busy during compute.",
+    "TEST CASE 2 - Zero Operand: A=0. Expected: product zero after completion.",
+    "TEST CASE 3 - Maximum Width Product: Maximum operands for width. Expected: full-width product correct.",
+    "TEST CASE 4 - Back-to-Back First: First multiply completes then second starts immediately. Expected: first product correct.",
+    "TEST CASE 5 - Back-to-Back Second: Second multiply after first with no idle gap. Expected: second product correct.",
+    "TEST CASE 6 - Reset Clears: Assert reset after activity. Expected: new multiply after reset still produces correct result."
   ],
   "hints": [
     "Initialize accumulator=0. For each multiplier bit: if bit=1, add A to accumulator. Shift appropriately.",

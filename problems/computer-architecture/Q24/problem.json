@@ -18,9 +18,12 @@
     "NESTED PREDICATES: Support push/pop stack of masks for nested if-else. On entering if: push current mask, apply new mask. On exiting if: pop mask to restore previous level.",
     "SIDE EFFECT GATING: Inactive threads (active_mask[i]=0) must not: (1) Write to registers (gate write enable), (2) Issue memory requests (gate mem_req[i]), (3) Update any architectural state.",
     "INITIALIZATION: On reset or kernel launch, active_mask initializes to all 1s (all threads active).",
-    "Test Case 1 - Basic Predication: Initial active_mask=1111, predicate=1010. After if-statement. Expected: new active_mask=1010 (threads 0,2 active).",
-    "Test Case 2 - No Active Threads: active_mask=1111, predicate=0000. Expected: new active_mask=0000 (all inactive). Verify no writes or memory requests from any thread.",
-    "Test Case 3 - Nested Predicates: active_mask=1111, apply pred1=1100 → active=1100. Then apply pred2=1010 (AND with 1100). Expected: active=1000 (only thread 3 active in nested region)."
+    "TEST CASE 1 - Reset All Active: After reset. Expected: full active mask per DUT.",
+    "TEST CASE 2 - Enter If: Predicate applied with enter_if. Expected: active_mask equals predicate.",
+    "TEST CASE 3 - Nested If: Second enter_if. Expected: active_mask equals AND of prior mask and new predicate.",
+    "TEST CASE 4 - Exit If Pop: exit_if restores prior mask. Expected: active_mask returns to previous level.",
+    "TEST CASE 5 - Enter Else: enter_else with predicate. Expected: active_mask becomes else-branch mask per spec.",
+    "TEST CASE 6 - Exit Outer: exit_if at outer scope. Expected: active_mask returns to all-active default."
   ],
   "hints": [
     "Stack for nesting: push(active_mask); active_mask = new_mask; On endif: pop()."

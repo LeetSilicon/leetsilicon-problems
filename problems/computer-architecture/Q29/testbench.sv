@@ -5,7 +5,7 @@ module tb;
   logic [2:0]  wb_id, flush_tail, alloc_id;
   logic [4:0]  dest_arch, commit_arch;
   logic [31:0] wb_value, commit_value;
-  int          p = 0, f = 0;
+  int          pass = 0, fail = 0;
 
   initial clk = 0;
 
@@ -29,31 +29,31 @@ module tb;
     // Allocate one entry.
     @(negedge clk); dest_arch = 5; dispatch = 1;
     @(posedge clk); @(negedge clk); dispatch = 0;
-    if (dut.valid[0]) begin p++; $display("PASS: alloc at tail/head0"); end
-    else begin f++; $display("FAIL: allocation missing"); end
+    if (dut.valid[0]) begin pass++; $display("PASS: TEST1 alloc at tail/head0"); end
+    else begin fail++; $display("FAIL: allocation missing"); end
 
     // Not-ready head blocks commit.
     @(negedge clk); commit = 1;
     @(posedge clk); @(negedge clk); commit = 0;
-    if (!commit_valid) begin p++; $display("PASS: not-ready blocks commit"); end
-    else begin f++; $display("FAIL: commit should block"); end
+    if (!commit_valid) begin pass++; $display("PASS: TEST2 not-ready blocks commit"); end
+    else begin fail++; $display("FAIL: commit should block"); end
 
     // Writeback then commit in-order.
     @(negedge clk); wb_id = 0; wb_value = 32'hBEEF; writeback = 1;
     @(posedge clk); @(negedge clk); writeback = 0;
     if (commit_valid && commit_arch == 5 && commit_value == 32'hBEEF) begin
-      p++;
-      $display("PASS: writeback marks ready");
+      pass++;
+      $display("PASS: TEST3 writeback marks ready");
     end else begin
-      f++;
+      fail++;
       $display("FAIL: writeback/ready");
     end
 
     @(negedge clk); commit = 1;
     @(posedge clk); @(negedge clk); commit = 0;
     @(posedge clk); @(negedge clk);
-    if (empty) begin p++; $display("PASS: commit frees head"); end
-    else begin f++; $display("FAIL: ROB not empty after commit"); end
+    if (empty) begin pass++; $display("PASS: TEST4 commit frees head"); end
+    else begin fail++; $display("FAIL: ROB not empty after commit"); end
 
     // Flush test: allocate 3 entries, then flush back to 1.
     @(negedge clk); dispatch = 1; dest_arch = 1;
@@ -67,14 +67,38 @@ module tb;
     @(posedge clk); @(negedge clk); flush = 0;
     @(posedge clk); @(negedge clk);
     if (dut.valid[1] && !dut.valid[2] && !dut.valid[3]) begin
-      p++;
-      $display("PASS: flush invalidates younger entries");
+      pass++;
+      $display("PASS: TEST5 flush invalidates younger entries");
     end else begin
-      f++;
+      fail++;
       $display("FAIL: flush v1=%b v2=%b v3=%b", dut.valid[1], dut.valid[2], dut.valid[3]);
     end
 
-    $display("=== %0d passed %0d failed ===", p, f);
+    // -------------------------
+    // TEST 6 - Reset clears ROB
+    // -------------------------
+    rst_n = 0;
+    @(posedge clk);
+    @(posedge clk);
+    rst_n = 1;
+    @(posedge clk);
+    @(negedge clk);
+    if (empty) begin
+      pass++;
+      $display("PASS: TEST6 reset clears ROB");
+    end else begin
+      fail++;
+      $display("FAIL: reset not empty");
+    end
+
+    $display("=================================");
+    $display("TOTAL PASS = %0d", pass);
+    $display("TOTAL FAIL = %0d", fail);
+    $display("=================================");
+    if (fail == 0)
+      $display("ALL 6 TESTS PASSED");
+    else
+      $display("SOME TESTS FAILED");
     $finish;
   end
 endmodule

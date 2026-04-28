@@ -18,11 +18,12 @@
     "OPERATION SELECTION: Input signal shift_op (2 bits) selects operation. Define encoding (e.g., 00=SLL, 01=SRL, 10=SRA).",
     "COMBINATIONAL DESIGN: Entire shift must complete in one cycle using barrel shifter structure (multi-stage muxing) or synthesizable shift operators.",
     "SIGN EXTENSION: For SRA, replicate sign bit A[WIDTH-1] into shifted-in positions.",
-    "Test Case 1 - SRL: WIDTH=8, A=0b10000000 (0x80), shift_amount=1. Expected: result=0b01000000 (0x40).",
-    "Test Case 2 - SRA: WIDTH=8, A=0b10000000 (0x80, -128 signed), shift_amount=1. Expected: result=0b11000000 (0xC0, sign-extended).",
-    "Test Case 3 - SLL: WIDTH=8, A=0b00000001 (0x01), shift_amount=3. Expected: result=0b00001000 (0x08).",
-    "Test Case 4 - Zero Shift: shift_amount=0 for all operations. Expected: result=A (unchanged).",
-    "Test Case 5 - Maximum Shift: WIDTH=8, shift_amount=7. Verify correct behavior for all three operations."
+    "TEST CASE 1 - SLL: Logical left shift. Expected: zeros shifted in from LSB side per width.",
+    "TEST CASE 2 - SRL: Logical right shift. Expected: zeros shifted in from MSB.",
+    "TEST CASE 3 - SRA: Arithmetic right on negative pattern. Expected: sign bit replicated.",
+    "TEST CASE 4 - Zero Shift: shift_amount=0 for SLL, SRL, SRA. Expected: data_out equals data_in.",
+    "TEST CASE 5 - Maximum Shift: Maximum shamt for each shift mode. Expected: correct extreme values for SLL, SRL, SRA.",
+    "TEST CASE 6 - SRA Positive: Positive operand SRA. Expected: logical right behavior (no bogus sign extension)."
   ],
   "hints": [
     "Classic barrel shifter: log2(WIDTH) stages, each shifts by power-of-2."

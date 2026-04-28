@@ -18,10 +18,12 @@
     "CONTROL OUTPUTS: (1) branch_taken (1-bit), (2) next_pc_select or PC_src to choose between PC+4 and branch_target.",
     "OPERAND FORWARDING: If branch comparator is in ID stage, operands may need forwarding from EX, MEM, or WB stages. Define forwarding muxes for branch operands.",
     "BRANCH TYPE ENCODING: Define branch_type encoding clearly (e.g., 3-bit: 000=BEQ, 001=BNE, 010=BLT, 011=BGE, 100=BLTU, 101=BGEU).",
-    "Test Case 1 - BEQ Taken: Rs1=5, Rs2=5, branch_type=BEQ. Expected: branch_taken=1.",
-    "Test Case 2 - BNE Not Taken: Rs1=3, Rs2=3, branch_type=BNE. Expected: branch_taken=0.",
-    "Test Case 3 - BLT Signed: Rs1=0xFF (-1 signed, 8-bit), Rs2=0x01 (+1), branch_type=BLT. Expected: branch_taken=1 (since -1 < 1).",
-    "Test Case 4 - BLTU Unsigned: Rs1=0xFF (255 unsigned), Rs2=0x01 (1), branch_type=BLTU. Expected: branch_taken=0 (255 > 1 unsigned)."
+    "TEST CASE 1 - BEQ Taken: Equal operands with BEQ funct3. Expected: take_branch=1.",
+    "TEST CASE 2 - BEQ Not Taken: Unequal operands with BEQ. Expected: take_branch=0.",
+    "TEST CASE 3 - BNE Taken: Unequal operands with BNE. Expected: take_branch=1.",
+    "TEST CASE 4 - BLT Signed: -1 < +1 with signed BLT funct3. Expected: take_branch=1.",
+    "TEST CASE 5 - BLTU Unsigned: Large unsigned vs small with BLTU. Expected: take_branch=0.",
+    "TEST CASE 6 - BNE Not Taken: Equal operands with BNE. Expected: take_branch=0."
   ],
   "hints": [
     "eq = (Rs1 == Rs2); lt_signed = ($signed(Rs1) < $signed(Rs2));",

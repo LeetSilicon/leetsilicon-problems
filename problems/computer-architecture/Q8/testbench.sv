@@ -1,54 +1,128 @@
 module tb;
+
   logic [31:0] a, b, result;
   logic [3:0]  op;
   logic        zero, carry, overflow, negative;
-  int          p = 0, f = 0;
+  logic        or_ok, xor_ok, slt1, slt2;
 
-  // DUT instantiation
+  int pass = 0, fail = 0;
+
   alu #(.W(32)) dut (.*);
 
-  task automatic check(input string msg, input logic [31:0] exp);
+  task automatic check_res(string name, logic [31:0] exp);
     #1;
     if (result === exp) begin
-      p++;
-      $display("PASS: %s", msg);
+      pass++;
+      $display("PASS: %s", name);
     end else begin
-      f++;
-      $display("FAIL: %s  exp=%h  got=%h", msg, exp, result);
+      fail++;
+      $display("FAIL: %s exp=%h got=%h", name, exp, result);
+    end
+  endtask
+
+  task automatic check_flag(string name, logic ok);
+    #1;
+    if (ok) begin
+      pass++;
+      $display("PASS: %s", name);
+    end else begin
+      fail++;
+      $display("FAIL: %s", name);
     end
   endtask
 
   initial begin
-    op = 4'd0; a = 5;            b = 3;         check("ADD",        8);
-    op = 4'd1; a = 10;           b = 3;         check("SUB",        7);
-    op = 4'd2; a = 32'hFF00;     b = 32'h0F0F;  check("AND",        32'h0F00);
-    op = 4'd3; a = 32'hFF00;     b = 32'h0F0F;  check("OR",         32'hFF0F);
-    op = 4'd4; a = 32'hFF00;     b = 32'h0F0F;  check("XOR",        32'hF00F);
-    op = 4'd5; a = 32'hFFFFFFFF; b = 1;         check("SLT(-1<1)",  1);
-    op = 4'd5; a = 1;            b = 32'hFFFFFFFF; check("SLT(1>-1)", 0);
+    // -------------------------
+    // TEST 1 - ADD
+    // -------------------------
+    op = 4'd0;
+    a  = 5;
+    b  = 3;
+    check_res("TEST1 ADD", 32'd8);
 
-    // Zero flag
-    op = 4'd1; a = 5; b = 5; #1;
-    if (zero === 1) begin p++; $display("PASS: zero flag"); end
-    else begin f++; $display("FAIL: zero flag"); end
+    // -------------------------
+    // TEST 2 - SUB
+    // -------------------------
+    op = 4'd1;
+    a  = 10;
+    b  = 3;
+    check_res("TEST2 SUB", 32'd7);
 
-    // Overflow: MAX_INT + 1
-    op = 4'd0; a = 32'h7FFF_FFFF; b = 1; #1;
-    if (overflow === 1) begin p++; $display("PASS: add overflow"); end
-    else begin f++; $display("FAIL: add overflow"); end
+    // -------------------------
+    // TEST 3 - Bitwise AND
+    // -------------------------
+    op = 4'd2;
+    a  = 32'hFF00;
+    b  = 32'h0F0F;
+    check_res("TEST3 AND", 32'h0F00);
 
-    // No overflow: 5 + 3
-    op = 4'd0; a = 5; b = 3; #1;
-    if (overflow === 0) begin p++; $display("PASS: no overflow"); end
-    else begin f++; $display("FAIL: no overflow"); end
+    // -------------------------
+    // TEST 4 - Bitwise OR and XOR
+    // -------------------------
+    op = 4'd3;
+    a  = 32'hFF00;
+    b  = 32'h0F0F;
+    #1;
+    or_ok = (result === 32'hFF0F);
+    op = 4'd4;
+    #1;
+    xor_ok = (result === 32'hF00F);
+    check_flag("TEST4 OR and XOR", or_ok && xor_ok);
 
-    // Negative flag
-    op = 4'd1; a = 3; b = 10; #1;
-    if (negative === 1) begin p++; $display("PASS: negative flag"); end
-    else begin f++; $display("FAIL: negative flag"); end
+    // -------------------------
+    // TEST 5 - SLT signed
+    // -------------------------
+    op = 4'd5;
+    a  = 32'hFFFFFFFF;
+    b  = 1;
+    #1;
+    slt1 = (result === 1);
+    a   = 1;
+    b   = 32'hFFFFFFFF;
+    #1;
+    slt2 = (result === 0);
+    check_flag("TEST5 SLT signed", slt1 && slt2);
 
-    // Summary
-    $display("=== %0d passed %0d failed ===", p, f);
+    // -------------------------
+    // TEST 6 - Status flags sample
+    // -------------------------
+    op = 4'd1;
+    a  = 5;
+    b  = 5;
+    #1;
+    if (!zero) begin
+      fail++;
+      $display("FAIL: TEST6 zero");
+    end
+    op = 4'd0;
+    a  = 32'h7FFF_FFFF;
+    b  = 1;
+    #1;
+    if (!overflow) begin
+      fail++;
+      $display("FAIL: TEST6 overflow");
+    end
+    op = 4'd1;
+    a  = 3;
+    b  = 10;
+    #1;
+    if (negative) begin
+      pass++;
+      $display("PASS: TEST6 flags zero ovf neg");
+    end else begin
+      fail++;
+      $display("FAIL: TEST6 negative");
+    end
+
+    $display("=================================");
+    $display("TOTAL PASS = %0d", pass);
+    $display("TOTAL FAIL = %0d", fail);
+    $display("=================================");
+    if (fail == 0)
+      $display("ALL 6 TESTS PASSED");
+    else
+      $display("SOME TESTS FAILED");
     $finish;
   end
+
 endmodule

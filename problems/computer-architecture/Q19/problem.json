@@ -17,9 +17,12 @@
     "READ-DURING-WRITE SEMANTICS: Define behavior when reading same address being written in same cycle. Options: (1) Write-first (read sees new data), (2) Read-first (read sees old data). Document chosen behavior and implement consistently.",
     "HARDWIRED ZERO REGISTER (OPTIONAL): If implementing RISC-V style: register 0 always reads as 0. Writes to register 0 are ignored (wr_en for reg[0] always disabled).",
     "RESET: On reset, optionally initialize all registers to 0 (or leave undefined for faster synthesis).",
-    "Test Case 1 - Independent Reads: Write value 0x55 to register 3. Read register 3 on both read ports. Expected: rd_data1=0x55, rd_data2=0x55.",
-    "Test Case 2 - Same-Cycle Read/Write: Write value 0xAA to register 5. In same cycle, read register 5. Expected: rd_data follows chosen semantics (write-first: 0xAA; read-first: old value).",
-    "Test Case 3 - Zero Register (if applicable): Write 0xFF to register 0. Read register 0. Expected: rd_data=0x00 (hardwired zero). Register 0 unchanged."
+    "TEST CASE 1 - Write Read Port1: Write a value to a register, read same address on port1. Expected: read data matches written value.",
+    "TEST CASE 2 - Dual-Port Same Register: Read same architectural register on both ports. Expected: both ports return identical data.",
+    "TEST CASE 3 - Two Different Registers: Write two registers, read both simultaneously. Expected: each port returns correct register value.",
+    "TEST CASE 4 - x0 Hardwired Zero: Attempt write to x0 then read. Expected: read returns zero; x0 not writable.",
+    "TEST CASE 5 - Read During Write First: Hold read address while writing same register before clock edge. Expected: read-first sees value prior to write.",
+    "TEST CASE 6 - Value After Write Edge: After capturing write on clock edge, read same register. Expected: new written value visible."
   ],
   "hints": []
 }
