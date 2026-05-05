@@ -28,10 +28,10 @@ module tb;
     $display("TESTCASE 1");
     if (!rise_pulse && !fall_pulse && !toggle_pulse) begin
       p++;
-      $display("PASS: all outputs 0 during reset");
+      $display("PASS: TC1 all outputs 0 during reset");
     end else begin
       f++;
-      $display("FAIL: spurious pulse during reset rise=%b fall=%b toggle=%b",
+      $display("FAIL: TC1 spurious pulse during reset rise=%b fall=%b toggle=%b",
                rise_pulse, fall_pulse, toggle_pulse);
     end
 
@@ -49,13 +49,12 @@ module tb;
     sig_in = 1;
     @(posedge clk);
     @(negedge clk);
-    $display("TESTCASE 2");
     if (rise_pulse && !fall_pulse && toggle_pulse) begin
       p++;
-      $display("PASS: rising edge detected");
+      $display("PASS: TC2 rising edge detected");
     end else begin
       f++;
-      $display("FAIL: rise=%b fall=%b toggle=%b",
+      $display("FAIL: TC2 rise=%b fall=%b toggle=%b",
                rise_pulse, fall_pulse, toggle_pulse);
     end
 
@@ -64,10 +63,10 @@ module tb;
     @(negedge clk);
     if (!rise_pulse && !fall_pulse && !toggle_pulse) begin
       p++;
-      $display("PASS: no pulse while steady high");
+      $display("PASS: TC2 no pulse while steady high");
     end else begin
       f++;
-      $display("FAIL: spurious pulse while steady");
+      $display("FAIL: TC2 spurious pulse while steady");
     end
 
     // =========================================================
@@ -77,13 +76,12 @@ module tb;
     sig_in = 0;
     @(posedge clk);
     @(negedge clk);
-    $display("TESTCASE 3");
     if (!rise_pulse && fall_pulse && toggle_pulse) begin
       p++;
-      $display("PASS: falling edge detected");
+      $display("PASS: TC3 falling edge detected");
     end else begin
       f++;
-      $display("FAIL: fall edge");
+      $display("FAIL: TC3 fall edge");
     end
 
     // =========================================================
@@ -91,13 +89,12 @@ module tb;
     // =========================================================
     @(posedge clk);
     @(negedge clk);
-    $display("TESTCASE 4");
     if (!rise_pulse && !fall_pulse && !toggle_pulse) begin
       p++;
-      $display("PASS: no pulse on constant input");
+      $display("PASS: TC4 no pulse on constant input");
     end else begin
       f++;
-      $display("FAIL: spurious pulse on constant");
+      $display("FAIL: TC4 spurious pulse on constant");
     end
 
     $display("=== %0d passed %0d failed ===", p, f);
